@@ -1,4 +1,4 @@
-# HireSphere Global
+# HireNexon App
 
 This project is a platform connecting NGOs and helping needy individuals.  
 It has two main parts:
