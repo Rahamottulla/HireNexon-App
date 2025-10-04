@@ -1,6 +1,6 @@
 # HireNexon App
 
-This project is a platform connecting NGOs and helping needy individuals.  
+This project is a platform to connecting Employers and Job seekers seamlessly.  
 It has two main parts:
 
 - **Backend**: Node.js, Express, MongoDB  
