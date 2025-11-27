@@ -1,0 +1,121 @@
+/* CandidateLayout.css */
+
+/* Whole candidate page */
+.user-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f4f6f9;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body: Sidebar + Content */
+.user-body {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 64px); /* adjust if header height changes */
+}
+
+/* Main content area */
+.user-content {
+  flex: 1;
+  padding: 20px;
+  background: #f6f6ed;
+  margin-left: 250px; /* match sidebar width */
+  margin-right: 0px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(9, 5, 5, 0.06);
+  overflow-y: auto;
+  transition: margin-left 0.3s ease; /* smooth resize */
+}
+
+/* When sidebar is collapsed */
+.sidebar.sidebar-collapsed ~ .user-content {
+  margin-left: 60px; /* collapsed sidebar width */
+}
+
+
+/* Sidebar area */
+.candidate-sidebar {
+  width: 250px;
+  background-color: #1f2937;  /* dark background */
+  border-right: 1px solid #f2e7e5; /* optional */
+  min-height: calc(100vh - 64px);
+  padding: 20px 15px;
+  position: sticky;
+  top: 64px;
+}
+
+/* Icon Styling */
+.icon {
+  margin-right: 10px; /* slightly smaller spacing */
+  font-size: 0.5rem;    /* decreased from 1.3rem */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;    /* decreased from 24px */
+  
+}
+
+/* Sidebar links */
+.sidebar-section li a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 6px 0px;  /* slightly smaller padding */
+  border-radius: 6px;
+  height: 50px;
+  font-size: 0.90rem; /* decreased from 0.95rem */
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-section li a:hover {
+  background-color: #537cbd;
+  transform: translateX(0px);
+}
+
+/* Active link */
+.sidebar-section li.active a {
+background-color: #537cbd; /* blue background */
+border-right: 2px solid #528ae3; /* optional */
+border-left: 0px;
+font-weight: bold;
+  
+}
+
+
+/* Link Text */
+.link-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .candidate-sidebar {
+    width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .user-body {
+    flex-direction: column;
+  }
+
+  .candidate-sidebar {
+    width: 100%;
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+    position: relative;
+    top: 0;
+  }
+
+  .user-content {
+    margin: 10px;
+    padding: 15px;
+  }
+}

@@ -1,0 +1,162 @@
+/* Candidate Sidebar Container */
+.sidebar {
+  width: 240px;
+  background-color: #1f2937;
+  color: white;
+  height: 90vh;      /* full viewport height */
+  padding: 15px;
+  overflow-y: auto;   /* scrollable if too many icons */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;    /* sidebar stays fixed */
+  scroll-behavior: smooth;
+}
+.sidebar.sidebar-collapsed {
+  width: 60px;         /* just icons */
+  padding: 15px 5px;
+  height: 90vh;       /* keep height same as expanded */
+  overflow-y: auto;    /* scroll if too many icons */
+}
+
+/* Scrollbar Styling */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background-color: #1f2937;
+}
+
+/* Sidebar Section */
+.sidebar-section {
+  margin-bottom: 25px;
+}
+
+.sidebar-section-title {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Sidebar Links */
+.sidebar-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-section li {
+  margin-bottom: 8px;
+}
+
+.sidebar-section li a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-section li a:hover {
+  background-color: #374151;
+  transform: translateX(3px);
+}
+
+.sidebar-section li.active a {
+  background-color: #3b82f6;
+  font-weight: bold;
+  box-shadow: inset 3px 0 #2563eb; /* left highlight */
+}
+
+/* Icon Styling */
+.sidebar-icon {
+  margin-right: 12px;
+  font-size: 1.5rem;   /* large icons */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;       /* enough horizontal space */
+  height: 20px;      /* give proper vertical space */
+  
+}
+
+/* Link Text */
+.link-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* Hide section titles when collapsed */
+.sidebar.sidebar-collapsed .sidebar-section-title {
+  display: none;
+}
+
+/* Hide link text when collapsed */
+.sidebar.sidebar-collapsed .link-name {
+  display: none;
+}
+
+.sidebar.sidebar-collapsed .sidebar-icon {
+  width: 40px;       
+  height: 40px;      
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem; 
+  margin: 0;  /* remove margin-right */
+}
+.sidebar.sidebar-collapsed li a {
+  justify-content: center; 
+  padding: 0;          /* remove extra padding */
+  width: 100%;
+  transition: background-color 0.3s ease; /* only color transition */
+  position: relative;
+}
+.sidebar.sidebar-collapsed li a:hover {
+  transform: none; /* disable translateX */
+  background-color: #4a7fd3; /* keep hover background */
+}
+
+/* Optional: tooltip on hover when collapsed */
+.sidebar.sidebar-collapsed li a:hover .link-name {
+  display: block;
+  position: fixed;         /* use fixed to prevent layout shift */
+  left: 70px;
+  top: 90%;               /* optional: can calculate in JS */
+  background-color: #1f2937;
+  padding: 4px 8px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  white-space: nowrap;
+  z-index: 100;
+}
+
+/* Responsive Sidebar (optional) */
+@media (max-width: 768px) {
+  .candidate-sidebar {
+    width: 200px;
+    padding: 10px;
+  }
+
+  .sidebar-section li a {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+
+  .icon {
+    font-size: 1.1rem;
+    margin-right: 8px;
+  }
+}

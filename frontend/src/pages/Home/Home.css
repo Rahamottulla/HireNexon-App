@@ -1,0 +1,62 @@
+/* src/pages/Home/Home.css */
+
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 10%;
+  background-color: #f9fafb;
+  min-height: 80vh;
+  gap: 60px;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 450px;
+}
+
+.hero-text {
+  flex: 1;
+}
+
+.hero-text h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1f2937;
+  max-width: 600px;
+  max-height: 45px;
+  margin-bottom: 100px;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.createaccount-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  font-size: 18px;
+  background: #10b981;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #059669;
+  transform: scale(1.05);
+}
+

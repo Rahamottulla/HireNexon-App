@@ -1,0 +1,123 @@
+.hnx-news-page-container {
+  padding: 30px;
+  background-color: #f8fafc;
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+}
+
+.hnx-news-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hnx-news-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.hnx-news-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.hnx-news-search {
+  display: flex;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 6px 10px;
+  background-color: #fff;
+  transition: 0.3s ease;
+}
+
+.hnx-news-search input {
+  border: none;
+  outline: none;
+  margin-left: 8px;
+  font-size: 14px;
+}
+
+.hnx-news-search:hover {
+  border-color: #64748b;
+}
+
+.hnx-news-filter {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+.hnx-news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.hnx-news-card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hnx-news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.hnx-news-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.hnx-news-card-content {
+  padding: 15px;
+}
+
+.hnx-news-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 5px;
+}
+
+.hnx-news-card-category {
+  font-size: 13px;
+  font-weight: 500;
+  color: #3b82f6;
+  margin-bottom: 8px;
+}
+
+.hnx-news-card-desc {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.hnx-news-empty {
+  text-align: center;
+  color: #64748b;
+  font-size: 16px;
+  margin-top: 30px;
+}
+
+.hnx-news-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 40px;
+  color: #475569;
+  font-size: 14px;
+}
+

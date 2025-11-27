@@ -13,11 +13,18 @@
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
+    "express-session": "^1.18.2",
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^7.8.7"
+    "mongoose": "^8.18.3",
+    "nodemailer": "^7.0.6",
+    "passport": "^0.7.0",
+    "passport-azure-ad": "^4.3.5",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-microsoft": "^2.1.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "nodemon": "^3.0.0"
   }
 }

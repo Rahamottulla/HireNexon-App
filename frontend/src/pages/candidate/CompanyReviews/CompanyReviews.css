@@ -1,0 +1,62 @@
+.hnc-company-page-container {
+  padding: 24px;
+  background: #f9fafb;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hnc-company-page-title {
+  color: #1e293b;
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+.hnc-company-page-subtitle {
+  color: #475569;
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
+.hnc-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.hnc-review-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hnc-review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hnc-review-company {
+  color: #0ea5e9;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.hnc-review-rating {
+  font-weight: 600;
+  color: #f59e0b;
+  margin-bottom: 10px;
+}
+
+.hnc-review-text {
+  color: #334155;
+  font-size: 15px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.hnc-review-user {
+  color: #6b7280;
+  font-size: 14px;
+  font-style: italic;
+}

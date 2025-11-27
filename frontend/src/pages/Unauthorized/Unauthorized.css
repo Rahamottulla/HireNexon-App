@@ -1,0 +1,29 @@
+.unauthorized-container {
+  text-align: center;
+  margin-top: 100px;
+  font-family: Arial, sans-serif;
+}
+
+.unauthorized-container h1 {
+  font-size: 3rem;
+  color: #ff4d4f;
+}
+
+.unauthorized-container p {
+  font-size: 1.2rem;
+  margin: 20px 0;
+}
+
+.home-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #1890ff;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.home-link:hover {
+  background-color: #40a9ff;
+}

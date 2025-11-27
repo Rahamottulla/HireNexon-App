@@ -1,0 +1,105 @@
+/* ---------- TestsXPro.css ---------- */
+
+.tst-container {
+  padding: 30px;
+  background-color: #f9fafb;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ---------- Page Title ---------- */
+.tst-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e1e2f;
+  margin-bottom: 12px;
+}
+
+.tst-subtitle {
+  font-size: 16px;
+  color: #475569;
+  margin-bottom: 25px;
+}
+
+/* ---------- Tests Grid ---------- */
+.tst-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ---------- Test Card ---------- */
+.tst-card {
+  background-color: #ffffff;
+  border-radius: 14px;
+  border-left: 5px solid #4f46e5;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.tst-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- Card Text ---------- */
+.tst-card-title {
+  color: #0ea5e9;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.tst-card-description {
+  font-size: 14px;
+  color: #475569;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+/* ---------- Start Test Button ---------- */
+.tst-card-btn {
+  background-color: #0ea5e9;
+  color: #fff;
+  padding: 9px 22px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.2s ease-in-out;
+}
+
+.tst-card-btn:hover {
+  background-color: #0284c7;
+  transform: scale(1.05);
+}
+
+/* ---------- Empty State ---------- */
+.tst-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #64748b;
+  font-size: 15px;
+  margin-top: 25px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .tst-container {
+    padding: 20px;
+  }
+
+  .tst-title {
+    font-size: 24px;
+  }
+
+  .tst-card {
+    padding: 16px;
+  }
+}

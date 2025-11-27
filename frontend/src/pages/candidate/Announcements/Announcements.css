@@ -1,0 +1,164 @@
+/* ---------- AnnouncementsXPro.css ---------- */
+
+.anx-container {
+  padding: 40px;
+  background-color: #f9fafb;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ---------- Header ---------- */
+.anx-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.anx-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1e1e2f;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.anx-bell-icon {
+  color: #4f46e5;
+}
+
+/* ---------- Search Box ---------- */
+.anx-search-box {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  padding: 6px 10px;
+  width: 260px;
+  transition: 0.2s ease;
+}
+
+.anx-search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #333;
+}
+
+.anx-search-box svg {
+  color: #777;
+  margin-right: 6px;
+}
+
+/* ---------- Filters ---------- */
+.anx-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.anx-filter-icon {
+  color: #777;
+}
+
+.anx-filter-btn {
+  padding: 7px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  background-color: #fff;
+  color: #555;
+  transition: 0.2s ease;
+}
+
+.anx-filter-btn:hover {
+  background-color: #e0e7ff;
+  color: #4f46e5;
+}
+
+.anx-filter-btn.anx-active {
+  background-color: #4f46e5;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.4);
+}
+
+/* ---------- Announcement Grid ---------- */
+.anx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 20px;
+}
+
+/* ---------- Card ---------- */
+.anx-card {
+  background-color: #fff;
+  border-radius: 16px;
+  border-left: 5px solid #4f46e5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 18px;
+  transition: 0.3s ease;
+}
+
+.anx-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.anx-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1e1e2f;
+  margin-bottom: 4px;
+}
+
+.anx-date {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.anx-desc {
+  font-size: 13.5px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.anx-badge {
+  display: inline-block;
+  background-color: #eef2ff;
+  color: #4f46e5;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+/* ---------- Empty State ---------- */
+.anx-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .anx-container {
+    padding: 25px;
+  }
+
+  .anx-title {
+    font-size: 22px;
+  }
+
+  .anx-search-box {
+    width: 200px;
+  }
+}

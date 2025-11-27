@@ -1,0 +1,173 @@
+/* ---------- ResourcesXPro.css ---------- */
+.rsx-page-container {
+  padding: 0px;
+  background: white;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.rsx-page-title {
+  color: #1e293b;
+  margin-bottom: 8px;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.rsx-page-subtitle {
+  color: #475569;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+/* ---------- Search Box ---------- */
+.rsx-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.rsx-search-box {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 6px 12px;
+  width: 280px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s;
+}
+
+.rsx-search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #333;
+}
+
+.rsx-search-box svg {
+  margin-right: 6px;
+  color: #64748b;
+}
+
+/* ---------- Filters ---------- */
+.rsx-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.rsx-filter-btn {
+  padding: 7px 20px;
+  border-radius: 20px;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #fff;
+  color: #555;
+  transition: 0.2s ease;
+}
+
+.rsx-filter-btn:hover {
+  background: #e0e7ff;
+  color: #4f46e5;
+}
+
+.rsx-filter-btn.rsx-active {
+  background: #4f46e5;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.4);
+}
+
+/* ---------- Grid ---------- */
+.rsx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ---------- Cards ---------- */
+.rsx-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 22px;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.rsx-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* ---------- Card Text ---------- */
+.rsx-card-title {
+  color: #0ea5e9;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.rsx-card-type {
+  font-weight: 500;
+  color: #64748b;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.rsx-card-date {
+  color: #334155;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+/* ---------- Action Button ---------- */
+.rsx-card-btn {
+  background-color: #0ea5e9;
+  color: #ffffff;
+  padding: 9px 22px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  align-self: flex-start;
+}
+
+.rsx-card-btn:hover {
+  background-color: #0284c7;
+  transform: scale(1.05);
+}
+
+/* ---------- Empty State ---------- */
+.rsx-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #64748b;
+  font-size: 15px;
+  margin-top: 25px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .rsx-page-container {
+    padding: 20px;
+  }
+
+  .rsx-page-title {
+    font-size: 24px;
+  }
+
+  .rsx-search-box {
+    width: 200px;
+  }
+
+  .rsx-card {
+    padding: 18px;
+  }
+}

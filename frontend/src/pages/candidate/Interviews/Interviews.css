@@ -1,0 +1,167 @@
+/* Month Name */
+.hnc-calendar-month {
+  text-align: center;
+  font-size: 22px; /* increased size */
+  font-weight: 700; /* bolder */
+  margin-bottom: 15px;
+  color: #1e293b;
+  letter-spacing: 1px; /* optional for style */
+}
+/* Professional scrolling welcome message */
+/* Container for scrolling */
+.hnc-welcome-scroll {
+  width: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.05); /* subtle background */
+  border-radius: 12px;
+  padding: 10px 0;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+/* Scrolling wrapper */
+.hnc-scroll-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scrollRightToLeft 40s linear infinite;
+}
+
+/* Blink effect */
+.hnc-blink-text {
+  display: inline-block; /* important: retain width */
+  padding-right: 2px; /* prevent collapse */
+  animation: blinkText 1s step-start infinite;
+  color: #1e293b; /* visible dark color */
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* Scroll animation */
+@keyframes scrollRightToLeft {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Pause on hover */
+.hnc-welcome-scroll:hover .hnc-scroll-text,
+.hnc-welcome-scroll:hover .hnc-blink-text {
+  animation-play-state: paused;
+}
+
+/* Current Date & Time */
+.hnc-interviews-page-subtitle {
+  color: #475569;
+  margin-bottom: 25px;
+  font-size: 20px; /* increased size from 16px → 20px */
+  font-weight: 600; /* slightly bolder */
+  text-align: left; /* center aligned for cleaner look */
+}
+
+
+/* Highlight today */
+.hnc-today {
+  border: 2px solid #0ea5e9;
+  font-weight: 600;
+}
+
+/* Calendar */
+.hnc-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 25px;
+}
+
+.hnc-calendar-header {
+  font-weight: 600;
+  text-align: center;
+  padding: 6px 0;
+  background-color: #e2e8f0;
+  border-radius: 6px;
+}
+
+.hnc-calendar-day {
+  position: relative;
+  text-align: center;
+  padding: 10px 0;
+  background: #f1f5f9;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  min-height: 40px;
+  transition: background-color 0.2s;
+}
+
+.hnc-calendar-day:hover {
+  background-color: #e0f2fe;
+}
+
+/* Marker in top-left */
+.hnc-interview-marker {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 12px;
+  height: 12px;
+  background-color: #0ea5e9;
+  border-radius: 50%;
+ 
+}
+
+/* Interview Cards */
+.hnc-interviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.hnc-interview-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hnc-interview-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hnc-interview-candidate {
+  color: #0ea5e9;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.hnc-interview-company {
+  font-weight: 500;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.hnc-interview-details {
+  color: #334155;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.hnc-interview-join-btn {
+  background-color: #0ea5e9;
+  color: #ffffff;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+.hnc-interview-timeleft {
+  color: #ef4444; /* red or any color you like */
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.hnc-interview-join-btn:hover {
+  background-color: #0284c7;
+}
+

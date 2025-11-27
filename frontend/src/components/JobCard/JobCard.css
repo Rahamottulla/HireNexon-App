@@ -1,0 +1,78 @@
+.job-card {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 0px;
+  border-radius: 10px; /* soft edges */
+  transition: all 0.3s ease; /* smooth animation */
+  background-color: #ffffff; /* default background */
+  cursor: pointer; /* interactive feel */
+}
+/* Hover effect */
+.job-card:hover {
+  background-color: #f3f8ff; /* light blue highlight */
+  border-left: 4px solid #2563EB; /* accent line */
+}
+/* Active (clicked) effect */
+.job-card:active {
+  background-color: #ccc; /* darker blue when pressed */
+  transform: scale(0.98); /* subtle shrink on click */
+}
+
+/* Keep rest of your existing CSS as is below */
+.job-card:last-child {
+  border-bottom: none;
+}
+
+.job-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.company-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #f9fafb;
+  padding: 0px;
+}
+
+.job-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.job-role {
+  color: #2563EB;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.company-meta {
+  color: #4B5563;
+  font-size: 14px;
+  margin: 0 0 4px 0;
+}
+
+.posted-time {
+  color: #9CA3AF;
+  font-size: 12px;
+  margin: 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  .job-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .job-card-header {
+    flex-direction: row;
+    align-items: center;
+  }
+}

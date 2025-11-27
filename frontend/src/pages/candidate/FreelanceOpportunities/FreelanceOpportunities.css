@@ -1,0 +1,70 @@
+.hnc-freelance-page-container {
+  padding: 24px;
+  background: #f9fafb;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hnc-freelance-page-title {
+  color: #1e293b;
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+.hnc-freelance-page-subtitle {
+  color: #475569;
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
+.hnc-freelance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.hnc-freelance-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hnc-freelance-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hnc-freelance-job-title {
+  color: #0ea5e9;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.hnc-freelance-company {
+  font-weight: 500;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.hnc-freelance-details {
+  color: #334155;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.hnc-freelance-apply-btn {
+  background-color: #0ea5e9;
+  color: #ffffff;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.hnc-freelance-apply-btn:hover {
+  background-color: #0284c7;
+}

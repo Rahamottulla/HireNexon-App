@@ -1,0 +1,15 @@
+.page-container {
+  padding: 20px;
+  background: #ffffff;
+  min-height: 100vh;
+}
+
+.page-container h2 {
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+.page-container p {
+  color: #6b7280;
+  font-size: 14px;
+}
