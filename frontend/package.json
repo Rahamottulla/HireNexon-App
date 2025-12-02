@@ -21,6 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "vercel-build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -43,8 +44,6 @@
     ]
   },
   "devDependencies": {
-    "ajv": "^8.12.0",
-    "ajv-keywords": "^3.5.2",
-    "eslint-plugin-jest": "^29.0.1"
+    "eslint-plugin-jest": "^25.7.0"
   }
 }
