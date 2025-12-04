@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Signup.css";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-
+console.log("BACKEND URL =>", BACKEND_URL);
 
 const Signup = () => {
   const [formData, setFormData] = useState({ username: '', email: '', password: '', confirmPassword: '' });
