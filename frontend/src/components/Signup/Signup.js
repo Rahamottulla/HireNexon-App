@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Signup.css";
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
 const Signup = () => {
   const [formData, setFormData] = useState({ username: '', email: '', password: '', confirmPassword: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -43,7 +45,7 @@ const Signup = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/api/users/register", {
+      const response = await fetch(`${BACKEND_URL}/api/users/register`, {
 
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -101,11 +103,11 @@ const Signup = () => {
         <div className="or-continue">Or continue with</div>
 
         <div className="social-buttons">
-          <button onClick={() => window.location.href = "http://localhost:5000/api/social/google"}
+          <button onClick={() => window.location.href = `${BACKEND_URL}/api/social/google`}
           className="btn-social google">
             <img src="/images/google-logo.png" alt="HireNexon" /> Google
           </button>
-          <button onClick={() => window.location.href = "http://localhost:5000/api/social/microsoft"} 
+          <button onClick={() => window.location.href = `${BACKEND_URL}/api/social/microsoft`} 
           className="btn-social microsoft">
             <img src="/images/microsoft-logo.png" alt="HireNexon" /> Microsoft
           </button>

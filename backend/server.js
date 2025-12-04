@@ -68,7 +68,7 @@ app.post("/api/send-registration-email", async (req, res) => {
         <p>Dear <b>${username}</b>,</p>
         <p>Welcome to <b>HireNexon</b>! Your account has been created successfully.</p>
         <p>Please login to start exploring your opportunities.</p>
-        <a href="https://hirenexon.com/login" style="background:#0a66c2;color:white;padding:10px 20px;border-radius:6px;text-decoration:none;">Login Now</a>
+        <a href="https://hirenexon.vercel.app/login" style="background:#0a66c2;color:white;padding:10px 20px;border-radius:6px;text-decoration:none;">Login Now</a>
         <p style="margin-top:20px;">
         If you have any questions, feel free to reply to 
         <a href="mailto:support@hirenexon.com" style="color:#0a66c2;text-decoration:none;">support@hirenexon.com</a>.
@@ -96,6 +96,8 @@ app.post("/api/send-registration-email", async (req, res) => {
 // =================== Forgot Password Email Route ===================
 app.post("/api/send-forgot-email", async (req, res) => {
   const { email, resetLink } = req.body;
+  const frontendBase = "https://hirenexon.vercel.app";
+  const resetUrl = `${frontendBase}/reset-password?token=${resetLink}`;
 
   const mailOptions = {
     from: `"HireNexon" <${process.env.HIRENEXON_EMAIL}>`,
@@ -106,7 +108,7 @@ app.post("/api/send-forgot-email", async (req, res) => {
         <h2 style="color:#d9534f;">Password Reset Request</h2>
         <p>We received a request to reset your HireNexon password.</p>
         <p>Click the button below to reset it:</p>
-        <a href="${resetLink}" style="background:#d9534f;color:white;padding:10px 20px;border-radius:6px;text-decoration:none;">Reset Password</a>
+        <a href="${resetUrl}" style="background:#d9534f;color:white;padding:10px 20px;border-radius:6px;text-decoration:none;">Reset Password</a>
         <p>If you didn’t request this, please ignore this email.</p>
         <hr style="margin:20px 0;"/>
         <footer style="font-size:13px;color:#555;text-align:center;">
@@ -129,15 +131,15 @@ app.post("/api/send-forgot-email", async (req, res) => {
 
 
 // =================== Default & Error Routes ===================
-app.get("/", (req, res) => {
-  res.send("✅ HireSphere Backend Running Successfully 🚀");
+app.get("/", (_req, res) => {
+  res.send("✅ HireNexon Backend Running Successfully 🚀");
 });
 
-app.use((req, res) => {
+app.use((_req, res) => {
   res.status(404).json({ message: "❌ Route not found" });
 });
 
-app.use((err, req, res, next) => {
+app.use((err, _req, res, _next) => {
   console.error(err.stack);
   res.status(500).json({ message: "❌ Internal server error" });
 });
@@ -147,7 +149,7 @@ const startServer = async () => {
   try {
     await connectDB();
     app.listen(PORT, () => {
-      console.log(`✅ HireSphere Backend running at http://localhost:${PORT}`);
+      console.log(`✅ HireNexon Backend running at https://hirenexon-app.onrender.com`);
       console.log(`🔑 JWT_SECRET loaded: ${process.env.JWT_SECRET ? "Yes" : "❌ Not found"}`);
     });
   } catch (error) {
