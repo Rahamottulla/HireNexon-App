@@ -6,6 +6,8 @@ import sendEmail from "../utils/sendEmail.js";
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 
 // =====================
 // REGISTER & SEND EMAIL VERIFICATION
@@ -30,9 +32,12 @@ export const register = async (req, res) => {
 
     // Generate JWT verification token (expires in 1 hour)
     const token = jwt.sign({ email: newUser.email }, JWT_SECRET, { expiresIn: "1h" });
-    const verifyUrl = `http://localhost:5000/api/users/verify/${token}`;
+
+  const verifyUrl = `${BACKEND_URL}/api/users/verify/${token}`;
+
 
    // Send verification email
+   try {
 await sendEmail(
   newUser.email,
   "🎉 Verify Your HireNexon Account",
@@ -86,8 +91,10 @@ await sendEmail(
   </div>
   `
 );
-
-
+} catch (emailErr) {
+  console.error("Email send failed:", emailErr);
+  return res.status(500).json({ message: "Failed to send verification email" });
+}
     res.status(201).json({ message: "Verification email sent! Please check your inbox." });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -99,8 +106,6 @@ await sendEmail(
 // =====================
 export const verifyEmail = async (req, res) => {
   const { token } = req.params;
-  const jwt = require("jsonwebtoken");
-  const User = require("../models/users.js").default;
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -113,7 +118,8 @@ export const verifyEmail = async (req, res) => {
     }
 
     // Redirect to frontend verification success page
-    res.redirect("http://localhost:3000/verify-success");
+    res.redirect(`${FRONTEND_URL}/verify-success`);
+
   } catch (err) {
     console.error(err);
     res.status(400).send("Invalid or expired verification link");
