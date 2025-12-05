@@ -32,7 +32,7 @@ router.post("/send-verification-email", async (req, res) => {
 
     // Generate JWT token for email verification (1 hour)
     const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
-    const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+    const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:5000";
     const verifyUrl = `${BACKEND_URL}/api/users/verify/${token}`;
 
 

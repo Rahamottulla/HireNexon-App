@@ -6,7 +6,7 @@ import sendEmail from "../utils/sendEmail.js";
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:5000";
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 
 // =====================
