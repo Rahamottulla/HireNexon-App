@@ -1,7 +1,7 @@
 // frontend/src/context/AuthContext.js
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import api from "../utils/api";
-import { jwtDecode } from "jwt-decode";  // ✅ Correct import
+import { jwtDecode } from "jwt-decode"; 
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -37,8 +37,7 @@ export const AuthProvider = ({ children }) => {
 
   // Helper: Save user and token
 const saveUser = (user, token) => {
-  // If the user doesn't have a role yet, default to 'candidate'
-  const userWithRole = { ...user, role: user.role || 'candidate' };
+  const userWithRole = { ...user, role: user.role || 'user' };
 
   setCurrentUser(userWithRole);
   localStorage.setItem("user", JSON.stringify(userWithRole));

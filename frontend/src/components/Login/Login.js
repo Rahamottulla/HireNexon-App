@@ -35,10 +35,10 @@ const Login = () => {
       setSuccess('Login successful! Redirecting...');
 
 // Redirect based on role
-const role = data.user.role || 'candidate'; // default to candidate
+const role = data.user.role || 'user'; // default role
 switch (role) {
-  case 'candidate':
-    navigate('/candidate', { replace: true });
+  case 'user':
+    navigate('/user', { replace: true });
     break;
   case 'organization':
     navigate('/organization', { replace: true });
@@ -47,8 +47,10 @@ switch (role) {
     navigate('/admin', { replace: true });
     break;
   default:
-    navigate('/candidate', { replace: true });
+    navigate('/user', { replace: true });
 }
+
+  
 
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.');

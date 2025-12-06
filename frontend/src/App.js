@@ -32,7 +32,6 @@ import Messages from "./pages/Messages/Messages";
 import Notifications from "./pages/Notifications/Notifications";
 import Profile from "./pages/Profile/Profile";
 
-
 import Dashboard from "./pages/candidate/Dashboard/Dashboard";
 import HireNexonNews from "./pages/candidate/HirenexonNews/HireNexonNews";
 import Announcements from "./pages/candidate/Announcements/Announcements";
@@ -84,7 +83,7 @@ function App() {
             <Route
               path="/candidate/*"
               element={
-                <ProtectedRoute role="candidate">
+                <ProtectedRoute role="user">
                   <Layout />
                 </ProtectedRoute>
               }

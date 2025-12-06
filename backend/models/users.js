@@ -18,8 +18,8 @@ const UserSchema = new mongoose.Schema(
     // Role field
     role: {
       type: String,
-      enum: ["candidate", "organization", "admin"],
-      default: "candidate"
+      enum: ["user", "organization", "admin"],
+      default: "user"
     },
 
     // Email verification status
