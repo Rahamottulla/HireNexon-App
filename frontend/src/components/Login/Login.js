@@ -61,7 +61,7 @@ switch (role) {
     <div className="login-container">
       <div className="login-form">
         <div className="welcome-text">
-          <h2>Login</h2>
+          <h2>HireNexon Login</h2>
           <p>Sign in to your account</p>
         </div>
 
@@ -116,11 +116,11 @@ switch (role) {
         <div className="divider">Or continue with</div>
 
         <div className="social-buttons">
-          <button onClick={() => window.location.href = "http://localhost:5000/api/social/google"}
+          <button onClick={() => window.location.href = "https://hirenexon-app.onrender.com/api/social/google"}
           className="btn-social google">
             <img src="/images/google-logo.png" alt="Google" /> Google
           </button>
-          <button onClick={() => window.location.href = "http://localhost:5000/api/social/microsoft"}
+          <button onClick={() => window.location.href = "https://hirenexon-app.onrender.com/api/social/microsoft"}
           className="btn-social microsoft">
             <img src="/images/microsoft-logo.png" alt="Microsoft" /> Microsoft
           </button>
