@@ -1,3 +1,4 @@
+//frontend/src/components/Login/Login.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -31,6 +32,7 @@ const Login = () => {
         loginInput: formData.loginInput.trim(),
         password: formData.password.trim()
       });
+      if (data.user.role === "candidate") data.user.role = "user";
 
       setSuccess('Login successful! Redirecting...');
 
@@ -38,20 +40,20 @@ const Login = () => {
 const role = data.user.role || 'user'; // default role
 switch (role) {
   case 'user':
-    navigate('/user', { replace: true });
+    navigate('/candidate/dashboard', { replace: true });
     break;
+
   case 'organization':
-    navigate('/organization', { replace: true });
+    navigate('/organization/dashboard', { replace: true });
     break;
+
   case 'admin':
-    navigate('/admin', { replace: true });
+    navigate('/admin/dashboard', { replace: true }); // only if exists
     break;
+
   default:
-    navigate('/user', { replace: true });
+    navigate('/candidate/dashboard', { replace: true });
 }
-
-  
-
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.');
     } finally {

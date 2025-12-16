@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+//frontend/src/layouts/Layout/Layout.js
+import React, { useState, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import CandidateHeader from "../../components/candidateHeader/candidateHeader";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -7,32 +8,33 @@ import { FaComments } from "react-icons/fa";
 import "./Layout.css";
 
 const Layout = () => {
-  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
-  const [isChatOpen, setIsChatOpen] = useState(false); // 👈 controls chat popup visibility
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
-  const toggleChat = () => setIsChatOpen(!isChatOpen);
+  const toggleChat = () => setIsChatOpen(prev => !prev);
 
   return (
     <div className="user-page">
       {/* Header */}
       <CandidateHeader
-        onToggleSidebar={() => setIsSidebarVisible(!isSidebarVisible)}
-        onMessagesClick={toggleChat} // 👈 pass handler to header
+        onToggleSidebar={() => setIsSidebarCollapsed(prev => !prev)}
+        onMessagesClick={toggleChat}
       />
 
       <div className="user-body flex">
-        {isSidebarVisible && <Sidebar onMessagesClick={toggleChat} />} {/* 👈 optional if you want sidebar control */}
+        <Sidebar isCollapsed={isSidebarCollapsed} />
+      <div className="user-content flex-1 p-4">
+  <Suspense fallback={<div>Loading page...</div>}>
+    <Outlet />
+  </Suspense>
+</div>
 
-        <div className="user-content flex-1 p-4">
-          <Outlet />
-        </div>
       </div>
 
-      {/* ✅ Chat popup */}
+      {/* Chat popup */}
       {isChatOpen ? (
         <ChatPopup isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       ) : (
-        // ✅ Mini chat bubble when popup is closed
         <button
           className="mini-chat-btn"
           onClick={() => setIsChatOpen(true)}
@@ -46,5 +48,3 @@ const Layout = () => {
 };
 
 export default Layout;
-
-

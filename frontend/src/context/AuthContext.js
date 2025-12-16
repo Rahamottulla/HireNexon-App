@@ -1,5 +1,5 @@
 // frontend/src/context/AuthContext.js
-import { createContext, useContext, useState, useEffect, useMemo } from "react";
+import { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
 import api from "../utils/api";
 import { jwtDecode } from "jwt-decode"; 
 
@@ -10,7 +10,20 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user and token from localStorage
+  // ======================
+  // LOGOUT
+  // ======================
+  const logout = useCallback(() => {
+    setCurrentUser(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    delete api.defaults.headers.common["Authorization"];
+    window.location.href = "/login"; // redirect after logout
+  }, []);
+
+  // ======================
+  // LOAD USER FROM STORAGE
+  // ======================
   useEffect(() => {
     const user = localStorage.getItem("user");
     const token = localStorage.getItem("token");
@@ -20,11 +33,15 @@ export const AuthProvider = ({ children }) => {
         const parsedUser = JSON.parse(user);
         const decodedToken = jwtDecode(token);
 
-        // Check if token expired
+        // Token expired
         if (decodedToken.exp * 1000 < Date.now()) {
           logout();
         } else {
-          setCurrentUser(parsedUser);
+          setCurrentUser({
+            ...parsedUser,
+            role: parsedUser.role || "user",
+          });
+
           api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         }
       } catch (error) {
@@ -32,87 +49,95 @@ export const AuthProvider = ({ children }) => {
         logout();
       }
     }
+
     setLoading(false);
+  }, [logout]);
+
+  // ======================
+  // SAVE USER
+  // ======================
+  const saveUser = useCallback((user, token) => {
+    const userWithRole = { ...user, role: user.role || "user" };
+    setCurrentUser(userWithRole);
+    localStorage.setItem("user", JSON.stringify(userWithRole));
+    localStorage.setItem("token", token);
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }, []);
 
-  // Helper: Save user and token
-const saveUser = (user, token) => {
-  const userWithRole = { ...user, role: user.role || 'user' };
+  // ======================
+  // LOGIN (FIXED API URL)
+  // ======================
+  const login = useCallback(
+    async (credentials) => {
+      try {
+        const response = await api.post("/api/users/login", credentials);
 
-  setCurrentUser(userWithRole);
-  localStorage.setItem("user", JSON.stringify(userWithRole));
-  localStorage.setItem("token", token);
-  api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-};
+        if (response.data?.user && response.data?.token) {
+          saveUser(response.data.user, response.data.token);
+          return response.data;
+        }
 
-
-  // LOGIN
-  const login = async (credentials) => {
-    try {
-      const response = await api.post("/users/login", credentials);
-
-      if (response.data?.user && response.data?.token) {
-        saveUser(response.data.user, response.data.token);
-        return response.data; // includes user.role
-      } else {
         throw new Error("Invalid response from server");
+      } catch (error) {
+        console.error("Login error:", error);
+        throw new Error(error.response?.data?.message || "Login failed");
       }
-    } catch (error) {
-      console.error("Login error:", error);
-      throw new Error(error.response?.data?.message || "Login failed");
-    }
-  };
+    },
+    [saveUser]
+  );
 
+  // ======================
   // SIGNUP
-  const signup = async (userData) => {
+  // ======================
+  const signup = useCallback(async (userData) => {
     try {
-      const response = await api.post("/users/register", userData);
+      const response = await api.post("/api/users/register", userData);
       return response.data;
     } catch (error) {
-      const message = error.response?.data?.message || "Signup failed";
-      throw new Error(message);
+      throw new Error(error.response?.data?.message || "Signup failed");
     }
-  };
+  }, []);
 
-  // LOGOUT
-  const logout = () => {
-    setCurrentUser(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    delete api.defaults.headers.common["Authorization"];
-  };
-
+  // ======================
   // PASSWORD RESET
-  const resetPassword = async (email) => {
+  // ======================
+  const resetPassword = useCallback(async (email) => {
     try {
-      const response = await api.post("/auth/forgot-password", { email });
+      const response = await api.post("/api/auth/forgot-password", { email });
       return response.data;
     } catch (error) {
-      console.error("Password reset error:", error);
       throw new Error(error.response?.data?.message || "Password reset failed");
     }
-  };
+  }, []);
 
-  // PASSWORD UPDATE
-  const updatePassword = async (token, newPassword) => {
+  const updatePassword = useCallback(async (token, newPassword) => {
     try {
-      const response = await api.post("/auth/reset-password", { token, password: newPassword });
+      const response = await api.post("/api/auth/reset-password", {
+        token,
+        password: newPassword,
+      });
       return response.data;
     } catch (error) {
-      console.error("Update password error:", error);
       throw new Error(error.response?.data?.message || "Password update failed");
     }
-  };
+  }, []);
 
-  const value = useMemo(() => ({
-    currentUser,
-    login,
-    signup,
-    logout,
-    resetPassword,
-    updatePassword,
-    isAuthenticated: !!currentUser,
-  }), [currentUser]);
+  // ======================
+  // CONTEXT VALUE
+  // ======================
+  const value = useMemo(
+    () => ({
+      currentUser,
+      loading,
+      login,
+      signup,
+      logout,
+      resetPassword,
+      updatePassword,
+      isAuthenticated: !!currentUser,
+    }),
+    [currentUser, loading, login, signup, logout, resetPassword, updatePassword]
+  );
 
   return (
     <AuthContext.Provider value={value}>
