@@ -32,7 +32,7 @@ const Login = () => {
         loginInput: formData.loginInput.trim(),
         password: formData.password.trim()
       });
-      if (data.user.role === "candidate") data.user.role = "user";
+      
 
       setSuccess('Login successful! Redirecting...');
 
@@ -40,7 +40,7 @@ const Login = () => {
 const role = data.user.role || 'user'; // default role
 switch (role) {
   case 'user':
-    navigate('/candidate/dashboard', { replace: true });
+    navigate('/candidate', { replace: true });
     break;
 
   case 'organization':
@@ -52,7 +52,7 @@ switch (role) {
     break;
 
   default:
-    navigate('/candidate/dashboard', { replace: true });
+    navigate('/candidate', { replace: true });
 }
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.');

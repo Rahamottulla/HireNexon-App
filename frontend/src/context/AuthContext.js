@@ -1,7 +1,7 @@
 // frontend/src/context/AuthContext.js
-import { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
-import api from "../utils/api";
-import { jwtDecode } from "jwt-decode"; 
+import { createContext, useContext, useState, useEffect, useMemo, useCallback,} from "react";
+import api, { authAPI } from "../utils/api";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     delete api.defaults.headers.common["Authorization"];
-    window.location.href = "/login"; // redirect after logout
+    window.location.href = "/login";
   }, []);
 
   // ======================
@@ -28,24 +28,21 @@ export const AuthProvider = ({ children }) => {
     const user = localStorage.getItem("user");
     const token = localStorage.getItem("token");
 
-    if (user && user !== "undefined" && token) {
+    if (user && token) {
       try {
         const parsedUser = JSON.parse(user);
-        const decodedToken = jwtDecode(token);
+        const decoded = jwtDecode(token);
 
-        // Token expired
-        if (decodedToken.exp * 1000 < Date.now()) {
+        if (decoded.exp * 1000 < Date.now()) {
           logout();
         } else {
-          setCurrentUser({
-            ...parsedUser,
-            role: parsedUser.role || "user",
-          });
-
-          api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+          setCurrentUser(parsedUser);
+          api.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${token}`;
         }
-      } catch (error) {
-        console.error("Error loading user:", error);
+      } catch (err) {
+        console.error("Auth restore failed:", err);
         logout();
       }
     }
@@ -57,30 +54,31 @@ export const AuthProvider = ({ children }) => {
   // SAVE USER
   // ======================
   const saveUser = useCallback((user, token) => {
-    const userWithRole = { ...user, role: user.role || "user" };
-    setCurrentUser(userWithRole);
-    localStorage.setItem("user", JSON.stringify(userWithRole));
+    setCurrentUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("token", token);
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    api.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${token}`;
   }, []);
 
   // ======================
-  // LOGIN (FIXED API URL)
+  // LOGIN
   // ======================
   const login = useCallback(
-    async (credentials) => {
+    async (credentials, role = "candidate") => {
       try {
-        const response = await api.post("/api/users/login", credentials);
+        const res = await authAPI.login(credentials, role);
 
-        if (response.data?.user && response.data?.token) {
-          saveUser(response.data.user, response.data.token);
-          return response.data;
+        if (res.data?.user && res.data?.token) {
+          saveUser(res.data.user, res.data.token);
+          return res.data;
         }
 
-        throw new Error("Invalid response from server");
-      } catch (error) {
-        console.error("Login error:", error);
-        throw new Error(error.response?.data?.message || "Login failed");
+        throw new Error("Invalid server response");
+      } catch (err) {
+        console.error("Login error:", err);
+        throw new Error(err.response?.data?.message || "Login failed");
       }
     },
     [saveUser]
@@ -89,37 +87,25 @@ export const AuthProvider = ({ children }) => {
   // ======================
   // SIGNUP
   // ======================
-  const signup = useCallback(async (userData) => {
-    try {
-      const response = await api.post("/api/users/register", userData);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || "Signup failed");
-    }
+  const signup = useCallback(async (userData, role = "candidate") => {
+    const res = await authAPI.register(userData, role);
+    return res.data;
   }, []);
 
   // ======================
   // PASSWORD RESET
   // ======================
   const resetPassword = useCallback(async (email) => {
-    try {
-      const response = await api.post("/api/auth/forgot-password", { email });
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || "Password reset failed");
-    }
+    const res = await api.post("/auth/forgot-password", { email });
+    return res.data;
   }, []);
 
   const updatePassword = useCallback(async (token, newPassword) => {
-    try {
-      const response = await api.post("/api/auth/reset-password", {
-        token,
-        password: newPassword,
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || "Password update failed");
-    }
+    const res = await api.post("/auth/reset-password", {
+      token,
+      password: newPassword,
+    });
+    return res.data;
   }, []);
 
   // ======================
@@ -141,7 +127,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {loading ? <div className="loading">Loading...</div> : children}
+      {loading ? <div>Loading...</div> : children}
     </AuthContext.Provider>
   );
 };

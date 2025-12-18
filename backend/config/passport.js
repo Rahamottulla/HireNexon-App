@@ -45,7 +45,7 @@ passport.use(
 );
 
 // 🟢 Microsoft OAuth Strategy
-passport.use(
+/*passport.use(
   new MicrosoftStrategy.Strategy(
     {
       clientID: process.env.MICROSOFT_CLIENT_ID,
@@ -86,4 +86,4 @@ passport.serializeUser((data, done) => {
 
 passport.deserializeUser((data, done) => {
   done(null, data);
-});
+});*/

@@ -48,25 +48,12 @@ export const jobsAPI = {
 };
 
 export const authAPI = {
-  login: (credentials, role = "candidate") => {
-    // Adjust login route based on role
-    if (role === "candidate") return api.post('/candidates/login', credentials);
-    if (role === "organization") return api.post('/organization/login', credentials);
-    if (role === "admin") return api.post('/admin/login', credentials);
-  },
-
-  register: (userData, role = "candidate") => {
-    // Adjust register route based on role
-    if (role === "candidate") return api.post('/candidate/register', userData);
-    if (role === "organization") return api.post('/organization/register', userData);
-    if (role === "admin") return api.post('/admin/register', userData);
-  },
-
-  logout: () => api.post('/auth/logout'),
-  refresh: () => api.post('/auth/refresh'),
-  getProfile: () => api.get('/auth/profile'),
+  login: (credentials) => api.post("/users/login", credentials),
+  register: (userData) => api.post("/users/register", userData),
+  logout: () => api.post("/auth/logout"),
+  refresh: () => api.post("/auth/refresh"),
+  getProfile: () => api.get("/users/profile"),
 };
-
 
 export const userAPI = {
   getProfile: () => api.get('/user/profile'),

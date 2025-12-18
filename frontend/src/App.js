@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { JobProvider } from "./context/JobContext";
 import { ChatProvider } from "./context/ChatContext";
@@ -125,6 +125,7 @@ function App() {
               <Route path="manage-candidates" element={<ManageCandidates />} />
               <Route path="reports" element={<OrgReports />} />
             </Route>
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </ChatProvider>
         </BrowserRouter>
