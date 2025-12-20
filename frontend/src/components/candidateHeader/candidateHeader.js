@@ -159,7 +159,7 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
       <li><Link to="/candidate/manage-account">Manage Account</Link></li>
       <li><Link to="/candidate/settings">Settings</Link></li>
       <li><Link to="/candidate/help">Help</Link></li>
-      <li className="logout-item" onClick={handleLogout}>Logout</li>
+      <li className="signout-item" onClick={handleLogout}>Sign out</li>
     </ul>
   )}
 </div>

@@ -384,16 +384,17 @@
   display: block;
   width: 100%;
 }
-/* Logout button (danger action) */
-.logout-item {
-  color: #dc2626; /* red-600 */
+/* Logout button */
+.dropdown-menu li.signout-item {
+  color: #dc2626; /* red */
   font-weight: 600;
 }
 
-.logout-item:hover {
-  background-color: #fee2e2; /* light red background */
-  color: #b91c1c; /* darker red */
+.dropdown-menu li.signout-item:hover {
+  background-color: #fee2e2;
+  color: #b91c1c;
 }
+
 
 
 /* Collapse sidebar on toggle */
