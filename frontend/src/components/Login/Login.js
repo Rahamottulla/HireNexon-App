@@ -40,7 +40,7 @@ const Login = () => {
 const role = data.user.role || 'user'; // default role
 switch (role) {
   case 'user':
-    navigate('/candidate', { replace: true });
+    navigate('/candidate/dashboard', { replace: true });
     break;
 
   case 'organization':
@@ -52,7 +52,7 @@ switch (role) {
     break;
 
   default:
-    navigate('/candidate', { replace: true });
+    navigate('/candidate/dashboard', { replace: true });
 }
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.');
