@@ -1,5 +1,4 @@
 // src/pages/Candidate/Dashboard/Dashboard.js
-import React from "react";
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -27,17 +26,6 @@ const Dashboard = () => {
         <div className="stat-card">
           <h2>5</h2>
           <p>Saved Jobs</p>
-        </div>
-      </div>
-
-      {/* Quick Actions */}
-      <div className="quick-actions">
-        <h3>Quick Actions</h3>
-        <div className="actions-list">
-          <button className="action-btn">Update Profile</button>
-          <button className="action-btn">Upload Resume</button>
-          <button className="action-btn">Search Jobs</button>
-          <button className="action-btn">View Notifications</button>
         </div>
       </div>
 
