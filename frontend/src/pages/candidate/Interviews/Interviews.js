@@ -3,7 +3,7 @@ import "./Interviews.css";
 
 const interviewData = [
   { candidate: "Meeting with HireNexon", company: "HireNexon", date: "2025-12-26", time: "10:00 AM", mode: "Zoom" },
-  { candidate: "Meeting with InnovateX", company: "InnovateX", date: "2025-12-18", time: "02:00 PM", mode: "In-person" },
+  { candidate: "Meeting with InnovateX", company: "InnovateX", date: "2025-12-28", time: "02:00 PM", mode: "In-person" },
   { candidate: "Meeting with DataX", company: "DataX", date: "2025-12-30", time: "11:30 AM", mode: "Google Meet" },
 ];
 
@@ -62,7 +62,7 @@ const HireNexonInterviews = () => {
   <h2 className="hnc-interviews-page-title">Interview Calendar</h2>
 
 <p className="hnc-interviews-page-subtitle">
-        Current Date & Time: {currentTime.toLocaleString()}
+        Current Date & Time: {formatCurrentTime(currentTime)}
       </p>
 
 <div className="hnc-welcome-scroll">

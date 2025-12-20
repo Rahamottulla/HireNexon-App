@@ -1,5 +1,5 @@
 //frontend/src/components/candidateHeader/candidateHeader.js
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaBell, FaIndent, FaOutdent, FaUserFriends, FaUsers, FaUser, FaTrophy, FaEnvelope, FaSearch, FaRss, FaBriefcase } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -15,6 +15,18 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   // ✅ SAFE LOGOUT
   const handleLogout = () => {
@@ -70,7 +82,7 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
 
         <Link
           to="/candidate/propals"
-          className={`flex flex-col items-center font-semibold ${
+          className={`nav-propals flex flex-col items-center font-semibold ${
             location.pathname === "/candidate/propals" ? "active" : ""
           }`}
         >
@@ -79,9 +91,9 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
         </Link>
 
         <Link
-          to="/candidate/Communities"
-          className={`flex flex-col items-center font-semibold ${
-            location.pathname === "/candidate/Communities" ? "active" : ""
+          to="/candidate/communities"
+          className={`nav-communities flex flex-col items-center font-semibold ${
+            location.pathname === "/candidate/communities" ? "active" : ""
           }`}
         >
           <FaUsers size={20} />
@@ -90,7 +102,7 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
 
         <Link
           to="/candidate/jobs"
-          className={`flex flex-col items-center font-semibold ${
+          className={`nav-jobs flex flex-col items-center font-semibold ${
             location.pathname === "/candidate/jobs" ? "active" : ""
           }`}
         >
@@ -100,7 +112,7 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
 
         <Link
           to="/candidate/live-contests"
-          className={`flex flex-col items-center font-semibold ${
+          className={`nav-contests flex flex-col items-center font-semibold ${
             location.pathname === "/candidate/live-contests" ? "active" : ""
           }`}
         >
@@ -110,7 +122,7 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
 
         <button
           onClick={() => onMessagesClick && onMessagesClick()}
-          className="relative flex flex-col items-center font-semibold"
+          className="nav-messages flex flex-col items-center font-semibold"
         >
           <FaEnvelope size={20} />
           <span className="text-xs mt-1">Messages</span>
@@ -119,7 +131,7 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
 
         <Link
           to="/candidate/notifications"
-          className={`relative flex flex-col items-center font-semibold ${
+          className={`nav-notifications relative flex flex-col items-center font-semibold ${
             location.pathname === "/candidate/notifications" ? "active" : ""
           }`}
         >
@@ -129,36 +141,29 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
         </Link>
 
         {/* Profile Dropdown */}
-        <div
-          className="relative flex items-center cursor-pointer"
-          onClick={() => setIsDropdownOpen((prev) => !prev)}
-        >
-          <FaUser size={20} />
-          <span className="text-xs ml-1">Profile ▼</span>
+        <div className="nav-profile relative" ref={dropdownRef}>
+  <button
+    className="flex items-center gap-1"
+    onClick={(e) => {
+      e.stopPropagation();
+      setIsDropdownOpen((prev) => !prev);
+    }}
+  >
+    <FaUser size={20} />
+    <span className="text-xs">Profile ▼</span>
+  </button>
 
-          {isDropdownOpen && (
-            <ul className="absolute right-0 mt-2 bg-white border rounded shadow-lg w-44 text-sm z-50">
-              <li className="px-4 py-2 hover:bg-gray-100">
-                <Link to="/candidate/my-profile">My Profile</Link>
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-100">
-                <Link to="/candidate/manage-account">Manage Account</Link>
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-100">
-                <Link to="/candidate/settings">Settings</Link>
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-100">
-                <Link to="/candidate/help">Help</Link>
-              </li>
-              <li
-                className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                onClick={handleLogout}
-              >
-                Logout
-              </li>
-            </ul>
-          )}
-        </div>
+  {isDropdownOpen && (
+    <ul className="dropdown-menu">
+      <li><Link to="/candidate/my-profile">My Profile</Link></li>
+      <li><Link to="/candidate/manage-account">Manage Account</Link></li>
+      <li><Link to="/candidate/settings">Settings</Link></li>
+      <li><Link to="/candidate/help">Help</Link></li>
+      <li className="logout-item" onClick={handleLogout}>Logout</li>
+    </ul>
+  )}
+</div>
+
       </nav>
     </header>
   );
