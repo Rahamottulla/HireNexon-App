@@ -1,15 +1,10 @@
 /* Container */
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 10px;
+  display: flex; 
+  padding: 4px 10px;
   background-color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  gap: 10px; /* balanced gap between items */
+  gap: 10px; 
 }
 /* Sidebar Toggle Button */
 .sidebar-toggle {
@@ -29,7 +24,6 @@
   color: #1d4ed8; /* blue highlight */
 }
 
-
 /* Logo */
 .header .logo img {
   height: 41px;
@@ -42,15 +36,15 @@
 .header .search {
   display: flex;
   align-items: center;
-  border: 1px solid #ccc; /* subtle border */
-  border-radius: 20px; /* slightly rounded corners */
-  padding: 6px 12px; /* more padding for better spacing */
-  width: 350px; /* increased width */
+  border: 1px solid #676666;
+  border-radius: 20px; 
+  padding: 0 12px; 
+  height: 38px;
+  width: 350px; 
   min-width: 200px;
-  margin-left: 0px;
-  margin-right: 10px;
-  background-color: #f5f5f5; /* subtle background */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* slight shadow for depth */
+  margin: 5px 10px;
+  background-color: #f5f5f5;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
   transition: all 0.2s ease-in-out;
 }
 
@@ -65,7 +59,7 @@
   width: 100%;
   background-color: transparent;
   font-size: 14px;
-  height: 32px;
+  height: 40px;
   padding-left: 4px;
   color: #333;
 }

@@ -9,7 +9,7 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // ✅ SAFE AUTH ACCESS
+  // SAFE AUTH ACCESS
   const auth = useAuth();
   const logout = auth?.logout;
 
@@ -28,14 +28,14 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  // ✅ SAFE LOGOUT
+  // SAFE LOGOUT
   const handleLogout = () => {
     if (logout) logout();
     navigate("/login");
   };
 
   return (
-    <header className="header flex justify-between items-center p-4 shadow-md bg-white sticky top-0 z-50">
+    <header className="header flex justify-between items-center px-4 py-2 bg-white sticky top-0 z-50">
       {/* Sidebar Toggle Button */}
       <button
         className="sidebar-toggle mr-4 p-2 rounded bg-gray-200 hover:bg-gray-300"
@@ -59,7 +59,7 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
       </div>
 
       {/* Search Box */}
-      <div className="search flex items-center border rounded-md px-2 py-1 w-1/3">
+      <div className="search flex items-center border w-1/3">
         <FaSearch className="mr-2 text-gray-500" />
         <input
           type="text"
