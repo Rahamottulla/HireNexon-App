@@ -9,9 +9,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:5000";
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 
-// =====================
 // REGISTER & SEND EMAIL VERIFICATION
-// =====================
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -101,9 +99,7 @@ await sendEmail(
   }
 };
 
-// =====================
 // VERIFY EMAIL
-// =====================
 export const verifyEmail = async (req, res) => {
   const { token } = req.params;
 
@@ -126,9 +122,7 @@ export const verifyEmail = async (req, res) => {
   }
 };
 
-// =====================
 // LOGIN (skip email verification)
-// =====================
 export const login = async (req, res) => {
   const { loginInput, password } = req.body;
 

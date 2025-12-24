@@ -1,22 +1,35 @@
+//backend/utils/sendEmail.js
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 const sendEmail = async (to, subject, htmlContent) => {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.HIRENEXON_EMAIL,
-      pass: process.env.HIRENEXON_APP_PASSWORD, // Gmail app password
-    },
-  });
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.HIRENEXON_EMAIL,
+        pass: process.env.HIRENEXON_APP_PASSWORD,
+      },
+    });
 
-  await transporter.sendMail({
-    from: `"HireNexon" <${process.env.HIRENEXON_EMAIL}>`,
-    to,
-    subject,
-    html: htmlContent,
-  });
+    await transporter.verify();
+
+    await transporter.sendMail({
+      from: `"HireNexon" <${process.env.HIRENEXON_EMAIL}>`,
+      to,
+      subject,
+      html: htmlContent,
+    });
+
+    console.log("✅ Email sent successfully to:", to);
+  } catch (error) {
+    console.error("❌ Email sending failed:", error);
+    throw error;
+  }
 };
 
 export default sendEmail;

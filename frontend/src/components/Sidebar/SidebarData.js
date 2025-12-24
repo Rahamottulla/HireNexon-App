@@ -34,7 +34,7 @@ const SidebarData = [
   {
     section: "Learning & Development",
     links: [
-      { name: "Resume", path: "/candidate/resume", icon: <FaFileAlt /> },
+      { name: "Nexon CV", path: "/candidate/nexoncv", icon: <FaFileAlt /> },
       { name: "Roadmaps", path: "/candidate/roadmaps", icon: <FaRoad /> },
       { name: "Career Resources", path: "/candidate/resources", icon: <FaBook /> },
       { name: "Courses & Certifications", path: "/candidate/courses", icon: <FaGraduationCap /> },

@@ -40,7 +40,7 @@ import Settings from "./pages/Settings";
 import ManageAccount from "./pages/ManageAccount";
 import AppliedJobs from "./pages/candidate/AppliedJobs/AppliedJobs";
 import Roadmaps from "./pages/candidate/Roadmaps/Roadmaps";
-import Resume from "./pages/candidate/Resume/Resume";
+import NexonCv from "./pages/candidate/NexonCv/NexonCv";
 import Feedback from "./pages/candidate/Feedback/Feedback";
 import Interviews from "./pages/candidate/Interviews/Interviews";
 import Offers from "./pages/candidate/Offers/Offers";
@@ -100,7 +100,7 @@ function App() {
               <Route path="announcements" element={<Announcements />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="applied-jobs" element={<AppliedJobs />} />
-              <Route path="resume" element={<Resume />} />
+              <Route path="nexoncv" element={<NexonCv />} />
               <Route path="interviews" element={<Interviews />} />
               <Route path="roadmaps" element={<Roadmaps />} />
               <Route path="offers" element={<Offers />} />

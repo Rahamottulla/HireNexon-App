@@ -27,7 +27,7 @@ const Signup = () => {
     navigate('/login');
   };
 
-  // ✅ Signup & send verification email automatically
+  // Signup & send verification email automatically
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -61,7 +61,7 @@ const Signup = () => {
 
       if (!response.ok) throw new Error(data.message || "Signup failed");
 
-      // ✅ Success
+      // Success
       setShowSuccessPopup(true);
 
     } catch (err) {
@@ -119,7 +119,7 @@ const Signup = () => {
         </div>
       </div>
 
-      {/* ✅ Success Popup */}
+      {/*  Success Popup */}
       {showSuccessPopup && (
         <div className="signup-success-popup">
           <div className="signup-success-box">
