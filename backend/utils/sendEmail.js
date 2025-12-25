@@ -1,38 +1,24 @@
 //backend/utils/sendEmail.js
-import nodemailer from "nodemailer";
-import dotenv from "dotenv";
+import { Resend } from "resend";
 
-dotenv.config();
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-const sendEmail = async (to, subject, htmlContent) => {
+const sendEmail = async (to, subject, html) => {
   try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.HIRENEXON_EMAIL,
-        pass: process.env.HIRENEXON_APP_PASSWORD,
-      },
-      tls: {
-    rejectUnauthorized: false,
-  },
-    });
-
-    await transporter.verify();
-
-    await transporter.sendMail({
-      from: `"HireNexon" <${process.env.HIRENEXON_EMAIL}>`,
+    await resend.emails.send({
+      from: "HireNexon <onboarding@resend.dev>",
       to,
+      reply_to: "hirenexon@gmail.com", 
       subject,
-      html: htmlContent,
+      html,
     });
 
-    console.log("✅ Email sent successfully to:", to);
+    console.log("✅ Email sent via Resend");
   } catch (error) {
-    console.error("❌ Email sending failed:", error);
+    console.error("❌ Resend email error:", error);
     throw error;
   }
 };
 
 export default sendEmail;
+
