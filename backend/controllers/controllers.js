@@ -90,9 +90,14 @@ await sendEmail(
   `
 );
 } catch (emailErr) {
-  console.error("Email send failed:", emailErr);
-  return res.status(500).json({ message: "Failed to send verification email" });
+  console.error("❌ EMAIL ERROR FULL:", emailErr);
+
+  return res.status(500).json({
+    message: "Failed to send verification email",
+    error: emailErr.message || emailErr,
+  });
 }
+
     res.status(201).json({ message: "Verification email sent! Please check your inbox." });
   } catch (err) {
     res.status(500).json({ message: err.message });

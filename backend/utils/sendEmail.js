@@ -14,6 +14,9 @@ const sendEmail = async (to, subject, htmlContent) => {
         user: process.env.HIRENEXON_EMAIL,
         pass: process.env.HIRENEXON_APP_PASSWORD,
       },
+      tls: {
+    rejectUnauthorized: false,
+  },
     });
 
     await transporter.verify();
