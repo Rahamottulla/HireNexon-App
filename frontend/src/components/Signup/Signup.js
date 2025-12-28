@@ -128,7 +128,7 @@ const Signup = () => {
               Welcome to <b>HireNexon</b>, {formData.username}! <br />
               A verification email has been sent to <b>{formData.email}</b>. Please verify your account to login.
             </p>
-            <button  className="signup-login-btn" onClick={handleLoginRedirect}>Go to Login</button>
+            <button  className="signup-ok-btn" onClick={handleLoginRedirect}>Go to Login</button>
           </div>
         </div>
       )}
