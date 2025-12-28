@@ -123,7 +123,7 @@ const Signup = () => {
       {showSuccessPopup && (
         <div className="signup-success-popup">
           <div className="signup-success-box">
-            <h3>Registration Successful! 🎉</h3>
+            <h3>Registration Successful!🎉</h3>
             <p>
               Welcome to <b>HireNexon</b>, {formData.username}! <br />
               A verification email has been sent to <b>{formData.email}</b>. Please verify your account to login.
