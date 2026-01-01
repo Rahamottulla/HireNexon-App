@@ -1,25 +1,17 @@
 // backend/routes/userRoutes.js
 import express from "express";
-import { register, login, verifyEmail } from "../controllers/controllers.js";
-import User from "../models/users.js";
 import jwt from "jsonwebtoken";
+import { register, login, verifyEmail, updateProfile } from "../controllers/controllers.js";
+import auth from "../middleware/auth.js";
+import User from "../models/users.js";
 import sendEmail from "../utils/sendEmail.js";
 
 const router = express.Router();
-
-// =====================
-// Signup
-// =====================
 router.post("/register", register);
-
-// =====================
-// Login
-// =====================
 router.post("/login", login);
+router.put("/profile", auth(), updateProfile);
 
-// =====================
 // Send verification email separately
-// =====================
 router.post("/send-verification-email", async (req, res) => {
   try {
     const { email } = req.body;
@@ -61,9 +53,7 @@ router.post("/send-verification-email", async (req, res) => {
   }
 });
 
-// =====================
 // Email verification
-// =====================
 router.get("/verify/:token", verifyEmail);
 
 export default router;

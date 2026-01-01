@@ -10,9 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ======================
   // LOGOUT
-  // ======================
   const logout = useCallback(() => {
     setCurrentUser(null);
     localStorage.removeItem("user");
@@ -21,9 +19,7 @@ export const AuthProvider = ({ children }) => {
     window.location.href = "/login";
   }, []);
 
-  // ======================
   // LOAD USER FROM STORAGE
-  // ======================
   useEffect(() => {
     const user = localStorage.getItem("user");
     const token = localStorage.getItem("token");
@@ -36,7 +32,12 @@ export const AuthProvider = ({ children }) => {
         if (decoded.exp * 1000 < Date.now()) {
           logout();
         } else {
-          setCurrentUser(parsedUser);
+          const normalizedUser = {
+  ...parsedUser,
+  name: parsedUser.name || parsedUser.username,
+};
+setCurrentUser(normalizedUser);
+
           api.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${token}`;
@@ -50,21 +51,29 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, [logout]);
 
-  // ======================
   // SAVE USER
-  // ======================
   const saveUser = useCallback((user, token) => {
-    setCurrentUser(user);
-    localStorage.setItem("user", JSON.stringify(user));
+    const normalizedUser = {
+    ...user,
+    name: user.name || user.username,
+  };
+  setCurrentUser(normalizedUser);
+  localStorage.setItem("user", JSON.stringify(normalizedUser));
     localStorage.setItem("token", token);
-    api.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${token}`;
   }, []);
 
-  // ======================
+  //update user
+ const updateCurrentUser = useCallback((updatedUser) => {
+  const normalizedUser = {
+    ...updatedUser,
+    name: updatedUser.name || updatedUser.username,
+  };
+
+  setCurrentUser(normalizedUser);
+  localStorage.setItem("user", JSON.stringify(normalizedUser));
+}, []);
+
   // LOGIN
-  // ======================
   const login = useCallback(
     async (credentials, role = "candidate") => {
       try {
@@ -84,17 +93,13 @@ export const AuthProvider = ({ children }) => {
     [saveUser]
   );
 
-  // ======================
   // SIGNUP
-  // ======================
   const signup = useCallback(async (userData, role = "candidate") => {
     const res = await authAPI.register(userData, role);
     return res.data;
   }, []);
 
-  // ======================
   // PASSWORD RESET
-  // ======================
   const resetPassword = useCallback(async (email) => {
     const res = await api.post("/auth/forgot-password", { email });
     return res.data;
@@ -108,9 +113,7 @@ export const AuthProvider = ({ children }) => {
     return res.data;
   }, []);
 
-  // ======================
   // CONTEXT VALUE
-  // ======================
   const value = useMemo(
     () => ({
       currentUser,
@@ -120,6 +123,7 @@ export const AuthProvider = ({ children }) => {
       logout,
       resetPassword,
       updatePassword,
+      updateCurrentUser,
       isAuthenticated: !!currentUser,
     }),
     [currentUser, loading, login, signup, logout, resetPassword, updatePassword]

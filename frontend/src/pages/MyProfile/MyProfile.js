@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import api from "../../utils/api";
 import "./MyProfile.css";
 
 const MyProfile = () => {
   const navigate = useNavigate();
-  const { currentUser, logout } = useAuth();
+  const { currentUser, logout, updateCurrentUser } = useAuth();
 
   const [edit, setEdit] = useState(false);
   const [form, setForm] = useState({
@@ -14,7 +15,7 @@ const MyProfile = () => {
     skills: "",
   });
 
-  // ✅ SYNC when currentUser loads
+  // SYNC when currentUser loads
   useEffect(() => {
     if (currentUser) {
       setForm({
@@ -30,6 +31,22 @@ const MyProfile = () => {
   const handleLogout = () => {
     logout();
     navigate("/login");
+  };
+
+  //Handle save
+  const handleSave = async () => {
+    try {
+      const res = await api.put("/users/profile", {
+        name: form.name,
+        skills: form.skills,
+      });
+
+      updateCurrentUser(res.data.user); 
+      setEdit(false);
+    } catch (error) {
+      console.error("Profile update failed:", error);
+      alert("Failed to update profile");
+    }
   };
 
   return (
@@ -48,10 +65,7 @@ const MyProfile = () => {
 
           <label>
             Email:
-            <input
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-            />
+            <input value={form.email} disabled />
           </label>
 
           <label>
@@ -62,7 +76,7 @@ const MyProfile = () => {
             />
           </label>
 
-          <button onClick={() => setEdit(false)}>Save</button>
+          <button onClick={handleSave}>Save</button>
         </div>
       ) : (
         <div className="profile-details">
