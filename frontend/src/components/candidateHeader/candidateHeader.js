@@ -154,11 +154,12 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
   </button>
 
   {isDropdownOpen && (
-    <ul className="dropdown-menu">
-      <li><Link to="/candidate/my-profile">My Profile</Link></li>
-      <li><Link to="/candidate/manage-account">Manage Account</Link></li>
-      <li><Link to="/candidate/settings">Settings</Link></li>
-      <li><Link to="/candidate/help">Help</Link></li>
+<ul className="dropdown-menu">
+<li><Link to="/candidate/my-profile" onClick={() => setIsDropdownOpen(false)}>My Profile</Link></li>
+<li><Link to="/candidate/manage-account" onClick={() => setIsDropdownOpen(false)}>Manage Account</Link></li>
+<li><Link to="/candidate/settings" onClick={() => setIsDropdownOpen(false)}>Settings</Link></li>
+<li><Link to="/candidate/help" onClick={() => setIsDropdownOpen(false)}>Help</Link></li>
+
       <li className="signout-item" onClick={handleLogout}>Sign out</li>
     </ul>
   )}
