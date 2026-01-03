@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./Interviews.css";
 
 const interviewData = [
-  { candidate: "Meeting with HireNexon", company: "HireNexon", date: "2025-12-26", time: "10:00 AM", mode: "Zoom" },
-  { candidate: "Meeting with InnovateX", company: "InnovateX", date: "2025-12-28", time: "02:00 PM", mode: "In-person" },
-  { candidate: "Meeting with DataX", company: "DataX", date: "2025-12-30", time: "11:30 AM", mode: "Google Meet" },
+  { candidate: "Meeting with HireNexon", company: "HireNexon", date: "2026-01-16", time: "10:00 AM", mode: "Zoom" },
+  { candidate: "Meeting with InnovateX", company: "InnovateX", date: "2026-01-25", time: "02:00 PM", mode: "In-person" },
+  { candidate: "Meeting with DataX", company: "DataX", date: "2026-01-30", time: "11:30 AM", mode: "Google Meet" },
 ];
 
 const HireNexonInterviews = () => {
