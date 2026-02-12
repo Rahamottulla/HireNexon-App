@@ -37,13 +37,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/auth", forgotPasswordRoutes);
 app.use("/api/social", socialAuthRoutes);
-
 
 // =================== Email Setup ===================
 const transporter = nodemailer.createTransport({
