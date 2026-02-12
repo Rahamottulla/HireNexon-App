@@ -1,26 +1,21 @@
 {
-  "short_name": "HireSphere",
-  "name": "HireSphere",
+  "name": "HireNexon",
+  "short_name": "HireNexon",
+  "description": "The next-generation hiring platform where talent meets opportunity.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
   "icons": [
     {
-      "src": "images/admin-icon.png",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "/icons/favicon.png",
+      "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "images/hiresphere-logo.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "images/hiresphere-logo.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "/icons/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }
-
