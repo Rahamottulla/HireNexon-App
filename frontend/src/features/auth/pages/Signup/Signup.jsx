@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-console.log("BACKEND URL =>", BACKEND_URL);
-
 const Signup = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -49,7 +46,7 @@ const Signup = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${BACKEND_URL}/api/users/register`, {
+      const response = await fetch("/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -158,7 +155,7 @@ const Signup = () => {
         <div className="flex flex-col gap-3">
           <button
             onClick={() =>
-              (window.location.href = `${BACKEND_URL}/api/social/google`)
+              (window.location.href = "/api/social/google")
             }
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white py-3 text-[15px] font-medium text-red-600 transition hover:border-red-500 hover:bg-red-50"
           >
@@ -168,7 +165,7 @@ const Signup = () => {
 
           <button
             onClick={() =>
-              (window.location.href = `${BACKEND_URL}/api/social/microsoft`)
+              (window.location.href = "/api/social/microsoft")
             }
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white py-3 text-[15px] font-medium text-blue-600 transition hover:border-blue-500 hover:bg-blue-50"
           >
