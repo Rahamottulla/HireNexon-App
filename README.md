@@ -131,7 +131,8 @@ src/
 
 ---
 
-### Backend Setup
+### Setup
+### Backend setup
 ```bash
 cd backend
 npm install
@@ -188,3 +189,4 @@ Licensing details will be added in the future.
 ---
 
 HireNexon — Where Talent Meets Opportunity.***
+
