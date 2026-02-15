@@ -66,7 +66,7 @@ app.post("/api/send-registration-email", async (req, res) => {
         <p>Dear <b>${username}</b>,</p>
         <p>Welcome to <b>HireNexon</b>! Your account has been created successfully.</p>
         <p>Please login to start exploring your opportunities.</p>
-        <a href="https://hirenexon.vercel.app/login" style="background:#0a66c2;color:white;padding:10px 20px;border-radius:6px;text-decoration:none;">Login Now</a>
+        <a href="https://hirenexon.com/login" style="background:#0a66c2;color:white;padding:10px 20px;border-radius:6px;text-decoration:none;">Login Now</a>
         <p style="margin-top:20px;">
         If you have any questions, feel free to reply to 
         <a href="mailto:support@hirenexon.com" style="color:#0a66c2;text-decoration:none;">support@hirenexon.com</a>.
@@ -94,7 +94,7 @@ app.post("/api/send-registration-email", async (req, res) => {
 // =================== Forgot Password Email Route ===================
 app.post("/api/send-forgot-email", async (req, res) => {
   const { email, resetLink } = req.body;
-  const frontendBase = "https://hirenexon.vercel.app";
+  const frontendBase = "https://hirenexon.com";
   const resetUrl = `${frontendBase}/reset-password?token=${resetLink}`;
 
   const mailOptions = {

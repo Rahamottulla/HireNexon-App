@@ -20,7 +20,7 @@ export const forgotPassword = async (req, res) => {
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
 
     // Create reset link
-    const resetLink = `http://localhost:3000/reset-password?token=${token}`;
+    const resetLink = `http://hirenexon.com/reset-password?token=${token}`;
 
     // Email setup
     const transporter = nodemailer.createTransport({
