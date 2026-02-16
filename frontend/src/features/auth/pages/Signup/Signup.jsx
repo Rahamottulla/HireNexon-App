@@ -155,7 +155,7 @@ const Signup = () => {
         <div className="flex flex-col gap-3">
           <button
             onClick={() =>
-              (window.location.href = "/api/social/google")
+              (window.location.href = "https://api.hirenexon.com/api/social/google")
             }
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white py-3 text-[15px] font-medium text-red-600 transition hover:border-red-500 hover:bg-red-50"
           >
@@ -165,7 +165,7 @@ const Signup = () => {
 
           <button
             onClick={() =>
-              (window.location.href = "/api/social/microsoft")
+              (window.location.href = "https://api.hirenexon.com/api/social/microsoft")
             }
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white py-3 text-[15px] font-medium text-blue-600 transition hover:border-blue-500 hover:bg-blue-50"
           >

@@ -147,7 +147,7 @@ const startServer = async () => {
   try {
     await connectDB();
     app.listen(PORT, () => {
-      console.log(`✅ HireNexon Backend running at https://hirenexon-app.onrender.com`);
+      console.log(`✅ HireNexon Backend running at https://api.hirenexon.com`);
       console.log(`🔑 JWT_SECRET loaded: ${process.env.JWT_SECRET ? "Yes" : "❌ Not found"}`);
     });
   } catch (error) {

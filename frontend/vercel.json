@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://hirenexon-app.onrender.com/api/$1" },
+    { "source": "/api/(.*)", "destination": "https://api.hirenexon.com/api/$1" },
     { "source": "/(.*)", "destination": "/" }
   ]
 }

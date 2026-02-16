@@ -8,7 +8,7 @@ import User from "../models/users.js";
 
 dotenv.config();
 
-// 🟢 Google OAuth Strategy
+// Google OAuth Strategy
 passport.use(
   new GoogleStrategy.Strategy(
     {
@@ -44,8 +44,8 @@ passport.use(
   )
 );
 
-// 🟢 Microsoft OAuth Strategy
-/*passport.use(
+// Microsoft OAuth Strategy
+passport.use(
   new MicrosoftStrategy.Strategy(
     {
       clientID: process.env.MICROSOFT_CLIENT_ID,
@@ -86,4 +86,4 @@ passport.serializeUser((data, done) => {
 
 passport.deserializeUser((data, done) => {
   done(null, data);
-});*/
+});
