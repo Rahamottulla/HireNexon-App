@@ -16,6 +16,7 @@ const Signup = () => {
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const navigate = useNavigate();
+  const API = import.meta.env.VITE_API_URL || "";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -46,7 +47,7 @@ const Signup = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch("/api/users/register", {
+      const response = await fetch(`${API}/api/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
