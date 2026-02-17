@@ -65,7 +65,7 @@ await sendEmail(
         If you have any questions, feel free to contact us at 
         <a href="mailto:support@hirenexon.com" style="color:#0a66c2;text-decoration:none;">
           support@hirenexon.com
-        </a>.
+        </a>
       </p>
 
       <p style="margin-top:25px;font-size:14px;color:#333;">
