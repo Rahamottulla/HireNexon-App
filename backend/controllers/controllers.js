@@ -82,7 +82,7 @@ await sendEmail(
 
   <p>📍 <strong>HireNexon Pvt. Ltd.</strong>, Chandigarh, India</p>
   <p>📞 +91 7407501936 &nbsp; | &nbsp; ✉️ <a href="mailto:support@hirenexon.com" style="color:#0a66c2;text-decoration:none;">support@hirenexon.com</a></p>
-  <p style="color:#777;">© 2025 HireNexon. All Rights Reserved.</p>
+  <p style="color:#777;">© 2026 HireNexon. All rights reserved.</p>
 </footer>
 
     </div>
