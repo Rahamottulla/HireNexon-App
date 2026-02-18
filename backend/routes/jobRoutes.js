@@ -1,7 +1,7 @@
 // backend/routes/jobRoutes.js
 import express from "express";
 import { body, param, validationResult } from "express-validator";
-import Job from "../models/jobs.js";
+import Job from "../models/job.js";
 import auth from "../middleware/auth.js";
 
 const router = express.Router();

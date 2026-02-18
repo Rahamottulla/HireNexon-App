@@ -1,9 +1,10 @@
 // backend/routes/userRoutes.js
 import express from "express";
 import jwt from "jsonwebtoken";
-import { register, login, verifyEmail, updateProfile } from "../controllers/controllers.js";
+import { register, login, verifyEmail } from "../controllers/auth/authController.js";
+import { updateProfile } from "../controllers/user/userController.js";
 import auth from "../middleware/auth.js";
-import User from "../models/users.js";
+import User from "../models/user.js";
 import sendEmail from "../utils/sendEmail.js";
 
 const router = express.Router();

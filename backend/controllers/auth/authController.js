@@ -1,8 +1,8 @@
-// backend/controllers/controllers.js
-import User from "../models/users.js";
+// backend/controllers/auth/authController.js
+import User from "../../models/user.js";
+import sendEmail from "../../utils/sendEmail.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import sendEmail from "../utils/sendEmail.js";
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -127,7 +127,7 @@ export const verifyEmail = async (req, res) => {
   }
 };
 
-// LOGIN (skip email verification)
+// LOGIN 
 export const login = async (req, res) => {
   const { loginInput, password } = req.body;
 
@@ -139,11 +139,8 @@ export const login = async (req, res) => {
     const user = await User.findOne(query);
     if (!user) return res.status(400).json({ message: "User not found" });
 
-    // =========================
-    // Commented out email verification
-    // =========================
-    // if (!user.isVerified)
-    //   return res.status(403).json({ message: "Please verify your email before logging in." });
+    if (!user.isVerified)
+    return res.status(403).json({ message: "Please verify your email before logging in." });
 
     const isMatch = await user.comparePassword(password);
     if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
@@ -171,36 +168,3 @@ export const login = async (req, res) => {
   }
 };
 
-// UPDATE USER PROFILE
-export const updateProfile = async (req, res) => {
-  try {
-    const { name, skills } = req.body;
-
-    const user = await User.findById(req.user.id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    // Update fields
-    if (name) user.username = name;
-    if (skills) {
-      user.skills = skills.split(",").map(s => s.trim());
-    }
-
-    await user.save();
-
-    res.status(200).json({
-      message: "Profile updated successfully",
-      user: {
-        id: user._id,
-        name: user.username,
-        email: user.email,
-        role: user.role,
-        skills: user.skills,
-      },
-    });
-  } catch (error) {
-    console.error("Update profile error:", error);
-    res.status(500).json({ message: "Failed to update profile" });
-  }
-};

@@ -2,13 +2,12 @@
 import passport from "passport";
 import GoogleStrategy from "passport-google-oauth20";
 import MicrosoftStrategy from "passport-microsoft";
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import User from "../models/users.js";
-
+import User from "../models/user.js";
+import dotenv from "dotenv";
 dotenv.config();
 
-// Google OAuth Strategy
+// Google Auth Strategy
 passport.use(
   new GoogleStrategy.Strategy(
     {
@@ -44,7 +43,7 @@ passport.use(
   )
 );
 
-// Microsoft OAuth Strategy
+// Microsoft Auth Strategy
 passport.use(
   new MicrosoftStrategy.Strategy(
     {
@@ -52,6 +51,7 @@ passport.use(
       clientSecret: process.env.MICROSOFT_CLIENT_SECRET,
       callbackURL: `${process.env.BACKEND_URL}/api/social/microsoft/callback`,
       scope: ["user.read"],
+      tenant: "common",
     },
     async (_accessToken, _refreshToken, profile, done) => {
       try {
@@ -79,7 +79,7 @@ passport.use(
   )
 );
 
-// 🟢 Serialize and deserialize user for session
+// Serialize and deserialize user for session
 passport.serializeUser((data, done) => {
   done(null, data);
 });

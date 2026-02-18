@@ -1,7 +1,7 @@
 // backend/server.js
 import dotenv from "dotenv";
 dotenv.config();
-console.log("JWT_SECRET:", process.env.JWT_SECRET);
+console.log("Environment loaded");
 
 import express from "express";
 import cors from "cors";
@@ -15,27 +15,27 @@ import forgotPasswordRoutes from "./routes/forgotPasswordRoutes.js";
 
 // continue with Google & Microsoft
 import passport from "passport";
-import session from "express-session";
+
 import socialAuthRoutes from "./routes/socialAuthRoutes.js";
 import "./config/passport.js"; 
 
-// Initialize Express
-const app = express();
+// Port
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+// Initialize Express(trust proxy for render)
+const app = express();
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
 
-// Session & Passport setup
-app.use(session({
-  secret: process.env.JWT_SECRET,
-  resave: false,
-  saveUninitialized: true
+// Middleware
+app.use(cors({
+  origin: ["http://localhost:5173", "https://hirenexon.com"],
+  credentials: true
 }));
 
+app.use(express.json());
 app.use(passport.initialize());
-app.use(passport.session());
 
 // Routes
 app.use("/api/users", userRoutes);
@@ -43,16 +43,16 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/auth", forgotPasswordRoutes);
 app.use("/api/social", socialAuthRoutes);
 
-// =================== Email Setup ===================
+// Email Setup 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.HIRENEXON_EMAIL, // store your email in .env
-    pass: process.env.HIRENEXON_APP_PASSWORD, // store app password in .env
+    user: process.env.HIRENEXON_EMAIL, 
+    pass: process.env.HIRENEXON_APP_PASSWORD, 
   },
 });
 
-// =================== Registration Email Route ===================
+// Registration Email Route 
 app.post("/api/send-registration-email", async (req, res) => {
   const { email, username } = req.body;
 
@@ -91,7 +91,7 @@ app.post("/api/send-registration-email", async (req, res) => {
   }
 });
 
-// =================== Forgot Password Email Route ===================
+// Forgot Password Email Route 
 app.post("/api/send-forgot-email", async (req, res) => {
   const { email, resetLink } = req.body;
   const frontendBase = "https://hirenexon.com";
@@ -127,8 +127,7 @@ app.post("/api/send-forgot-email", async (req, res) => {
   }
 });
 
-
-// =================== Default & Error Routes ===================
+// Default & Error Routes 
 app.get("/", (_req, res) => {
   res.send("✅ HireNexon Backend Running Successfully 🚀");
 });
@@ -142,7 +141,7 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ message: "❌ Internal server error" });
 });
 
-// =================== Start Server ===================
+// Start Server 
 const startServer = async () => {
   try {
     await connectDB();

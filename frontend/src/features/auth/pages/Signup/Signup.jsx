@@ -50,6 +50,7 @@ const Signup = () => {
       const response = await fetch(`${API}/api/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({
           username: formData.username,
           email: formData.email,

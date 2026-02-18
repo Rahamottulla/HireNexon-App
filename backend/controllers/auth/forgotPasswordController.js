@@ -1,15 +1,14 @@
 // backend/controllers/forgotPasswordController.js
-import User from "../models/users.js";
+import User from "../../models/user.js";
+import nodemailer from 'nodemailer';
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import nodemailer from 'nodemailer';
 dotenv.config();
+
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// =====================
 // FORGOT PASSWORD
-// =====================
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
   try {
@@ -20,19 +19,20 @@ export const forgotPassword = async (req, res) => {
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
 
     // Create reset link
-    const resetLink = `http://hirenexon.com/reset-password?token=${token}`;
+    const resetLink = `https://hirenexon.com/reset-password?token=${token}`;
 
     // Email setup
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+      user: process.env.HIRENEXON_EMAIL,
+      pass: process.env.HIRENEXON_APP_PASSWORD,
+
       },
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: process.env.HIRENEXON_EMAIL,
       to: user.email,
       subject: 'HireSphere Password Reset',
       html: `<p>Click <a href="${resetLink}">here</a> to reset your password. This link is valid for 1 hour.</p>`,
@@ -46,9 +46,7 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
-// =====================
 // RESET PASSWORD
-// =====================
 export const resetPassword = async (req, res) => {
   const { token, password } = req.body;
   try {
@@ -61,3 +59,5 @@ export const resetPassword = async (req, res) => {
     res.status(400).json({ message: "Invalid or expired token" });
   }
 };
+
+
