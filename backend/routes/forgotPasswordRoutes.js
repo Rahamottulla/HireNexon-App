@@ -1,3 +1,4 @@
+//backend/routes/forgotPasswordRoutes.js
 import express from "express";
 import { forgotPassword, resetPassword } from "../controllers/auth/forgotPasswordController.js";
 

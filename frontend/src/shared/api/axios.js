@@ -3,7 +3,8 @@ import axios from "axios";
 import { API_TIMEOUT } from "./config";
 
 const api = axios.create({
-  baseURL: "",
+  baseURL: import.meta.env.VITE_API_URL || "/api",
+
   timeout: API_TIMEOUT,
   headers: {
     "Content-Type": "application/json",

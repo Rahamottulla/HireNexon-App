@@ -6,9 +6,7 @@ import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
-// =====================
 // CREATE JOB (Protected)
-// =====================
 router.post(
   "/",
   auth,
@@ -42,9 +40,7 @@ router.post(
   }
 );
 
-// =====================
 // GET ALL JOBS (Public)
-// =====================
 router.get("/", async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -62,9 +58,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// =====================
 // GET SINGLE JOB (Public)
-// =====================
 router.get(
   "/:id",
   [param("id").isMongoId().withMessage("Invalid Job ID")],
@@ -87,9 +81,7 @@ router.get(
   }
 );
 
-// =====================
 // UPDATE JOB (Protected, Only Owner)
-// =====================
 router.put(
   "/:id",
   auth,
@@ -122,9 +114,7 @@ router.put(
   }
 );
 
-// =====================
 // DELETE JOB (Protected, Only Owner)
-// =====================
 router.delete(
   "/:id",
   auth,
@@ -156,3 +146,4 @@ router.delete(
 );
 
 export default router;
+
