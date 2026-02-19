@@ -17,7 +17,7 @@ const EmailVerify = () => {
 
     try {
       const res = await fetch(
-        "https://hirenexon-app.onrender.com/api/users/send-verification-email",
+        "https://api.hirenexon.com/api/users/send-verification-email",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
