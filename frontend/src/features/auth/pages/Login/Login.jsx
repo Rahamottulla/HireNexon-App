@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useAuth } from "@/features/auth/context/AuthContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({ loginInput: "", password: "" });
@@ -142,7 +142,7 @@ const Login = () => {
           <button
             onClick={() =>
               (window.location.href =
-                "https://hirenexon-app.onrender.com/api/social/google")
+                "https://api.hirenexon.com/api/social/google")
             }
             className="flex flex-1 items-center justify-center gap-2 rounded-md border border-gray-300 bg-white py-2 text-sm font-medium text-red-600 transition hover:border-red-500 hover:bg-red-50"
           >
@@ -153,7 +153,7 @@ const Login = () => {
           <button
             onClick={() =>
               (window.location.href =
-                "https://hirenexon-app.onrender.com/api/social/microsoft")
+                "https://api.hirenexon.com/api/social/microsoft")
             }
             className="flex flex-1 items-center justify-center gap-2 rounded-md border border-gray-300 bg-white py-2 text-sm font-medium text-blue-600 transition hover:border-blue-500 hover:bg-blue-50"
           >
