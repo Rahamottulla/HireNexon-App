@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "@/features/auth/context/AuthContext";
 
 const ResetPassword = () => {
@@ -20,6 +21,16 @@ const ResetPassword = () => {
     e.preventDefault();
     setError("");
     setSuccess("");
+    
+    if (!token) {
+    setError("Invalid or expired reset link.");
+    return;
+    }
+    
+    if (newPassword.length < 8) {
+    setError("Password must be at least 8 characters long.");
+    return;
+  }
 
     if (newPassword !== confirmPassword) {
       setError("Passwords do not match");
@@ -37,13 +48,39 @@ const ResetPassword = () => {
       setIsLoading(false);
     }
   };
+  
+  if (!token) {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-5">
+      <div className="w-full max-w-[400px] rounded-xl bg-white px-10 py-8 text-center shadow-xl">
+        <h2 className="text-xl font-semibold text-red-600 mb-4">
+        Reset Link Expired
+        </h2>
+        <p className="text-gray-600 text-sm mb-6">
+        This password reset link is no longer valid.
+        Please request a new one below.
+        </p>
+        <button
+          onClick={() => navigate("/forgot-password")}
+          className="rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-500"
+        >
+          Request New Link
+        </button>
+      </div>
+    </div>
+  );
+} 
+  const isDisabled =
+  isLoading ||
+  newPassword.length < 8 ||
+  newPassword !== confirmPassword;
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-5">
       <div className="w-full max-w-[400px] rounded-xl bg-white px-10 py-8 text-center shadow-xl">
         <div className="mb-4 flex justify-center">
           <img
-            src="/images/hirenexon-logo.png"
+            src="/images/public/hi.png"
             alt="HireNexon Logo"
             className="h-[130px] w-[150px] object-contain"
           />
@@ -87,11 +124,11 @@ const ResetPassword = () => {
                 className="w-full rounded-md border border-gray-300 px-3 py-2 pr-14 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
               />
               <button
-                type="button"
-                onClick={() => setShowNewPassword(!showNewPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-blue-600"
+              type="button"
+              onClick={() => setShowNewPassword(prev => !prev)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[17px] text-blue-600"
               >
-                {showNewPassword ? "Hide" : "Show"}
+              {showNewPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
           </div>
@@ -114,20 +151,18 @@ const ResetPassword = () => {
                 className="w-full rounded-md border border-gray-300 px-3 py-2 pr-14 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
               />
               <button
-                type="button"
-                onClick={() =>
-                  setShowConfirmPassword(!showConfirmPassword)
-                }
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-blue-600"
+              type="button"
+              onClick={() => setShowConfirmPassword(prev => !prev)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[17px] text-blue-600"
               >
-                {showConfirmPassword ? "Hide" : "Show"}
+              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
           </div>
 
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={isDisabled}
             className="w-full rounded-md bg-blue-600 py-3 text-base font-medium text-white transition hover:bg-blue-500 disabled:opacity-60"
           >
             {isLoading ? "Resetting..." : "Reset Password"}
