@@ -78,7 +78,7 @@ const ResetPassword = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-5">
       <div className="w-full max-w-[400px] rounded-xl bg-white px-10 py-8 text-center shadow-xl">
-        <div className="mb-4 flex justify-center">
+        <div className="mb-2 flex justify-center">
           <img
             src="/images/public/hi.png"
             alt="HireNexon Logo"
@@ -86,7 +86,7 @@ const ResetPassword = () => {
           />
         </div>
 
-        <h2 className="mb-2 text-2xl font-semibold text-gray-800">
+        <h2 className="mb-1 text-2xl font-semibold text-gray-800">
           Set a New Password
         </h2>
         <p className="mb-6 text-sm text-gray-500">
