@@ -1,11 +1,11 @@
-// backend/routes/userRoutes.js
+// backend/features/user/user.routes.js
 import express from "express";
 import jwt from "jsonwebtoken";
-import { register, login, verifyEmail } from "../controllers/auth/authController.js";
-import { updateProfile } from "../controllers/user/userController.js";
-import auth from "../middleware/auth.js";
-import User from "../models/user.js";
-import sendEmail from "../utils/sendEmail.js";
+import { register, login, verifyEmail } from "../auth/auth.controller.js";
+import { updateProfile } from "./user.controller.js";
+import auth from "../../middleware/auth.js";
+import User from "./user.model.js";
+import sendEmail from "../../utils/sendEmail.js";
 
 const router = express.Router();
 router.post("/register", register);

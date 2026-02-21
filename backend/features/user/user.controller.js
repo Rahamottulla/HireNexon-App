@@ -1,5 +1,5 @@
-// backend/controllers/user/userController.js
-import User from "../../models/user.js";
+// backend/features/user/user.controller.js
+import User from "../user/user.model.js";
 
 // UPDATE USER PROFILE
 export const updateProfile = async (req, res) => {

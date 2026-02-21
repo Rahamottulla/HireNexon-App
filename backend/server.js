@@ -9,11 +9,12 @@ import connectDB from "./config/db.js";
 import "./config/passport.js";
 import passport from "passport"; //continue with google & microsoft
 
-// Import routes
-import userRoutes from "./routes/userRoutes.js";
-import jobRoutes from "./routes/jobRoutes.js";
-import forgotPasswordRoutes from "./routes/forgotPasswordRoutes.js";
-import socialAuthRoutes from "./routes/socialAuthRoutes.js";
+// Import Feature Routes
+import userRoutes from "./features/user/user.routes.js";
+import jobRoutes from "./features/job/job.routes.js";
+import authRoutes from "./features/auth/auth.routes.js";
+import forgotPasswordRoutes from "./features/auth/forgotPassword.routes.js";
+import socialAuthRoutes from "./features/auth/socialAuth.routes.js";
 
 // Port
 const PORT = process.env.PORT || 5000;
@@ -36,8 +37,9 @@ app.use(passport.initialize());
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/jobs", jobRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/auth", forgotPasswordRoutes);
-app.use("/api/social", socialAuthRoutes);
+app.use("/api/auth", socialAuthRoutes);
 
 // Default & Error Routes 
 app.get("/", (_req, res) => {

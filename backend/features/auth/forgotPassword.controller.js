@@ -1,5 +1,5 @@
-// backend/controllers/forgotPasswordController.js
-import User from "../../models/user.js";
+// backend/features/auth/forgotPassword.controller.js
+import User from "../user/user.model.js";
 import sendEmail from "../../utils/sendEmail.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";

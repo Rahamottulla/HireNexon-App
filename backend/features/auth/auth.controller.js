@@ -1,5 +1,5 @@
-// backend/controllers/auth/authController.js
-import User from "../../models/user.js";
+// backend/features/auth/auth.controller.js
+import User from "../user/user.model.js";
 import sendEmail from "../../utils/sendEmail.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
