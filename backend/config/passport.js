@@ -3,7 +3,7 @@ import passport from "passport";
 import GoogleStrategy from "passport-google-oauth20";
 import MicrosoftStrategy from "passport-microsoft";
 import jwt from "jsonwebtoken";
-import User from "../models/user.js";
+import User from "../features/user/user.model.js";
 import dotenv from "dotenv";
 dotenv.config();
 
