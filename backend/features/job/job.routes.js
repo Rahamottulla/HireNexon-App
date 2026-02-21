@@ -10,14 +10,14 @@ import {
   deleteJob,
 } from "./job.controller.js";
 
-import { protect } from "../../middleware/auth.js";
+import auth from "../../middleware/auth.js";
 
 const router = express.Router();
 
 // CREATE JOB (Protected)
 router.post(
   "/",
-  protect,
+  auth("employer"),
   [
     body("title").notEmpty().withMessage("Title is required"),
     body("companyId").notEmpty().withMessage("Company ID is required"),
@@ -54,10 +54,10 @@ router.get(
   getJobById
 );
 
-// UPDATE JOB (Protected)
-router.put("/:id", protect, updateJob);
+// UPDATE JOB
+router.put("/:id", auth("employer"), updateJob);
 
-// DELETE JOB (Protected)
-router.delete("/:id", protect, deleteJob);
+// DELETE JOB
+router.delete("/:id", auth("employer"), deleteJob);
 
 export default router;
