@@ -1,14 +1,14 @@
 // backend/features/auth/auth.routes.js
 import express from "express";
-import { registerUser, loginUser } from "./auth.controller.js";
+import { register, login } from "./auth.controller.js";
 import forgotRoutes from "./forgotPassword.routes.js";
 import socialRoutes from "./socialAuth.routes.js";
 
 const router = express.Router();
 
 // Main Auth Routes
-router.post("/register", registerUser);
-router.post("/login", loginUser);
+router.post("/register", register);
+router.post("/login", login);
 
 // Nested Routes
 router.use("/password", forgotRoutes);
