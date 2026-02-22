@@ -9,7 +9,7 @@ import { authorizeUniversity } from "../../middleware/role.js";
 
 const router = express.Router();
 
-router.post("/", protect, authorizeUniversity, createUniversityProfile);
+router.post("/", protect, createUniversityProfile);
 router.get("/me", protect, authorizeUniversity, getUniversityProfile);
 
 export default router;
