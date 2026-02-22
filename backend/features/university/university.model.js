@@ -3,16 +3,53 @@ import mongoose from "mongoose";
 
 const universitySchema = new mongoose.Schema(
   {
-    user: {
+    name: {
+      type: String,
+      required: true,
+    },
+
+    universityType: {
+      type: String,
+      enum: [
+        "Government",
+        "Private",
+        "Deemed",
+        "Autonomous",
+        "International",
+      ],
+      required: true,
+    },
+    
+    location: {
+      type: String,
+      required: true,
+    },
+
+    email: {
+      type: String,
+      default: null,
+    },
+
+    website: {
+      type: String,
+      default: null,
+    },
+
+    logo: {
+      type: String,
+      default: null,
+    },
+
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+
+    createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      unique: true
     },
-    universityName: { type: String, required: true },
-    location: { type: String },
-    contactEmail: { type: String },
-    verified: { type: Boolean, default: false }
   },
   { timestamps: true }
 );
