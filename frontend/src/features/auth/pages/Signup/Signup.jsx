@@ -9,14 +9,46 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
+  const API = import.meta.env.VITE_API_URL || "";
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
-  const navigate = useNavigate();
-  const API = import.meta.env.VITE_API_URL || "";
+  //cooldown
+  const [cooldown, setCooldown] = useState(0);
+  const [resendMessage, setResendMessage] = useState("");
+  React.useEffect(() => {
+  if (cooldown <= 0) return;
+
+  const timer = setInterval(() => {
+    setCooldown((prev) => prev - 1);
+  }, 1000);
+
+  return () => clearInterval(timer);
+}, [cooldown]);
+  
+  const handleResend = async () => {
+  try {
+    setResendMessage("");
+    const response = await fetch(`${API}/api/auth/resend-verification`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: formData.email }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message);
+
+    setResendMessage("Verification email sent again!");
+    setCooldown(60);
+  } catch (err) {
+    setResendMessage(err.message || "Failed to resend email.");
+  }
+}; 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,7 +79,7 @@ const Signup = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${API}/api/users/register`, {
+      const response = await fetch(`${API}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -62,6 +94,7 @@ const Signup = () => {
       if (!response.ok) throw new Error(data.message || "Signup failed");
 
       setShowSuccessPopup(true);
+      setCooldown(60);
     } catch (err) {
       setError(err.message || "Signup failed. Please try again.");
     } finally {
@@ -198,6 +231,26 @@ const Signup = () => {
               A verification email has been sent to{" "}
               <b>{formData.email}</b>.
             </p>
+             <div className="mb-4 text-sm text-gray-600">
+             Didn’t receive the email?
+            </div>
+
+            <button
+            onClick={handleResend}
+            disabled={cooldown > 0}
+            className="mb-3 text-blue-600 hover:underline disabled:opacity-50"
+            >
+            {cooldown > 0
+            ? `Resend available in ${cooldown}s`
+            : "Resend Verification Email"}
+            </button>
+
+            {resendMessage && (
+             <div className="mb-3 text-sm text-green-600">
+            {resendMessage}
+            </div>
+            )}
+
             <button
               onClick={handleLoginRedirect}
               className="rounded-lg bg-blue-600 px-8 py-2 text-[15px] text-white transition hover:bg-blue-700"

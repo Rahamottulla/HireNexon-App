@@ -12,12 +12,57 @@ const Login = () => {
 
   const { login } = useAuth();
   const navigate = useNavigate();
+   
+  const [allowResend, setAllowResend] = useState(false);
+  const [resendEmail, setResendEmail] = useState("");
+  const [cooldown, setCooldown] = useState(0);
+  const [resendMessage, setResendMessage] = useState("");
+  
+  React.useEffect(() => {
+  if (cooldown <= 0) return;
+
+  const timer = setInterval(() => {
+    setCooldown((prev) => prev - 1);
+  }, 1000);
+
+  return () => clearInterval(timer);
+}, [cooldown]);
+  
+   const API = import.meta.env.VITE_API_URL || "";
+
+const handleResend = async () => {
+  try {
+    setResendMessage("");
+
+    const response = await fetch(`${API}/api/auth/resend-verification`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: resendEmail }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message);
+
+    setResendMessage(data.message);
+    setCooldown(60);
+  } catch (err) {
+    setResendMessage(err.message || "Failed to resend email.");
+  }
+};  
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (error) setError("");
-    if (success) setSuccess("");
-  };
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  if (error) setError("");
+  if (success) setSuccess("");
+
+  // Reset resend UI if user edits input
+  if (allowResend) {
+    setAllowResend(false);
+    setResendMessage("");
+    setCooldown(0);
+  }
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,6 +102,12 @@ switch (role) {
 }
     } catch (err) {
       setError(err.message || "Login failed. Please try again.");
+
+    // If backend allows resend
+    if (err.allowResend) {
+    setAllowResend(true);
+    setResendEmail(formData.loginInput.trim());
+  }
     } finally {
       setIsLoading(false);
     }
@@ -80,6 +131,27 @@ switch (role) {
           </div>
         )}
 
+    {allowResend && error && (
+    <div className="mb-4 text-sm text-gray-600">
+    <p className="mb-2">Didn’t receive the verification email?</p>
+
+    <button
+      onClick={handleResend}
+      disabled={cooldown > 0}
+      className="text-blue-600 hover:underline disabled:opacity-50"
+    >
+      {cooldown > 0
+        ? `Resend available in ${cooldown}s`
+        : "Resend Verification Email"}
+    </button>
+
+    {resendMessage && (
+      <div className="mt-2 text-green-600 text-sm">
+        {resendMessage}
+      </div>
+    )}
+  </div>
+)}
         {success && (
           <div className="mb-4 rounded-md bg-green-100 px-3 py-2 text-sm font-medium text-green-700">
             {success}

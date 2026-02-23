@@ -19,8 +19,10 @@ const UserSchema = new mongoose.Schema(
       match: [/^\S+@\S+\.\S+$/, "Please use a valid email address"]
     },
     isVerified: { type: Boolean, default: false },
+    
+    lastVerificationSentAt: {type: Date },
 
-    password: { type: String, required: true },
+    password: { type: String, required: true, minlength: 6, select: false  },
 
     role: {
       type: String,
@@ -63,6 +65,8 @@ const UserSchema = new mongoose.Schema(
 
 // Index for faster filtering
 UserSchema.index({ role: 1 });
+UserSchema.index({ username: 1 });
+UserSchema.index({ email: 1 }, { unique: true });
 
 // Hash password
 UserSchema.pre("save", async function (next) {

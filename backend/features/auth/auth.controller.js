@@ -4,6 +4,8 @@ import sendEmail from "../../utils/sendEmail.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
+import crypto from "crypto";
+import EmailVerificationToken from "./emailVerificationToken.model.js";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:5000";
@@ -16,8 +18,47 @@ export const register = async (req, res) => {
   try {
     // Check if user already exists
     const existingUser = await User.findOne({ email: email.toLowerCase() });
-    if (existingUser)
-      return res.status(400).json({ message: "User already exists" });
+
+  if (existingUser) {
+  if (existingUser.isVerified) {
+    return res.status(400).json({ message: "User already exists. Please login." });
+  }
+
+  // ADD THIS COOL DOWN CHECK
+  if (
+    existingUser.lastVerificationSentAt &&
+    Date.now() - existingUser.lastVerificationSentAt.getTime() < 60 * 1000
+  ) {
+    return res.status(429).json({
+      message: "Please wait before requesting another verification email.",
+    });
+  }
+
+  // If user exists but NOT verified → resend new token
+  await EmailVerificationToken.deleteMany({ userId: existingUser._id });
+
+  const rawToken = crypto.randomBytes(32).toString("hex");
+  const tokenHash = crypto.createHash("sha256").update(rawToken).digest("hex");
+
+  await EmailVerificationToken.create({
+    userId: existingUser._id,
+    tokenHash,
+    expiresAt: Date.now() + 60 * 60 * 1000,
+  });
+
+  existingUser.lastVerificationSentAt = new Date();
+  await existingUser.save();
+  const verifyUrl = `${BACKEND_URL}/api/auth/verify-email/${rawToken}`;
+
+  await sendEmail(existingUser.email, "Verify Your HireNexon Account", `
+    Click below to verify:
+    <a href="${verifyUrl}">Verify Email</a>
+  `);
+
+  return res.status(200).json({
+    message: "Account exists but not verified. Verification email resent.",
+  });
+}
 
     // Create new user
     const newUser = new User({
@@ -28,11 +69,19 @@ export const register = async (req, res) => {
     });
     await newUser.save();
 
-    // Generate JWT verification token (expires in 1 hour)
-    const token = jwt.sign({ email: newUser.email }, JWT_SECRET, { expiresIn: "1h" });
+// Generate JWT verification token (expires in 1 hour)
+const rawToken = crypto.randomBytes(32).toString("hex");
+const tokenHash = crypto.createHash("sha256").update(rawToken).digest("hex");
 
-  const verifyUrl = `${BACKEND_URL}/api/users/verify/${token}`;
+await EmailVerificationToken.create({
+  userId: newUser._id,
+  tokenHash,
+  expiresAt: Date.now() + 60 * 60 * 1000,
+});
+newUser.lastVerificationSentAt = new Date();
+await newUser.save();
 
+const verifyUrl = `${BACKEND_URL}/api/auth/verify-email/${rawToken}`;
 
    // Send verification email
    try {
@@ -109,21 +158,91 @@ export const verifyEmail = async (req, res) => {
   const { token } = req.params;
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findOne({ email: decoded.email });
-    if (!user) return res.status(400).send("Invalid verification link");
+    const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
 
-    if (!user.isVerified) {
-      user.isVerified = true;
-      await user.save();
+    const tokenDoc = await EmailVerificationToken.findOne({
+      tokenHash,
+      expiresAt: { $gt: Date.now() },
+    });
+
+    if (!tokenDoc) {
+      return res.status(400).send("Invalid or expired verification link");
     }
 
-    // Redirect to frontend verification success page
+    const user = await User.findById(tokenDoc.userId);
+    if (!user) {
+      return res.status(400).send("User not found");
+    }
+
+    user.isVerified = true;
+    await user.save();
+
+    await EmailVerificationToken.deleteMany({ userId: user._id });
+
     res.redirect(`${FRONTEND_URL}/verify-success`);
 
   } catch (err) {
     console.error(err);
     res.status(400).send("Invalid or expired verification link");
+  }
+};
+
+// Resend Verification
+export const resendVerification = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email: email.toLowerCase() });
+    if (!user) {
+      return res.json({
+        message:
+          "If the account exists and is not verified, a verification email has been sent.",
+      });
+    }
+
+    if (user.isVerified) {
+      return res.json({ message: "Email already verified." });
+    }
+
+    // Cooldown (60 sec)
+    if (
+      user.lastVerificationSentAt &&
+      Date.now() - user.lastVerificationSentAt.getTime() < 60 * 1000
+    ) {
+      return res.status(429).json({
+        message: "Please wait before requesting another verification email.",
+      });
+    }
+
+    await EmailVerificationToken.deleteMany({ userId: user._id });
+
+    const rawToken = crypto.randomBytes(32).toString("hex");
+    const tokenHash = crypto.createHash("sha256").update(rawToken).digest("hex");
+
+    await EmailVerificationToken.create({
+      userId: user._id,
+      tokenHash,
+      expiresAt: Date.now() + 60 * 60 * 1000,
+    });
+    
+
+    user.lastVerificationSentAt = new Date();
+    await user.save();
+
+    const verifyUrl = `${BACKEND_URL}/api/auth/verify-email/${rawToken}`;
+
+    await sendEmail(user.email, "Verify Your HireNexon Account", `
+      Click below to verify:
+      <a href="${verifyUrl}">Verify Email</a>
+    `);
+
+    res.json({
+      message:
+        "If the account exists and is not verified, a verification email has been sent.",
+    });
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -136,12 +255,15 @@ export const login = async (req, res) => {
       ? { email: loginInput.toLowerCase() }
       : { username: loginInput };
 
-    const user = await User.findOne(query);
+    const user = await User.findOne(query).select("+password");
     if (!user) return res.status(400).json({ message: "User not found" });
 
     if (!user.isVerified)
-    return res.status(403).json({ message: "Please verify your email before logging in." });
+    return res.status(403).json({ message: "Please verify your email before logging in.",
+    allowResend: true
+    });
 
+    //compare password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
