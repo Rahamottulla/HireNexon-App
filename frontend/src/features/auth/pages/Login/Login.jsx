@@ -33,20 +33,28 @@ const Login = () => {
 
       setSuccess("Login successful! Redirecting...");
 
-      const role = data.user.role || "user";
-      switch (role) {
-        case "user":
-          navigate("/candidate/dashboard", { replace: true });
-          break;
-        case "organization":
-          navigate("/organization/dashboard", { replace: true });
-          break;
-        case "admin":
-          navigate("/admin/dashboard", { replace: true });
-          break;
-        default:
-          navigate("/candidate/dashboard", { replace: true });
-      }
+      const role = data.user.role;
+
+switch (role) {
+  case "student":
+    navigate("/candidate/dashboard", { replace: true });
+    break;
+
+  case "company":
+    navigate("/company/dashboard", { replace: true });
+    break;
+
+  case "university":
+    navigate("/university/dashboard", { replace: true });
+    break;
+
+  case "admin":
+    navigate("/admin/dashboard", { replace: true });
+    break;
+
+  default:
+    navigate("/", { replace: true });
+}
     } catch (err) {
       setError(err.message || "Login failed. Please try again.");
     } finally {

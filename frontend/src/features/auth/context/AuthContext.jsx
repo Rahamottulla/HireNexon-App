@@ -9,8 +9,7 @@ const AuthContext = createContext(null);
 export const useAuth = () => useContext(AuthContext);
 
 const mapRole = (role) => {
-  if (!role) return "candidate";
-  if (role.toLowerCase() === "user") return "candidate";
+  if (!role) return null;
   return role.toLowerCase();
 };
 
