@@ -210,7 +210,7 @@ export const resendVerification = async (req, res) => {
       Date.now() - user.lastVerificationSentAt.getTime() < 60 * 1000
     ) {
       return res.status(429).json({
-        message: "Please wait before requesting another verification email.",
+        message: "Verification email already sent!",
       });
     }
 
@@ -238,7 +238,7 @@ export const resendVerification = async (req, res) => {
 
     res.json({
       message:
-        "If the account exists and is not verified, a verification email has been sent.",
+        "A verification email has been sent to your email, please check.",
     });
 
   } catch (err) {
