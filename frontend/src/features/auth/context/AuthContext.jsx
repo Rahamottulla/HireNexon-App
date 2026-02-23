@@ -84,25 +84,33 @@ export const AuthProvider = ({ children }) => {
 
   // LOGIN
   const login = useCallback(
-    async (credentials, role = "candidate") => {
-      try {
-        const res = await authAPI.login(credentials, role);
+  async (credentials, role = "candidate") => {
+    try {
+      const res = await authAPI.login(credentials, role);
 
-        if (res?.data?.user && res?.data?.token) {
-          saveUser(res.data.user, res.data.token);
-          return res.data;
-        }
-
-        throw new Error("Invalid server response");
-      } catch (error) {
-        console.error("Login error:", error);
-        throw new Error(
-          error.response?.data?.message || "Login failed"
-        );
+      if (res?.data?.user && res?.data?.token) {
+        saveUser(res.data.user, res.data.token);
+        return res.data;
       }
-    },
-    [saveUser]
-  );
+
+      throw new Error("Invalid server response");
+    } catch (error) {
+      console.error("Login error:", error);
+
+      const backendMessage =
+        error.response?.data?.message || "Login failed";
+
+      const backendAllowResend =
+        error.response?.data?.allowResend || false;
+
+      const customError = new Error(backendMessage);
+      customError.allowResend = backendAllowResend;
+
+      throw customError;
+    }
+  },
+  [saveUser]
+);
 
   // SIGNUP
   const signup = useCallback(async (userData, role = "candidate") => {
