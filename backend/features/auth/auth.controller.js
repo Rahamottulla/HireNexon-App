@@ -157,8 +157,12 @@ export const login = async (req, res) => {
     id: user._id,
     username: user.username,
     email: user.email,
-    role: user.role || 'user',
-    skills: user.skills || []
+    role: user.role || "student",
+    studentType: user.studentType,
+    isCampusVerified: user.isCampusVerified,
+    campusVerificationStatus: user.campusVerificationStatus,
+    universityId: user.universityId,
+    organizationId: user.organizationId,
   },
   token,
 });
