@@ -22,13 +22,11 @@ const PORT = process.env.PORT || 5000;
 
 // Initialize Express(trust proxy for render)
 const app = express();
-if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", 1);
-}
 
 // Middleware
 app.use(cors({
-  origin: ["http://localhost:5173", "https://hirenexon.com"],
+  origin: ["http://localhost:5173", "https://hirenexon.com", "https://www.hirenexon.com"],
   credentials: true
 }));
 
