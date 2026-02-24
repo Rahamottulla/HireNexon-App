@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 console.log("Environment loaded");
 
+import cookieParser from "cookie-parser";
 import express from "express";
 import cors from "cors";
 import connectDB from "./config/db.js";
@@ -32,6 +33,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(passport.initialize());
 
 // Routes
