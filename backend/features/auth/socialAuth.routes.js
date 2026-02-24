@@ -20,7 +20,8 @@ router.get(
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,   
-      sameSite: "None", 
+      sameSite: "None",
+      domain: ".hirenexon.com",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
@@ -45,6 +46,7 @@ router.get(
       httpOnly: true,
       secure: true,
       sameSite: "None",
+      domain: ".hirenexon.com",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
@@ -58,6 +60,7 @@ router.get("/logout", (_req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "None",
+    domain: ".hirenexon.com",
   });
 
   res.redirect(`${process.env.FRONTEND_URL}/login`);
