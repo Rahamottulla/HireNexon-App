@@ -39,7 +39,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/auth", forgotPasswordRoutes);
-app.use("/api/auth", socialAuthRoutes);
+app.use("/api/social", socialAuthRoutes);
 
 // Health
 app.get("/health", (_req, res) => {
