@@ -41,6 +41,12 @@ app.use("/api/auth", authRoutes);
 app.use("/api/auth", forgotPasswordRoutes);
 app.use("/api/auth", socialAuthRoutes);
 
+// Health
+app.get("/health", (_req, res) => {
+  console.log("Health check ping received");
+  res.status(200).json({ status: "OK" });
+});
+
 // Default & Error Routes 
 app.get("/", (_req, res) => {
   res.send("✅ HireNexon Backend Running Successfully 🚀");
