@@ -1,4 +1,6 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { initGA, trackPageView } from "@/shared/utils/analytics";
 import AdminDashboard from "@/features/admin/pages/AdminDashboard";
 
 /* Layouts */
@@ -49,7 +51,18 @@ import PostJob from "@/features/company/pages/PostJob";
 import ManageCandidates from "@/features/company/pages/ManageCandidates";
 import Reports from "@/features/company/pages/Reports";
 
+
 const AppRoutes = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    initGA();
+  }, []);
+
+  useEffect(() => {
+    trackPageView(location.pathname);
+  }, [location]);
+
   return (
     <Routes>
       {/* 🌍 Public */}
