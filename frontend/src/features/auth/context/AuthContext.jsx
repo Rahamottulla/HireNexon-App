@@ -1,8 +1,10 @@
 // src/features/auth/context/AuthContext.jsx
 import {createContext, useContext, useState, useEffect, useMemo, useCallback,} from "react";
+import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import api from "@/shared/api/axios";
 import { authAPI } from "@/features/auth/services/auth.api";
+
 
 const AuthContext = createContext(null);
 
@@ -14,6 +16,7 @@ const mapRole = (role) => {
 };
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -23,8 +26,8 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     delete api.defaults.headers.common.Authorization;
-    window.location.href = "/login";
-  }, []);
+    navigate("/login");
+  }, [navigate]);
 
   // RESTORE SESSION
   useEffect(() => {
@@ -36,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         const parsedUser = JSON.parse(storedUser);
         const decoded = jwtDecode(token);
 
-        if (decoded.exp * 1000 < Date.now()) {
+        if (!decoded?.exp || decoded.exp * 1000 < Date.now()) {
           logout();
         } else {
           const normalizedUser = {
@@ -75,7 +78,7 @@ export const AuthProvider = ({ children }) => {
     const normalizedUser = {
       ...updatedUser,
       name: updatedUser.name || updatedUser.username,
-      role: mapRole(parsedUser.role),
+      role: mapRole(updatedUser.role),
     };
 
     setCurrentUser(normalizedUser);
@@ -84,9 +87,9 @@ export const AuthProvider = ({ children }) => {
 
   // LOGIN
   const login = useCallback(
-  async (credentials, role = "candidate") => {
+  async (credentials) => {
     try {
-      const res = await authAPI.login(credentials, role);
+      const res = await authAPI.login(credentials);
 
       if (res?.data?.user && res?.data?.token) {
         saveUser(res.data.user, res.data.token);
@@ -113,8 +116,8 @@ export const AuthProvider = ({ children }) => {
 );
 
   // SIGNUP
-  const signup = useCallback(async (userData, role = "candidate") => {
-    const res = await authAPI.register(userData, role);
+  const signup = useCallback(async (userData) => {
+    const res = await authAPI.register(userData);
     return res.data;
   }, []);
 
