@@ -1,6 +1,6 @@
 //backend/features/university/university.routes.js
 import express from "express";
-import { protect } from "../../middleware/auth.js";
+import { auth } from "../../middleware/auth.js";
 import { authorizeUniversity } from "../../middleware/role.js";
 import { createUniversityProfile, getUniversityProfile, getUniversityPlacementStats
 } from "./university.controller.js";
