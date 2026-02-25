@@ -86,7 +86,7 @@ const AppRoutes = () => {
       <Route
         path="/candidate/*"
         element={
-          <ProtectedRoute role="student">
+          <ProtectedRoute role="candidate">
             <CandidateLayout />
           </ProtectedRoute>
         }
