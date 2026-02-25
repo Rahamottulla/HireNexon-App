@@ -26,11 +26,11 @@ const UserSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["student", "company", "university", "admin"],
-      default: "student"
+      enum: ["candidate", "company", "university", "admin"],
+      default: "candidate"
     },
 
-    studentType: {
+    candidateType: {
      type: String,
      enum: ["campus", "professional"],
      default: "professional",
@@ -50,6 +50,9 @@ const UserSchema = new mongoose.Schema(
     universityId: {
      type: mongoose.Schema.Types.ObjectId,
      ref: "University",
+     required: function () {
+    return this.role === "candidate" && this.candidateType === "campus";
+    },
      default: null,
     },
 

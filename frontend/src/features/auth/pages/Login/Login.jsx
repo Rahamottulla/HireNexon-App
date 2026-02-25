@@ -81,7 +81,7 @@ const handleResend = async () => {
       const role = data.user.role;
 
 switch (role) {
-  case "student":
+  case "candidate":
     navigate("/candidate/dashboard", { replace: true });
     break;
 

@@ -266,9 +266,12 @@ export const login = async (req, res) => {
     //compare password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
-
+    
+    if (!JWT_SECRET) {
+    throw new Error("JWT_SECRET not defined");
+    }
     const token = jwt.sign(
-      { id: user._id, email: user.email, role: user.role || 'user' },
+      { id: user._id, email: user.email, role: user.role },
       JWT_SECRET,
       { expiresIn: "1d" }
     );
@@ -279,8 +282,9 @@ export const login = async (req, res) => {
     id: user._id,
     username: user.username,
     email: user.email,
-    role: user.role || "student",
-    studentType: user.studentType,
+    role: user.role,
+    candidateType: user.candidateType, //*
+
     isCampusVerified: user.isCampusVerified,
     campusVerificationStatus: user.campusVerificationStatus,
     universityId: user.universityId,
@@ -293,4 +297,5 @@ export const login = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 

@@ -10,22 +10,6 @@ const candidateProfileSchema = new mongoose.Schema(
       unique: true
     },
 
-    // Campus or Professional
-    profileType: {
-      type: String,
-      enum: ["campus", "professional"],
-      required: true
-    },
-
-    // Only required for campus students
-    universityId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "University",
-      required: function () {
-        return this.profileType === "campus";
-      }
-    },
-
     branch: { type: String },
     graduationYear: { type: Number },
 
