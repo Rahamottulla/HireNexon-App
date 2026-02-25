@@ -17,6 +17,9 @@ import authRoutes from "./features/auth/auth.routes.js";
 import forgotPasswordRoutes from "./features/auth/forgotPassword.routes.js";
 import socialAuthRoutes from "./features/auth/socialAuth.routes.js";
 
+//Import University Routes
+import universityRoutes from "./features/university/university.routes.js";
+
 // Port
 const PORT = process.env.PORT || 5000;
 
@@ -40,6 +43,8 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/auth", forgotPasswordRoutes);
 app.use("/api/social", socialAuthRoutes);
+
+app.use("/api/university", universityRoutes);
 
 // Health
 app.get("/health", (_req, res) => {
