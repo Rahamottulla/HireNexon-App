@@ -149,15 +149,6 @@ npm run dev
 ---
 
 ###🔐Environment Variables
-Create .env files based on .env.example.
-
-Backend (backend/.env)
-PORT=5000
-MONGO_URI=your_mongodb_url
-JWT_SECRET=your_secret_key
-
-Frontend (frontend/.env)
-VITE_BACKEND_URL=https://hirenexon-app.onrender.com
 
 ⚠️ Important:
 .env files are intentionally ignored from version control for security reasons.
@@ -189,4 +180,5 @@ Licensing details will be added in the future.
 ---
 
 HireNexon — Where Talent Meets Opportunity.***
+
 
