@@ -54,7 +54,13 @@ const applicationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Prevent double apply
+//Application schema
+applicationSchema.index({ candidate: 1 });
+applicationSchema.index({ company: 1 });
+applicationSchema.index({ university: 1 });
+applicationSchema.index({ candidate: 1, status: 1 });
+applicationSchema.index({ company: 1, status: 1 });
+applicationSchema.index({ job: 1, status: 1 });
 applicationSchema.index({ job: 1, candidate: 1 }, { unique: true });
 
 const Application = mongoose.model("Application", applicationSchema);

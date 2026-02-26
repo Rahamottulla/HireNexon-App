@@ -56,9 +56,9 @@ const UserSchema = new mongoose.Schema(
      default: null,
     },
 
-    organizationId: {
+    companyId: {
      type: mongoose.Schema.Types.ObjectId,
-     ref: "Organization",
+     ref: "Company",
      default: null,
     },
 
@@ -69,7 +69,9 @@ const UserSchema = new mongoose.Schema(
 // Index for faster filtering
 UserSchema.index({ role: 1 });
 UserSchema.index({ username: 1 });
-
+UserSchema.index({ email: 1 });
+UserSchema.index({ universityId: 1 });
+UserSchema.index({ companyId: 1 });
 
 // Hash password
 UserSchema.pre("save", async function (next) {
@@ -84,9 +86,19 @@ UserSchema.methods.comparePassword = async function (plainPassword) {
   return bcrypt.compare(plainPassword, this.password);
 };
 
+UserSchema.virtual("profile", {
+  ref: "CandidateProfile",
+  localField: "_id",
+  foreignField: "userId",
+  justOne: true,
+});
+
+UserSchema.set("toObject", { virtuals: true });
+UserSchema.set("toJSON", { virtuals: true });
+
 // Hide password
 UserSchema.methods.toJSON = function () {
-  const obj = this.toObject();
+  const obj = this.toObject({ virtuals: true });
   delete obj.password;
   return obj;
 };

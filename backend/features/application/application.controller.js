@@ -1,8 +1,8 @@
 //backend/features/application/application.controller.js
 import Application from "./application.model.js";
 import Job from "../job/job.model.js";
-import User from "../user/user.model.js";
-import CandidateProfile from "../candidate/candidateProfile.model.js";
+import Notification from "../notification/notification.model.js";
+import AppError from "../../utils/AppError.js";
 
 const allowedTransitions = {
   pending: ["reviewed", "rejected"],
@@ -12,63 +12,6 @@ const allowedTransitions = {
   hired: [],
   rejected: [],
 };
-
-// Optional filters
-const { status, universityId, branch, candidateType } = req.query;
-
-const filter = { job: jobId };
-
-if (status) {
-  filter.status = status;
-}
-
-// Fetch applications first
-let applications = await Application.find(filter)
-  .populate({
-    path: "candidate",
-    select: "username email candidateType universityId"
-  })
-  .lean();
-
-// Advanced filtering (post-populate filtering)
-applications = applications.filter((app) => {
-
-  if (universityId && app.candidate.universityId?.toString() !== universityId) {
-    return false;
-  }
-
-  if (candidateType && app.candidate.candidateType !== candidateType) {
-    return false;
-  }
-
-  return true;
-});
-
-// Attach profile & branch filtering
-const enrichedApplications = await Promise.all(
-  applications.map(async (app) => {
-    const profile = await CandidateProfile.findOne({ userId: app.candidate._id })
-      .select("skills branch graduationYear resumeUrl currentEmployment")
-      .lean();
-
-    if (branch && profile?.branch !== branch) {
-      return null;
-    }
-
-    return {
-      ...app,
-      profile,
-    };
-  })
-);
-
-const finalData = enrichedApplications.filter(Boolean);
-
-res.status(200).json({
-  success: true,
-  count: finalData.length,
-  data: finalData,
-});
 
 //Get My Applications
 export const getMyApplications = async (req, res) => {
@@ -112,60 +55,77 @@ export const getMyApplications = async (req, res) => {
 export const getJobApplicants = async (req, res) => {
   try {
     const { jobId } = req.params;
-    const userId = req.user.id;
+    const { status, universityId, branch, candidateType } = req.query;
 
-    // Check if user is company
-    const user = await User.findById(userId);
-    if (!user || user.role !== "company") {
-      return res.status(403).json({ message: "Only companies can view applicants." });
+    if (req.user.role !== "company") {
+      return res.status(403).json({
+        message: "Only companies can view applicants.",
+      });
     }
 
-    // Find job
-    const job = await Job.findById(jobId);
+    const job = await Job.findById(jobId).lean();
     if (!job) {
       return res.status(404).json({ message: "Job not found." });
     }
 
-    // Ownership check
-    if (job.company.toString() !== user.organizationId?.toString()) {
-      return res.status(403).json({ message: "Not authorized to view this job's applicants." });
+    if (job.companyId.toString() !== req.user.companyId?.toString()) {
+      return res.status(403).json({
+        message: "Not authorized to view this job's applicants.",
+      });
     }
 
-    // Optional status filter
-    const { status } = req.query;
     const filter = { job: jobId };
-    if (status) {
-      filter.status = status;
-    }
+    if (status) filter.status = status;
 
-    // Fetch applications
-    const applications = await Application.find(filter)
+    // Pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const total = await Application.countDocuments(filter);
+
+    let applications = await Application.find(filter)
+      .skip(skip)
+      .limit(limit)
       .populate({
         path: "candidate",
-        select: "username email candidateType universityId"
+        select: "username email candidateType universityId",
+        populate: {
+          path: "profile",
+          select:
+            "skills branch graduationYear resumeUrl currentEmployment",
+        },
       })
       .lean();
 
-    // Attach candidate profile
-    const enrichedApplications = await Promise.all(
-      applications.map(async (app) => {
-        const profile = await CandidateProfile.findOne({ userId: app.candidate._id })
-          .select("skills branch graduationYear resumeUrl currentEmployment")
-          .lean();
+    // Advanced filtering
+    applications = applications.filter((app) => {
+      if (
+        universityId &&
+        app.candidate?.universityId?.toString() !== universityId
+      )
+        return false;
 
-        return {
-          ...app,
-          profile,
-        };
-      })
-    );
+      if (
+        candidateType &&
+        app.candidate?.candidateType !== candidateType
+      )
+        return false;
+
+      if (branch && app.candidate?.profile?.branch !== branch)
+        return false;
+
+      return true;
+    });
 
     res.status(200).json({
       success: true,
-      count: enrichedApplications.length,
-      data: enrichedApplications,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+      totalResults: total,
+      count: applications.length,
+      data: applications,
     });
-
   } catch (error) {
     res.status(500).json({
       message: "Server error",
@@ -178,10 +138,9 @@ export const getJobApplicants = async (req, res) => {
 export const shortlistApplication = async (req, res) => {
   try {
     const { applicationId } = req.params;
-    const userId = req.user.id;
 
     // Check company role
-    const user = await User.findById(userId);
+    const user = req.user;
     if (!user || user.role !== "company") {
       return res.status(403).json({
         message: "Only companies can shortlist candidates.",
@@ -191,12 +150,11 @@ export const shortlistApplication = async (req, res) => {
     // Find application
     const application = await Application.findById(applicationId);
     if (!application) {
-      return res.status(404).json({ message: "Application not found." });
+      throw new AppError("Application not found", 404);
     }
 
     // Check job ownership
-    const job = await Job.findById(application.job);
-    if (!job || job.company.toString() !== user.organizationId?.toString()) {
+    if (application.company.toString() !== user.companyId?.toString()) {
       return res.status(403).json({
         message: "Not authorized to modify this application.",
       });
@@ -212,7 +170,8 @@ export const shortlistApplication = async (req, res) => {
     // Update status
     application.status = "shortlisted";
     await application.save();
-
+    
+    //success message
     res.status(200).json({
       success: true,
       message: "Candidate shortlisted successfully.",
@@ -231,10 +190,9 @@ export const shortlistApplication = async (req, res) => {
 export const rejectApplication = async (req, res) => {
   try {
     const { applicationId } = req.params;
-    const userId = req.user.id;
 
     // Check company role
-    const user = await User.findById(userId);
+    const user = req.user;
     if (!user || user.role !== "company") {
       return res.status(403).json({
         message: "Only companies can reject candidates.",
@@ -244,12 +202,11 @@ export const rejectApplication = async (req, res) => {
     // Find application
     const application = await Application.findById(applicationId);
     if (!application) {
-      return res.status(404).json({ message: "Application not found." });
+      throw new AppError("Application not found", 404);
     }
 
     // Ownership check
-    const job = await Job.findById(application.job);
-    if (!job || job.company.toString() !== user.organizationId?.toString()) {
+    if (application.company.toString() !== user.companyId?.toString()) {
       return res.status(403).json({
         message: "Not authorized to modify this application.",
       });
@@ -271,7 +228,8 @@ export const rejectApplication = async (req, res) => {
     // Update status
     application.status = "rejected";
     await application.save();
-
+    
+    //success message
     res.status(200).json({
       success: true,
       message: "Candidate rejected successfully.",
@@ -302,14 +260,11 @@ export const scheduleInterview = async (req, res) => {
     const application = await Application.findById(id);
 
     if (!application) {
-      return res.status(404).json({ message: "Application not found" });
+      throw new AppError("Application not found", 404);
     }
 
     // Ownership check
-    if (
-      application.company.toString() !==
-      req.user.organizationId?.toString()
-    ) {
+    if (application.company.toString() !== req.user.companyId?.toString()) {
       return res.status(403).json({
         message: "Not authorized for this application",
       });
@@ -321,6 +276,12 @@ export const scheduleInterview = async (req, res) => {
         message: "Interview can only be scheduled for shortlisted candidates",
       });
     }
+    
+    if (!interviewDate || !interviewMode) {
+    return res.status(400).json({
+    message: "Interview date and mode are required",
+    });
+    }
 
     // Update
     application.interviewDate = interviewDate;
@@ -328,10 +289,12 @@ export const scheduleInterview = async (req, res) => {
     application.status = "interview";
 
     await application.save();
-
-    res.json({
-      message: "Interview scheduled successfully",
-      application,
+    
+    //success message
+    res.status(200).json({
+      success: true,
+      message: "Interview scheduled successfully.",
+      data: application,
     });
 
   } catch (err) {
@@ -354,13 +317,13 @@ export const updateApplicationStatus = async (req, res) => {
 
     const application = await Application.findById(id);
     if (!application) {
-      return res.status(404).json({ message: "Application not found" });
+      throw new AppError("Application not found", 404);
     }
 
     // Ownership check
     if (
       application.company.toString() !==
-      req.user.organizationId?.toString()
+      req.user.companyId?.toString()
     ) {
       return res.status(403).json({
         message: "Not authorized for this application",
@@ -394,9 +357,18 @@ export const updateApplicationStatus = async (req, res) => {
     application.status = newStatus;
     await application.save();
 
-    res.json({
-      message: "Application status updated successfully",
-      application,
+    // Create notification for candidate
+    await Notification.create({
+    recipient: application.candidate,
+    message: `Your application status has been updated to '${newStatus}'.`,
+    type: "status_update",
+    });
+    
+    //success message
+    res.status(200).json({
+      success: true,
+      message: "Application status updated successfully.",
+      data: application,
     });
 
   } catch (err) {

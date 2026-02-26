@@ -10,15 +10,16 @@ import connectDB from "./config/db.js";
 import "./config/passport.js";
 import passport from "passport"; //continue with google & microsoft
 
-// Import Feature Routes
+// Import Routes
 import userRoutes from "./features/user/user.routes.js";
 import jobRoutes from "./features/job/job.routes.js";
 import authRoutes from "./features/auth/auth.routes.js";
 import forgotPasswordRoutes from "./features/auth/forgotPassword.routes.js";
 import socialAuthRoutes from "./features/auth/socialAuth.routes.js";
 
-//Import University Routes
 import universityRoutes from "./features/university/university.routes.js";
+import notificationRoutes from "./features/notification/notification.routes.js";
+import errorHandler from "./middleware/errorHandler.js";
 
 // Port
 const PORT = process.env.PORT || 5000;
@@ -36,6 +37,7 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 app.use(passport.initialize());
+app.use(errorHandler);
 
 // Routes
 app.use("/api/users", userRoutes);
@@ -45,6 +47,7 @@ app.use("/api/auth", forgotPasswordRoutes);
 app.use("/api/social", socialAuthRoutes);
 
 app.use("/api/university", universityRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 // Health
 app.get("/health", (_req, res) => {
