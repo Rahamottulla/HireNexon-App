@@ -2,4 +2,3 @@
 It protects against CSRF (Cross-Site Request Forgery) attacks.
 samesite: "lax" works well for localhost and samesite: "none" used in production with domains,
 sub-domains with cross-origin requests.
-

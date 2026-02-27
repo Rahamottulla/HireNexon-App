@@ -2,6 +2,7 @@ import { useState, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import { FaComments } from "react-icons/fa";
 
+import CandidateNavbar from "@/layouts/candidate/CandidateLayout";
 import CandidateHeader from "@/features/candidate/components/navbar/CandidateHeader";
 import Sidebar from "@/features/candidate/components/Sidebar/Sidebar";
 import ChatPopup from "@/features/candidate/pages/Messages/ChatPopup";
