@@ -1,33 +1,33 @@
+//frontend/src/app/routes.jsx
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { initGA, trackPageView } from "@/shared/utils/analytics";
 import AdminDashboard from "@/features/admin/pages/AdminDashboard";
 
-/* Layouts */
+// Layouts
 import PublicLayout from "@/layouts/public/PublicLayout";
 import AuthLayout from "@/layouts/auth/AuthLayout";
 import CandidateLayout from "@/layouts/candidate/CandidateLayout";
 import CompanyLayout from "@/layouts/company/CompanyLayout";
+import UniversityLayout from "@/layouts/university/UniversityLayout";
 
-/* Route Guards */
+// Route Guards
+import Unauthorized from "@/features/errors/Unauthorized";
 import ProtectedRoute from "@/app/ProtectedRoute";
 
-/* Public Pages */
+// Public Imports
 import Home from "@/features/public/pages/Home";
 import Jobs from "@/features/public/pages/Jobs";
 import Employers from "@/features/public/pages/ForEmployers";
 
-/* Auth Pages */
+// Auth Imports
 import Login from "@/features/auth/pages/Login";
 import Signup from "@/features/auth/pages/Signup";
 import ForgotPassword from "@/features/auth/pages/ForgotPassword";
 import ResetPassword from "@/features/auth/pages/ResetPassword";
 import VerifySuccess from "@/features/email/pages/VerifySuccess";
 
-/* System Pages */
-import Unauthorized from "@/features/errors/Unauthorized";
-
-/* Candidate Pages */
+// Candidate Imports
 import Dashboard from "@/features/candidate/pages/Dashboard";
 import Feed from "@/features/candidate/pages/Feed";
 import Propals from "@/features/candidate/pages/Propals";
@@ -45,12 +45,20 @@ import Offers from "@/features/candidate/pages/MyApplications/Offers";
 import Help from "@/features/candidate/pages/Help";
 import Feedback from "@/features/candidate/pages/Feedback";
 
-/* Company Pages */
+// Company Imports
 import CompanyDashboard from "@/features/company/pages/Dashboard";
 import PostJob from "@/features/company/pages/PostJob";
 import ManageCandidates from "@/features/company/pages/ManageCandidates";
 import Reports from "@/features/company/pages/Reports";
 
+// University Imports
+import UniversityDashboard from "@/features/university/pages/Dashboard";
+import UniversityDepartments from "@/features/university/pages/Departments";
+import UniversityPlacementStats from "@/features/university/pages/PlacementStats";
+import UniversityProfile from "@/features/university/pages/Profile";
+import UniversitySettings from "@/features/university/pages/Settings";
+import UniversityStudents from "@/features/university/pages/Students";
+import UniversityVerifyStudents from "@/features/university/pages/VerifyStudents";
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -125,9 +133,29 @@ const AppRoutes = () => {
         <Route path="manage-candidates" element={<ManageCandidates />} />
         <Route path="reports" element={<Reports />} />
       </Route>
-      
+
+      {/* 🎓 University */}
+      <Route
+       path="/university/*"
+       element={
+         <ProtectedRoute role="university">
+           <UniversityLayout />
+         </ProtectedRoute>
+        }
+      >
+        <Route index element={<UniversityDashboard />} />
+        <Route path="dashboard" element={<UniversityDashboard />} />
+        <Route path="departments" element={<UniversityDepartments />} />
+        <Route path="placement-stats" element={<UniversityPlacementStats />} />
+        <Route path="profile" element={<UniversityProfile />} />
+        <Route path="settings" element={<UniversitySettings />} />
+        <Route path="students" element={<UniversityStudents />} />
+        <Route path="verify-students" element={<UniversityVerifyStudents />} />
+      </Route>
+
       <Route path="/admin" element={<AdminDashboard />} />
-      {/* ❌ Fallback */}
+      {/*  Fallback */}
+
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
