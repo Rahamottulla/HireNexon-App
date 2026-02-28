@@ -47,7 +47,7 @@ import Feedback from "@/features/candidate/pages/Feedback";
 
 // Company Imports
 import CompanyDashboard from "@/features/company/pages/Dashboard";
-import PostJob from "@/features/company/pages/PostJob";
+import PostJob from "@/features/company/pages/Job";
 import ManageCandidates from "@/features/company/pages/ManageCandidates";
 import Reports from "@/features/company/pages/Reports";
 
