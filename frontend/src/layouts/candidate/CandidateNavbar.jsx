@@ -4,7 +4,7 @@ FaBriefcase, FaTrophy, FaUser, FaUsers, } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/features/auth/context/AuthContext";
 
-const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
+const CandidateNavbar = ({ onToggleSidebar, onMessagesClick }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { logout } = useAuth() || {};
@@ -189,4 +189,4 @@ const CandidateHeader = ({ onToggleSidebar, onMessagesClick }) => {
   );
 };
 
-export default CandidateHeader;
+export default CandidateNavbar;

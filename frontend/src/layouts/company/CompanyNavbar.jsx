@@ -1,6 +1,6 @@
 import { Menu, Bell } from "lucide-react";
 
-const Topbar = ({ title, onMenuClick }) => {
+const CompanyNavbar = ({ title, onMenuClick }) => {
   return (
     <header className="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
       <div className="flex items-center gap-4">
@@ -23,4 +23,4 @@ const Topbar = ({ title, onMenuClick }) => {
   );
 };
 
-export default Topbar;
+export default CompanyNavbar;

@@ -1,5 +1,5 @@
-import CandidateTable from "@/features/company/components/tables/CandidateTable";
-import useCandidates from "@/features/company/hooks/useCandidates";
+import CandidateTable from "@/features/company/components/tables/ApplicantsTable";
+import useCandidates from "@/features/company/hooks/useApplicants";
 
 const ManageCandidates = () => {
   const { candidates } = useCandidates();
