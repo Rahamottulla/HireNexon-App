@@ -2,7 +2,7 @@ import OverviewCards from "./OverviewCards";
 import HiringAnalytics from "./HiringAnalytics";
 import RecentApplicants from "./RecentApplicants";
 
-import useDashboard from "@/features/company/hooks/useDashboard";
+import useDashboard from "@/features/company/hooks/useCompanyDashboard";
 
 const Dashboard = () => {
   const { data, loading } = useDashboard();

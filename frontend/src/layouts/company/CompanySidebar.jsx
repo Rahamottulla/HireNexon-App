@@ -7,7 +7,7 @@ const nav = [
   { name: "Analytics", path: "/company/analytics" },
 ];
 
-const Sidebar = () => {
+const CompanySidebar = () => {
   return (
     <aside className="hidden lg:flex w-64 bg-white border-r border-gray-100 flex-col">
       <div className="p-6 font-bold text-lg">HireNexon</div>
@@ -33,4 +33,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default CompanySidebar;

@@ -18,7 +18,9 @@ import ProtectedRoute from "@/app/ProtectedRoute";
 // Public Imports
 import Home from "@/features/public/pages/Home";
 import Jobs from "@/features/public/pages/Jobs";
-import Employers from "@/features/public/pages/ForEmployers";
+import ForCandidates from "@/features/public/pages/ForCandidates";
+import ForEmployers from "@/features/public/pages/ForEmployers";
+import ForUniversities from "@/features/public/pages/ForUniversities";
 
 // Auth Imports
 import Login from "@/features/auth/pages/Login";
@@ -77,7 +79,9 @@ const AppRoutes = () => {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/jobs" element={<Jobs />} />
-        <Route path="/employers" element={<Employers />} />
+        <Route path="/candidates" element={<ForCandidates />} />
+        <Route path="/employers" element={<ForEmployers />} />
+        <Route path="/universities" element={<ForUniversities />} />
       </Route>
 
       {/* 🔐 Auth */}

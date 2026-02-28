@@ -57,7 +57,7 @@ const sidebarData = [
   },
 ];
 
-const Sidebar = ({ isCollapsed }) => {
+const CandidateSidebar = ({ isCollapsed }) => {
   const location = useLocation();
 
   return (
@@ -103,4 +103,4 @@ const Sidebar = ({ isCollapsed }) => {
   );
 };
 
-export default Sidebar;
+export default CandidateSidebar;
