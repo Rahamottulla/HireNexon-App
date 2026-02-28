@@ -3,7 +3,7 @@ import { useState, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import { FaComments } from "react-icons/fa";
 
-import ChatPopup from "@/features/candidate/pages/messages/ChatPopup";
+import ChatPopup from "@/features/candidate/pages/Messages/ChatPopup";
 import CandidateNavbar from "./CandidateNavbar";
 import CandidateSidebar from "./CandidateSidebar";
 import MobileSidebar from "./MobileSidebar";
