@@ -9,20 +9,20 @@ export const useJobs = (filters = {}) => {
     const fetchJobs = async () => {
       try {
         setLoading(true);
-        // Simulate API call
+
+       // Simulate API call 
         setTimeout(() => {
-          const mockJobs = [
-            {
+          const mockJobs = [ 
+            { 
               id: 1,
               title: 'Senior Frontend Developer',
               company: 'TechCorp Inc.',
-              location: 'San Francisco, CA',
-              salary: '$120,000 - $150,000',
-              type: 'Full-time',
-              posted: '2 days ago',
-              logo: '/images/company-logo-1.png'
-            },
-            // More jobs...
+              location: 'San Francisco, CA', salary: '$120,000 - $150,000',
+              type: 'Full-time', 
+              posted: '2 days ago', 
+              logo: '/images/company-logo-1.png' 
+            }, // More jobs... ];
+
           ];
           setJobs(mockJobs);
           setLoading(false);
