@@ -223,14 +223,27 @@ const PlacementDashboard = () => (
 
 /* ── Main Component ── */
 export default function ForUniversities() {
+  
   const location = useLocation();
-
   useEffect(() => {
     if (location.hash) {
       const el = document.getElementById(location.hash.replace("#", ""));
       if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
     }
   }, [location.hash]);
+  
+  //discount amount
+  const [billing, setBilling] = useState("monthly");
+  const getPrice = (base) => {
+  if (base === "₹0" || base === "Custom") return null;
+  const num = parseInt(base.replace(/[₹,]/g, ""));
+  if (billing === "6months") return `₹${Math.floor(num * 0.9).toLocaleString("en-IN")}`;
+  if (billing === "yearly")  return `₹${Math.floor(num * 0.75).toLocaleString("en-IN")}`;
+  return null;
+  };
+
+  const getSaveLabel  = () =>
+   billing === "yearly" ? "Save 25% + 3 months free" : billing === "6months" ? "Save 10% + 1 month free" : null;
 
   return (
     <div className="min-h-screen bg-surface-card font-jakarta text-text-primary overflow-x-hidden">
@@ -602,6 +615,31 @@ export default function ForUniversities() {
               No hidden fees. Designed around students, drives, and reporting — not seat counts.
             </p>
           </div>
+          
+{/* Billing Toggle */}
+<div className="flex items-center justify-center mb-12">
+  <div className="flex items-center bg-slate-100 rounded-xl p-1.5 gap-1">
+    {[
+      { key: "monthly", label: "Monthly" },
+      { key: "6months", label: "6 Months", save: "Save 10% + 1 Month Free" },
+      { key: "yearly",  label: "1 Year",   save: "Save 25% + 3 Months Free" },
+    ].map(b => (
+      <button key={b.key} onClick={() => setBilling(b.key)}
+        className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold transition-all ${
+          billing === b.key
+            ? "bg-white shadow-sm text-text-primary"
+            : "text-text-muted hover:text-text-primary"
+        }`}>
+        {b.label}
+        {b.save && (
+          <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full whitespace-nowrap">
+            {b.save}
+          </span>
+        )}
+      </button>
+    ))}
+  </div>
+</div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
             {pricingPlans.map((plan, i) => (
@@ -616,12 +654,44 @@ export default function ForUniversities() {
                   </div>
                 )}
 
-                <div className={`text-sm font-bold uppercase tracking-widest mb-2 ${plan.highlight ? "text-emerald-200" : "text-text-muted"}`}>{plan.name}</div>
-                <div className="flex items-end gap-1 mb-1">
-                  <span className={`text-4xl font-extrabold ${plan.highlight ? "text-white" : "text-text-primary"}`}>{plan.price}</span>
-                  <span className={`text-sm font-semibold mb-1.5 ${plan.highlight ? "text-emerald-200" : "text-text-muted"}`}>{plan.period}</span>
-                </div>
-                <p className={`text-xs leading-relaxed mb-6 ${plan.highlight ? "text-emerald-100" : "text-text-muted"}`}>{plan.desc}</p>
+                <div className={`text-sm font-bold uppercase tracking-widest mb-3 ${plan.highlight ? "text-brand-200" : "text-text-muted"}`}>
+              {plan.name}
+              </div>
+
+         {/* Crossed original price */}
+         {getPrice(plan.price) && (
+         <div className="relative inline-block mb-1 w-fit">
+         <span className={`text-base font-semibold ${plan.highlight ? "text-white/50" : "text-text-muted"}`}>
+         {plan.price}<span className="text-xs">/mo</span>
+         </span>
+        <div className="absolute inset-0 flex items-center">
+      <div className="w-full h-[1.5px] bg-red-400 rotate-[-8deg]" />
+    </div>
+  </div>
+)}
+
+      {/* Discounted price */}
+      <div className="flex items-end gap-1 mb-1">
+      <span className={`text-4xl font-extrabold ${plan.highlight ? "text-white" : "text-text-primary"}`}>
+      {getPrice(plan.price) ?? plan.price}
+      </span>
+      <span className={`text-sm font-semibold mb-1.5 ${plan.highlight ? "text-brand-200" : "text-text-muted"}`}>
+      {plan.price === "Custom" ? "" : billing === "yearly" ? "/mo · yearly" : billing === "6months" ? "/mo · 6mo" : plan.period}
+    </span>
+    </div>
+
+      {/* Save badge */}
+      {getPrice(plan.price) && (
+      <div className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full mb-3 ${
+      plan.highlight ? "bg-white/20 text-white" : "bg-emerald-50 text-emerald-600"
+      }`}>
+      🎉 {getSaveLabel()}
+    </div>
+    )}
+
+    <p className={`text-xs leading-relaxed mb-6 ${plan.highlight ? "text-brand-200" : "text-text-muted"}`}>
+    {plan.desc}
+   </p>
 
                 <div className={`h-px w-full mb-6 ${plan.highlight ? "bg-white/20" : "bg-border-subtle"}`} />
 
