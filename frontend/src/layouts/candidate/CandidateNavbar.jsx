@@ -4,16 +4,22 @@ FaBriefcase, FaTrophy, FaUser, FaUsers, } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/features/auth/context/AuthContext";
 
-const CandidateNavbar = ({ onToggleSidebar, onMessagesClick }) => {
+const CandidateNavbar = ({ isSidebarCollapsed, onToggleSidebar, onOpenMobileMenu, onMessagesClick }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { logout } = useAuth() || {};
 
   const [profileOpen, setProfileOpen] = useState(false);
   const [workspaceOpen, setWorkspaceOpen] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const profileRef = useRef(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 4);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const closeDropdowns = (e) => {
@@ -22,8 +28,8 @@ const CandidateNavbar = ({ onToggleSidebar, onMessagesClick }) => {
         setWorkspaceOpen(false);
       }
     };
-    document.addEventListener("click", closeDropdowns);
-    return () => document.removeEventListener("click", closeDropdowns);
+    document.addEventListener("mousedown", closeDropdowns);
+    return () => document.removeEventListener("mousedown", closeDropdowns);
   }, []);
 
   const handleLogout = () => {
@@ -31,157 +37,157 @@ const CandidateNavbar = ({ onToggleSidebar, onMessagesClick }) => {
     navigate("/login");
   };
 
-  const navItem = (to, label, Icon) => (
-    <Link
-      to={to}
-      className={`flex flex-col items-center text-xs font-medium transition
-        ${
-          location.pathname === to
-            ? "text-blue-600"
-            : "text-slate-700 hover:text-blue-600"
-        }`}
-    >
-      <Icon size={20} />
-      <span className="mt-1">{label}</span>
-      {location.pathname === to && (
-        <span className="mt-1 h-0.5 w-full rounded bg-blue-600" />
-      )}
-    </Link>
-  );
+  const isActive = (path) => location.pathname === path;
+
+  const NavItem = ({ to, label, Icon }) => {
+    const active = isActive(to);
+    return (
+      <Link to={to} className="nav-item group">
+        <span className={`nav-icon ${active ? "is-active" : ""}`}>
+          <Icon size={18} />
+        </span>
+        <span className={`nav-label ${active ? "is-active" : ""}`}>{label}</span>
+        {active && <span className="nav-underline nav-active-indicator" />}
+      </Link>
+    );
+  };
 
   return (
-    <header className="sticky top-0 z-50 flex items-center gap-4 bg-white px-4 py-2 shadow">
-      {/* Sidebar Toggle */}
+    <header className={`hn-navbar ${scrolled ? "is-scrolled" : ""}`}>
+      {/* Desktop Toggle */}
       <button
-        onClick={() => {
-          onToggleSidebar?.();
-          setSidebarOpen((p) => !p);
-        }}
-        className="rounded-md bg-slate-100 p-2 text-slate-700 hover:bg-slate-200"
+        onClick={onToggleSidebar}
+        className="hn-toggle desktop-toggle hidden lg:flex"
+        title={isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
       >
-        {sidebarOpen ? <FaIndent size={18} /> : <FaOutdent size={18} />}
+        {isSidebarCollapsed ? <FaIndent size={16} /> : <FaOutdent size={16} />}
+      </button>
+
+      {/* Mobile Menu */}
+      <button
+        onClick={onOpenMobileMenu}
+        className="hn-toggle mobile-toggle flex lg:hidden"
+        title="Open menu"
+      >
+        <FaIndent size={16} />
       </button>
 
       {/* Logo */}
-      <Link to="/candidate/dashboard" className="flex items-center">
-        <img
-          src="/images/public/hi.png"
-          alt="HireNexon"
-          className="h-9 w-auto object-contain"
-        />
+      <Link to="/candidate/dashboard" className="flex items-center mr-1">
+        <img src="/images/public/hi.png" alt="HireNexon" className="h-9 w-auto object-contain shrink-0" />
       </Link>
 
       {/* Search */}
-      <div className="hidden md:flex flex-1 max-w-md items-center gap-2 rounded-full border bg-slate-50 px-4 py-2">
-        <FaSearch className="text-slate-500" />
-        <input
-          placeholder="Search on HireNexon"
-          className="w-full bg-transparent text-sm outline-none"
-        />
+      <div className="hn-search">
+        <FaSearch size={13} className="text-slate-400 shrink-0" />
+        <input placeholder="Search jobs, people, companies…" />
       </div>
 
-      {/* Navigation */}
-      <nav className="flex items-center gap-6">
-        {navItem("/candidate/feed", "Feed", FaRss)}
-        {navItem("/candidate/propals", "Propals", FaUsers)}
-        {navItem("/candidate/jobs", "Jobs", FaBriefcase)}
-        {navItem("/candidate/live-contests", "Contests", FaTrophy)}
+      {/* Nav */}
+      <nav className="flex items-center gap-0.5 ml-auto">
+        <NavItem to="/candidate/feed"         label="Feed"     Icon={FaRss} />
+        <NavItem to="/candidate/propals"      label="Propals"  Icon={FaUsers} />
+        <NavItem to="/candidate/jobs"         label="Jobs"     Icon={FaBriefcase} />
+        <NavItem to="/candidate/live-contests" label="Contests" Icon={FaTrophy} />
 
         {/* Messages */}
         <button
           onClick={onMessagesClick}
-          className="relative flex flex-col items-center text-xs text-slate-700 hover:text-blue-600"
+          className="nav-item border-none bg-transparent cursor-pointer"
         >
-          <FaEnvelope size={20} />
-          <span className="mt-1">Messages</span>
-          <span className="absolute top-0 right-1 h-2 w-2 rounded-full bg-red-500" />
+          <span className="nav-icon relative">
+            <FaEnvelope size={18} />
+            <span className="nav-dot" />
+          </span>
+          <span className="nav-label">Messages</span>
         </button>
 
         {/* Notifications */}
-        <Link
-          to="/candidate/notifications"
-          className="relative flex flex-col items-center text-xs text-slate-700 hover:text-blue-600"
-        >
-          <FaBell size={20} />
-          <span className="mt-1">Alerts</span>
-          <span className="absolute top-0 right-1 h-2 w-2 rounded-full bg-red-500" />
+        <Link to="/candidate/notifications" className="nav-item relative">
+          <span className="nav-icon relative">
+            <FaBell size={18} />
+            <span className="nav-dot" />
+          </span>
+          <span className="nav-label">Alerts</span>
         </Link>
 
         {/* Workspaces */}
         <div className="relative">
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setWorkspaceOpen((p) => !p);
-              setProfileOpen(false);
-            }}
-            className="flex flex-col items-center text-xs text-slate-700 hover:text-blue-600"
+            onClick={(e) => { e.stopPropagation(); setWorkspaceOpen(p => !p); setProfileOpen(false); }}
+            className="nav-item border-none bg-transparent cursor-pointer"
           >
-            <FaLayerGroup size={20} />
-            <span className="mt-1">Workspaces</span>
+            <span className={`nav-icon ${workspaceOpen ? "is-active" : ""}`}>
+              <FaLayerGroup size={18} />
+            </span>
+            <span className={`nav-label ${workspaceOpen ? "is-active" : ""}`}>Workspaces</span>
           </button>
 
           {workspaceOpen && (
-            <ul className="absolute right-0 mt-3 w-56 rounded-md border bg-white shadow-lg">
+            <div className="hn-dropdown" style={{ minWidth: 220 }}>
               {[
-                ["Personal Workspace", "/candidate/dashboard"],
-                ["Company Workspace", "/recruiter/crm"],
-                ["University Workspace", "/university/dashboard"],
-                ["Create Organization", "/setup/organization"],
-              ].map(([label, path]) => (
-                <li key={label}>
-                  <Link
-                    to={path}
-                    onClick={() => setWorkspaceOpen(false)}
-                    className="block px-4 py-2 text-sm hover:bg-slate-100"
-                  >
-                    {label}
-                  </Link>
-                </li>
+                { label: "Personal Workspace",   path: "/candidate/dashboard", color: "#6366f1" },
+                { label: "Company Workspace",    path: "/recruiter/crm",       color: "#0ea5e9" },
+                { label: "University Workspace", path: "/university/dashboard",color: "#10b981" },
+              ].map(w => (
+                <Link
+                  key={w.label}
+                  to={w.path}
+                  onClick={() => setWorkspaceOpen(false)}
+                  className="hn-drop-item flex items-center gap-2"
+                >
+                  <span className="w-[7px] h-[7px] rounded-full shrink-0" style={{ background: w.color }} />
+                  {w.label}
+                </Link>
               ))}
-            </ul>
+              <div className="hn-drop-divider" />
+              <Link
+                to="/setup/organization"
+                onClick={() => setWorkspaceOpen(false)}
+                className="hn-drop-item !text-brand-500 !font-semibold"
+              >
+                + Create Organization
+              </Link>
+            </div>
           )}
         </div>
 
         {/* Profile */}
         <div className="relative" ref={profileRef}>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setProfileOpen((p) => !p);
-              setWorkspaceOpen(false);
-            }}
-            className="flex flex-col items-center text-xs text-slate-700 hover:text-blue-600"
+            onClick={(e) => { e.stopPropagation(); setProfileOpen(p => !p); setWorkspaceOpen(false); }}
+            className="nav-item border-none bg-transparent cursor-pointer"
           >
-            <FaUser size={20} />
-            <span className="mt-1">Profile</span>
+            <span className={`nav-icon ${profileOpen ? "is-active" : ""}`}>
+              <div className="w-7 h-7 rounded-full bg-profile-avatar flex items-center justify-center text-white text-[13px]">
+                <FaUser size={13} />
+              </div>
+            </span>
+            <span className={`nav-label ${profileOpen ? "is-active" : ""}`}>Profile</span>
           </button>
 
           {profileOpen && (
-            <ul className="absolute right-0 mt-3 w-48 rounded-md border bg-white shadow-lg">
+            <div className="hn-dropdown">
               {[
-                ["My Profile", "/candidate/my-profile"],
-                ["Manage Account", "/candidate/manage-account"],
-                ["Settings", "/candidate/settings"],
-                ["Help", "/candidate/help"],
+                ["My Profile",      "/candidate/my-profile"],
+                ["Manage Account",  "/candidate/manage-account"],
+                ["Settings",        "/candidate/settings"],
+                ["Help",            "/candidate/help"],
               ].map(([label, path]) => (
-                <li key={label}>
-                  <Link
-                    to={path}
-                    onClick={() => setProfileOpen(false)}
-                    className="block px-4 py-2 text-sm hover:bg-slate-100"
-                  >
-                    {label}
-                  </Link>
-                </li>
+                <Link
+                  key={label}
+                  to={path}
+                  onClick={() => setProfileOpen(false)}
+                  className="hn-drop-item"
+                >
+                  {label}
+                </Link>
               ))}
-              <li
-                onClick={handleLogout}
-                className="cursor-pointer px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
-              >
+              <div className="hn-drop-divider" />
+              <div onClick={handleLogout} className="hn-drop-item danger cursor-pointer">
                 Sign out
-              </li>
-            </ul>
+              </div>
+            </div>
           )}
         </div>
       </nav>

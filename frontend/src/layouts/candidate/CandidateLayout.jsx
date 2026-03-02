@@ -8,67 +8,72 @@ import CandidateNavbar from "./CandidateNavbar";
 import CandidateSidebar from "./CandidateSidebar";
 import MobileSidebar from "./MobileSidebar";
 
+const PageLoader = () => (
+  <div className="flex items-center justify-center h-[200px] gap-3 text-slate-400 text-sm font-jakarta">
+    <span className="w-[18px] h-[18px] border-[2.5px] border-slate-200 border-t-brand-500 rounded-full animate-spin-sm inline-block" />
+    Loading…
+  </div>
+);
+
 const CandidateLayout = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   return (
-  <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col">
-    
-    {/* Navbar */}
-    <CandidateNavbar
-      onToggleSidebar={() => setIsSidebarCollapsed(prev => !prev)}
-      onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
-      onMessagesClick={() => setIsChatOpen(true)}
-    />
+    <div className="hn-layout">
+      <CandidateNavbar
+        isSidebarCollapsed={isSidebarCollapsed}
+        onToggleSidebar={() => setIsSidebarCollapsed(prev => !prev)}
+        onOpenMobileMenu={() => setIsMobileSidebarOpen(true)}
+        onMessagesClick={() => setIsChatOpen(true)}
+      />
 
-    {/* Main Body */}
-    <div className="flex flex-1">
-      
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:block">
-        <CandidateSidebar isCollapsed={isSidebarCollapsed} />
+      <div className="hn-body">
+        {/* Desktop Sidebar */}
+        <div className="hidden lg:block shrink-0">
+          <CandidateSidebar isCollapsed={isSidebarCollapsed} />
+        </div>
+
+        {/* Mobile Sidebar */}
+        <MobileSidebar
+          isOpen={isMobileSidebarOpen}
+          onClose={() => setIsMobileSidebarOpen(false)}
+        />
+
+        {/* Main Content */}
+        <main className="hn-main">
+          <div className="hn-content">
+            <Suspense fallback={<PageLoader />}>
+              <Outlet />
+            </Suspense>
+          </div>
+        </main>
       </div>
 
-      {/* Mobile Sidebar */}
-      <MobileSidebar
-        isOpen={isMobileSidebarOpen}
-        onClose={() => setIsMobileSidebarOpen(false)}
-      />
+      {/* Chat Popup */}
+      {isChatOpen && (
+        <ChatPopup
+          isOpen={isChatOpen}
+          onClose={() => setIsChatOpen(false)}
+        />
+      )}
 
-      {/* Content */}
-      <main className="flex-1 p-4 lg:p-6 overflow-y-auto">
-        <div className="bg-[#f6f6ed] min-h-full rounded-2xl shadow-sm p-6 transition-all duration-300">
-          <Suspense fallback={<div>Loading page...</div>}>
-            <Outlet />
-          </Suspense>
-        </div>
-      </main>
-
+      {/* Floating Chat Button */}
+      {!isChatOpen && (
+        <button
+          onClick={() => setIsChatOpen(true)}
+          className="hn-fab border-none cursor-pointer"
+          title="Open Messages"
+        >
+          <span className="absolute inset-0 rounded-full bg-brand-500/35 animate-ping-fab" />
+          <FaComments size={20} />
+        </button>
+      )}
     </div>
-
-    {/* Floating Chat */}
-    {isChatOpen && (
-      <ChatPopup
-        isOpen={isChatOpen}
-        onClose={() => setIsChatOpen(false)}
-      />
-    )}
-
-    {!isChatOpen && (
-      <button
-        onClick={() => setIsChatOpen(true)}
-        title="Open Chats"
-        className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 hover:scale-110 active:scale-95 text-white p-4 rounded-full shadow-xl transition-all duration-300"
-      >
-        <FaComments size={20} />
-      </button>
-    )}
-
-  </div>
-);
+  );
 };
 
 export default CandidateLayout;
+
 
