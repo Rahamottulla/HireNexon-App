@@ -75,19 +75,19 @@ const pricingPlans = [
   {
     name: "Starter", price: "₹0", period: "/month", badge: null, highlight: false,
     desc: "Perfect for early-stage startups exploring hiring.",
-    features: ["3 active job posts", "50 candidate views/month", "Basic applicant pipeline", "Community support"],
+    features: ["5 active job posts", "250 candidate views/month", "Campus hiring access", "Basic applicant pipeline", "Community support"],
     cta: "Get Started Free",
   },
   {
-    name: "Basic", price: "₹4,999", period: "/month", badge: null, highlight: false,
-    desc: "For growing teams ready to scale their hiring.",
-    features: ["10 active job posts", "500 candidate views/month", "AI resume filtering", "Interview scheduler", "Email & chat support"],
-    cta: "Start Basic Plan",
+    name: "Hiring Pro", price: "₹2,999", period: "/month", badge: null, highlight: false,
+    desc: "For growing teams that need more reach and smarter filtering.",
+    features: ["15 active job posts", "1000 candidate views/month", "Campus hiring access", "AI resume filtering", "Interview scheduler", "Email & chat support"],
+    cta: "Start Hiring Pro",
   },
   {
     name: "Professional", price: "₹14,999", period: "/month", badge: "Most Popular", highlight: true,
     desc: "The complete hiring suite for serious companies.",
-    features: ["Unlimited job posts", "Unlimited candidate views", "Full AI hiring suite", "Campus hiring access", "Analytics dashboard", "Dedicated account manager"],
+    features: ["Unlimited job posts", "Unlimited candidate views", "Campus hiring access", "Full AI hiring suite", "Analytics dashboard", "Dedicated account manager"],
     cta: "Start Professional",
   },
   {

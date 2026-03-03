@@ -80,14 +80,14 @@ const pricingPlans = [
   {
     name: "Starter", price: "₹0", period: "/month", badge: null, highlight: false,
     desc: "For small colleges beginning their placement digitisation.",
-    features: ["Up to 200 students", "2 company drives/month", "Basic placement reports", "Community support"],
+    features: ["Up to 300 students", "3 company drives/month", "Basic placement reports", "Community support"],
     cta: "Get Started Free",
   },
   {
-    name: "Basic", price: "₹4,999", period: "/month", badge: null, highlight: false,
+    name: "Campus Plus", price: "₹1,999", period: "/month", badge: null, highlight: false,
     desc: "For growing placement cells managing multiple drives.",
     features: ["Up to 1,000 students", "10 company drives/month", "Department analytics", "Student verification", "Email support"],
-    cta: "Start Basic Plan",
+    cta: "Start Campus Plus",
   },
   {
     name: "Professional", price: "₹12,999", period: "/month", badge: "Most Popular", highlight: true,
