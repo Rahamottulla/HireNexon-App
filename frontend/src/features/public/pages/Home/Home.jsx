@@ -45,7 +45,7 @@ const ecosystemCards = [
     headline: "Find the Career You Deserve",
     desc: "Apply smarter, grow faster, and plan your long-term career with AI-powered tools.",
     features: ["One-Click Apply", "Career Planner", "AI Resume Feedback", "Mock Interviews", "Job Alerts"],
-    cta: "Explore Candidate Platform", link: "/candidates",
+    cta: "Explore Candidate Workspace", link: "/candidates",
   },
   {
     icon: Building2, color: "text-violet-500", bg: "bg-violet-50", border: "border-violet-100",
@@ -54,7 +54,7 @@ const ecosystemCards = [
     headline: "Hire Smarter. Faster. Better.",
     desc: "Post jobs, manage applicants, and leverage AI to find the perfect candidate every time.",
     features: ["Post Jobs", "Manage Applicants", "AI Resume Filtering", "Interview Scheduling", "Hiring Analytics"],
-    cta: "Explore Employer Platform", link: "/employers",
+    cta: "Explore Employer Workspace", link: "/employers",
   },
   {
     icon: GraduationCap, color: "text-emerald-500", bg: "bg-emerald-50", border: "border-emerald-100",
@@ -290,7 +290,7 @@ export default function Home() {
             </div>
             <h2 className="text-4xl font-bold text-text-primary mb-4">Built for the Entire Hiring Ecosystem</h2>
             <p className="text-lg text-text-muted max-w-xl mx-auto">
-              Three powerful platforms. One unified network.
+              Three powerful workspaces. One unified network.
             </p>
           </div>
 
