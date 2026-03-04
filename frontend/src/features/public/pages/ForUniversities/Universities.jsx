@@ -792,7 +792,7 @@ export default function ForUniversities() {
             Start Digitising Today
           </div>
           <h2 className="text-5xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-            Digitize Your Placement<br />Process Today
+            Ready to Digitize Your<br /> Placement Process Today?
           </h2>
           <p className="text-xl text-emerald-100 mb-10 leading-relaxed">
             Create your university workspace in minutes and bring your entire placement cell online.
