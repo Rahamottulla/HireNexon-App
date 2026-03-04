@@ -34,12 +34,12 @@ const Counter = ({ end, suffix = "", prefix = "" }) => {
 
 /* ── Data ── */
 const features = [
-  { icon: Target,        color: "text-violet-500",  bg: "bg-violet-50",  title: "Career Planner",         desc: "Set goals, track progress, and grow with Nexon Coach." },
+  { icon: Target,        color: "text-violet-500",  bg: "bg-violet-50",  title: "Nexon Career Planner",   desc: "Set goals, track progress, and grow with Nexon Coach." },
   { icon: Zap,           color: "text-brand-500",   bg: "bg-brand-50",   title: "One-Click Apply",        desc: "Apply to multiple jobs instantly with your saved profile." },
   { icon: FileText,      color: "text-sky-500",     bg: "bg-sky-50",     title: "Application Tracking",   desc: "Know exactly where every application stands in real time." },
   { icon: MessageSquare, color: "text-emerald-500", bg: "bg-emerald-50", title: "Interview Practice",     desc: "Prepare with mock interviews tailored to your target roles." },
   { icon: FileText,      color: "text-rose-500",    bg: "bg-rose-50",    title: "Resume Builder",         desc: "Build ATS-optimized resumes with guided templates." },
-  { icon: Sparkles,      color: "text-violet-500",  bg: "bg-violet-50",  title: "AI Resume Feedback",     desc: "Get AI-powered suggestions to improve your resume score." },
+  { icon: Sparkles,      color: "text-violet-500",  bg: "bg-violet-50",  title: "AI Resume Score & Feedback", desc: "Get AI-powered suggestions to improve your resume score." },
   { icon: TrendingUp,    color: "text-sky-500",     bg: "bg-sky-50",     title: "Skill Development",      desc: "Access curated courses and resources to upskill for your target role." },
   { icon: Award,         color: "text-amber-500",   bg: "bg-amber-50",   title: "Achievement Badges",     desc: "Earn verified badges for skills, certifications, and placement milestones." },
   { icon: Bell,          color: "text-sky-500",     bg: "bg-sky-50",     title: "Job Alerts",             desc: "Get notified instantly when your dream role is posted." },
