@@ -173,7 +173,7 @@ export default function ForCandidates() {
     <div className="min-h-screen bg-surface-card font-jakarta text-text-primary overflow-x-hidden">
 
       {/* ══════════════════ HERO ══════════════════ */}
-      <section className="relative bg-surface-card pt-16 pb-24 overflow-hidden">
+      <section id="for-candidates" className="relative bg-surface-card pt-16 pb-24 overflow-hidden">
         {/* Subtle dot grid */}
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: "radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0)",
