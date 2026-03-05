@@ -39,7 +39,7 @@ export const checkAvailability = async (req, res) => {
 
 // REGISTER & SEND EMAIL VERIFICATION
 export const register = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, fullName } = req.body;
 
   try {
     // Check if user already exists
@@ -90,6 +90,7 @@ export const register = async (req, res) => {
     const newUser = new User({
       username,
       email: email.toLowerCase(),
+      fullName,
       password,
       isVerified: false,
     });
