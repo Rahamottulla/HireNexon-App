@@ -1,4 +1,4 @@
-
+// frontend/src/features/public/pages/Home/Home.jsx
 import useTitle from "@/shared/hooks/useTitle";
 
 import { useState, useEffect, useRef } from "react";
