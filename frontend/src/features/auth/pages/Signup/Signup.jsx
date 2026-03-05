@@ -179,7 +179,7 @@ const PasswordStrength = ({ password }) => {
 /* ─────────────────────────────────────────────
    SUCCESS POPUP
 ───────────────────────────────────────────── */
-const SuccessPopup = ({ email, username, onLoginRedirect, onResend, cooldown, resendMessage }) => (
+const SuccessPopup = ({ email, fullName, onLoginRedirect, onResend, cooldown, resendMessage }) => (
   <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-gray-900/40 backdrop-blur-sm">
     <div className="animate-popup w-[380px] rounded-2xl bg-white p-8 text-center shadow-2xl">
       <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
