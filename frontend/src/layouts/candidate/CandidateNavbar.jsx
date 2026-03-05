@@ -140,14 +140,7 @@ const CandidateNavbar = ({ isSidebarCollapsed, onToggleSidebar, onOpenMobileMenu
                   {w.label}
                 </Link>
               ))}
-              <div className="hn-drop-divider" />
-              <Link
-                to="/setup/organization"
-                onClick={() => setWorkspaceOpen(false)}
-                className="hn-drop-item !text-brand-500 !font-semibold"
-              >
-                + Create Organization
-              </Link>
+              
             </div>
           )}
         </div>

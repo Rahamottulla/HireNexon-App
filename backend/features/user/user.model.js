@@ -14,6 +14,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      index: true,
       lowercase: true,
       trim: true,
       match: [/^\S+@\S+\.\S+$/, "Please use a valid email address"]
@@ -22,7 +23,12 @@ const UserSchema = new mongoose.Schema(
     
     lastVerificationSentAt: {type: Date },
 
-    password: { type: String, required: true, minlength: 6, select: false  },
+    password: { type: String, required: true, minlength: 8, select: false  },
+    
+    fullName: {
+    type: String,
+    required: true
+    },
 
     role: {
       type: String,
@@ -71,6 +77,11 @@ UserSchema.index({ role: 1 });
 UserSchema.index({ username: 1 });
 UserSchema.index({ universityId: 1 });
 UserSchema.index({ companyId: 1 });
+UserSchema.index({ campusVerificationStatus: 1 });
+
+// compound indexes
+UserSchema.index({ role: 1, candidateType: 1 });
+UserSchema.index({ universityId: 1, candidateType: 1 });
 
 // Hash password
 UserSchema.pre("save", async function (next) {

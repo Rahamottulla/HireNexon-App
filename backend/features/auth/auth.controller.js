@@ -11,6 +11,32 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:5000";
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 
+// Check username or email availability
+export const checkAvailability = async (req, res) => {
+  try {
+    const { username, email } = req.query;
+
+    if (!username && !email) {
+      return res.status(400).json({ message: "Provide username or email" });
+    }
+
+    if (username) {
+      const exists = await User.findOne({ username: username.trim() });
+      return res.json({ available: !exists });
+    }
+
+    if (email) {
+      const exists = await User.findOne({
+        email: email.trim().toLowerCase(),
+      });
+      return res.json({ available: !exists });
+    }
+
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
 // REGISTER & SEND EMAIL VERIFICATION
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
