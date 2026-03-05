@@ -122,7 +122,7 @@ await sendEmail(
                 box-shadow:0 2px 6px rgba(0,0,0,0.05);">
       <h2 style="color:#0a66c2;text-align:center;margin-bottom:20px;">Verify Your Email </h2>
 
-      <p style="font-size:15px;color:#333;">Dear <b>${newUser.username}</b>,</p>
+      <p style="font-size:15px;color:#333;">Dear <b>${newUser.fullName}</b>,</p>
       <p style="font-size:15px;color:#333;line-height:1.6;">
         Welcome to <b>HireNexon</b>! We're excited to have you on board.
         Please verify your email address by clicking the button below:
