@@ -188,7 +188,7 @@ const SuccessPopup = ({ email, username, onLoginRedirect, onResend, cooldown, re
         </svg>
       </div>
       <h3 className="mb-1 text-xl font-bold text-gray-900">Account Created! 🎉</h3>
-      <p className="mb-1 text-sm font-medium text-blue-600">Welcome, {username}!</p>
+      <p className="mb-1 text-sm font-medium text-blue-600">Welcome, {fullName}!</p>
       <p className="mb-5 text-sm text-gray-500">
         A verification email has been sent to <br />
         <span className="font-semibold text-gray-700">{email}</span>
