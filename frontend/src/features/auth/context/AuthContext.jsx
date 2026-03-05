@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import api from "@/shared/api/axios";
 import { authAPI } from "@/features/auth/services/auth.api";
-
+import PageLoader from "@/shared/components/common/PageLoader";
 
 const AuthContext = createContext(null);
 
@@ -162,7 +162,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {loading ? <div>Loading...</div> : children}
+      {loading ? <PageLoader /> : children}
     </AuthContext.Provider>
   );
 };
