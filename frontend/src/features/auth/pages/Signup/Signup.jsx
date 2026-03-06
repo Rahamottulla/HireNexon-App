@@ -620,7 +620,7 @@ const Signup = () => {
       {showSuccessPopup && (
         <SuccessPopup
           email={formData.email}
-          username={formData.username}
+          username={formData.fullName}
           onLoginRedirect={() => { setShowSuccessPopup(false); navigate("/login"); }}
           onResend={handleResend}
           cooldown={cooldown}

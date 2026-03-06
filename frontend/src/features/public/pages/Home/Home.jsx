@@ -8,7 +8,7 @@ import {
   Users, Building2, GraduationCap, Target, FileText, Bell,
   BarChart3, Calendar, Sparkles, MessageSquare, Shield,
   TrendingUp, Award, Check, X, BookOpen, ClipboardList,
-  LayoutDashboard, UserCheck,
+  LayoutDashboard, UserCheck, Trophy,
 } from "lucide-react";
 
 /* ── Animated Counter ── */
@@ -40,42 +40,38 @@ const Counter = ({ end, suffix = "", prefix = "" }) => {
 const ecosystemCards = [
   {
     icon: Users, color: "text-brand-500", bg: "bg-brand-50", border: "border-brand-100",
-    gradient: "from-brand-500 to-sky-500", glow: "rgba(99,102,241,0.15)",
-    audience: "For Candidates", emoji: "👨‍💻",
-    headline: "Find the Career You Deserve",
+    audience: "For Candidates", headline: "Find the Career You Deserve",
     desc: "Apply smarter, grow faster, and plan your long-term career with AI-powered tools.",
     features: ["One-Click Apply", "Career Planner", "AI Resume Feedback", "Mock Interviews", "Job Alerts"],
     cta: "Explore Candidate Workspace", link: "/candidates",
   },
   {
     icon: Building2, color: "text-violet-500", bg: "bg-violet-50", border: "border-violet-100",
-    gradient: "from-violet-500 to-brand-500", glow: "rgba(139,92,246,0.15)",
-    audience: "For Employers", emoji: "🏢",
-    headline: "Hire Smarter. Faster. Better.",
+    audience: "For Employers", headline: "Hire Smarter. Faster. Better.",
     desc: "Post jobs, manage applicants, and leverage AI to find the perfect candidate every time.",
     features: ["Post Jobs", "Manage Applicants", "AI Resume Filtering", "Interview Scheduling", "Hiring Analytics"],
     cta: "Explore Employer Workspace", link: "/employers",
   },
   {
     icon: GraduationCap, color: "text-emerald-500", bg: "bg-emerald-50", border: "border-emerald-100",
-    gradient: "from-emerald-500 to-teal-500", glow: "rgba(16,185,129,0.15)",
-    audience: "For Universities", emoji: "🎓",
-    headline: "Digitise Campus Placements",
+    audience: "For Universities", headline: "Digitise Campus Placements",
     desc: "Connect students with verified employers and manage your entire placement cell in one workspace.",
     features: ["Placement Dashboard", "Student Verification", "Campus Drives", "Placement Analytics", "Resume Builder"],
     cta: "Explore University Workspace", link: "/universities",
   },
 ];
 
+// ── 9 features, 3 columns, with tags ──
 const platformFeatures = [
-  { icon: Zap,          color: "text-brand-500",   bg: "bg-brand-50",   title: "One-Click Apply",         desc: "Apply to multiple jobs instantly." },
-  { icon: FileText,     color: "text-sky-500",     bg: "bg-sky-50",     title: "Resume Builder",          desc: "ATS-optimized resume in minutes." },
-  { icon: Sparkles,     color: "text-violet-500",  bg: "bg-violet-50",  title: "AI Resume Feedback",      desc: "Score and improve with AI." },
-  { icon: MessageSquare,color: "text-emerald-500", bg: "bg-emerald-50", title: "Mock Interview Practice", desc: "AI-tailored interview prep." },
-  { icon: ClipboardList,color: "text-amber-500",   bg: "bg-amber-50",   title: "Application Tracking",    desc: "Know every application's status." },
-  { icon: Calendar,     color: "text-rose-500",    bg: "bg-rose-50",    title: "Interview Scheduling",    desc: "No back-and-forth emails." },
-  { icon: GraduationCap,color: "text-teal-500",    bg: "bg-teal-50",    title: "Campus Hiring Access",    desc: "University-exclusive drives." },
-  { icon: BarChart3,    color: "text-indigo-500",  bg: "bg-indigo-50",  title: "Hiring Analytics",        desc: "Full funnel performance data." },
+  { icon: Target,        color: "text-violet-500",  bg: "bg-violet-50",     title: "Nexon Career Planner",     desc: "Set 1-year and 5-year goals. Get AI-generated roadmaps, daily tasks, and streak tracking with Nexon Coach." },
+  { icon: Brain,         color: "text-brand-500",   bg: "bg-brand-50",      title: "Nexon Coach (AI Mentor)",  desc: "Your personal AI career mentor available 24/7 — guidance, preparation, feedback, and motivation in one place." },
+  { icon: FileText,      color: "text-sky-500",     bg: "bg-sky-50",        title: "NexonCV Builder",          desc: "Build ATS-optimized, recruiter-ready resumes with AI-powered suggestions and real-time scoring." },
+  { icon: Trophy,        color: "text-emerald-500", bg: "bg-emerald-50",    title: "NexArena — Compete & Win", desc: "Enter real competitions — Hackathons, Techathons, Business Challenges, Design, Marketing, Finance & Research." },
+  { icon: MessageSquare, color: "text-rose-500",    bg: "bg-rose-50",       title: "AI Mock Interviews",       desc: "Practice with AI-tailored mock interviews for your target company and role. Get instant, honest feedback." },
+  { icon: Zap,           color: "text-amber-500",   bg: "bg-amber-50",      title: "One-Click Apply",          desc: "Apply to multiple verified jobs instantly with your saved profile — no re-filling forms ever again." },
+  { icon: ClipboardList, color: "text-indigo-500",  bg: "bg-indigo-50",     title: "Application Tracking",     desc: "Know every application's real-time status — from applied to offer, all in one dashboard." },
+  { icon: Users,         color: "text-teal-500",    bg: "bg-teal-50",       title: "Hiring & Networking",      desc: "Connect with recruiters, peers, and mentors. Build your professional network while building your career." },
+  { icon: GraduationCap, color: "text-brand-500",   bg: "bg-brand-50",      title: "Campus Hiring Access",     desc: "Access university-exclusive placement drives. Only verified students of partner universities can apply." },
 ];
 
 const testimonials = [
@@ -96,15 +92,38 @@ const testimonials = [
   },
 ];
 
-const comparison = [
-  { feature: "Career Planner",        hn: true,  naukri: false, linkedin: false },
-  { feature: "Campus Hiring Network", hn: true,  naukri: false, linkedin: false },
-  { feature: "AI Interview Practice", hn: true,  naukri: false, linkedin: false },
-  { feature: "University Integration",hn: true,  naukri: false, linkedin: false },
-  { feature: "AI Resume Feedback",    hn: true,  naukri: false, linkedin: true  },
-  { feature: "One-Click Apply",       hn: true,  naukri: true,  linkedin: true  },
-  { feature: "Hiring Analytics",      hn: true,  naukri: true,  linkedin: false },
-  { feature: "Free for Candidates",   hn: true,  naukri: false, linkedin: false },
+// ── HireNexon differentiators — no competitor names ──
+const differentiators = [
+  {
+    icon: Target,        color: "text-violet-500",  bg: "bg-violet-50",  border: "border-violet-100",
+    title: "AI-Powered Career Planner",
+    desc: "Not just jobs — full career planning. Set goals, follow roadmaps, track daily progress, and get coached by Nexon AI.",
+  },
+  {
+    icon: GraduationCap, color: "text-emerald-500", bg: "bg-emerald-50", border: "border-emerald-100",
+    title: "University-Integrated Campus Hiring",
+    desc: "A dedicated placement ecosystem for universities — verified students, campus drives, and placement analytics in one place.",
+  },
+  {
+    icon: Trophy,        color: "text-amber-500",   bg: "bg-amber-50",   border: "border-amber-100",
+    title: "NexArena — Skill Competitions",
+    desc: "Hackathons, Techathons, Business Challenges, Design, Marketing & more. Prove your skills beyond your resume.",
+  },
+  {
+    icon: Brain,         color: "text-brand-500",   bg: "bg-brand-50",   border: "border-brand-100",
+    title: "Nexon Coach — Your AI Mentor",
+    desc: "A 24/7 AI mentor that knows your goals, tracks your progress, and guides every step of your career journey.",
+  },
+  {
+    icon: FileText,      color: "text-sky-500",     bg: "bg-sky-50",     border: "border-sky-100",
+    title: "NexonCV — Smart Resume Builder",
+    desc: "ATS-optimized resumes with AI scoring and real-time feedback. Built for the Indian job market.",
+  },
+  {
+    icon: Users,         color: "text-teal-500",    bg: "bg-teal-50",    border: "border-teal-100",
+    title: "Three-Way Hiring Ecosystem",
+    desc: "Candidates, employers, and universities — all connected on one unified platform. No other platform does this.",
+  },
 ];
 
 /* ── Main Component ── */
@@ -153,9 +172,9 @@ export default function Home() {
               </div>
               <div className="flex flex-wrap gap-3">
                 {[
-                  { label: "For Candidates", sub: "Find and grow your career",  color: "border-brand-200 bg-brand-50 text-brand-600",     link: "/candidates" },
-                  { label: "For Employers",  sub: "Post jobs and hire smarter", color: "border-violet-200 bg-violet-50 text-violet-600",   link: "/employers" },
-                  { label: "For Universities",sub: "Manage placements",         color: "border-emerald-200 bg-emerald-50 text-emerald-600",link: "/universities" },
+                  { label: "For Candidates",  sub: "Find and grow your career",  color: "border-brand-200 bg-brand-50 text-brand-600",      link: "/candidates" },
+                  { label: "For Employers",   sub: "Post jobs and hire smarter", color: "border-violet-200 bg-violet-50 text-violet-600",    link: "/employers" },
+                  { label: "For Universities",sub: "Manage placements",          color: "border-emerald-200 bg-emerald-50 text-emerald-600", link: "/universities" },
                 ].map((p, i) => (
                   <Link key={i} to={p.link}
                     className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl border-2 ${p.color} hover:-translate-y-0.5 transition-all`}>
@@ -202,8 +221,8 @@ export default function Home() {
               <div className="absolute top-2 left-1/2 -translate-x-1/2 w-52 bg-white rounded-2xl shadow-[0_8px_32px_rgba(30,41,59,0.12)] border border-border-subtle p-4 hover:border-violet-300 hover:shadow-[0_12px_40px_rgba(139,92,246,0.18)] hover:scale-105 transition-all duration-300 cursor-pointer"
                 style={{ animation: "orbitFloat2 5s ease-in-out infinite" }}>
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 bg-violet-50 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform"><Building2 size={14} className="text-violet-500" /></div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-violet-500 group-hover:text-violet-600">Companies</div>
+                  <div className="w-8 h-8 bg-violet-50 rounded-lg flex items-center justify-center"><Building2 size={14} className="text-violet-500" /></div>
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-violet-500">Companies</div>
                 </div>
                 <div className="space-y-1.5">
                   {["Post Jobs", "Manage Applicants", "Campus Hiring"].map((t, i) => (
@@ -219,8 +238,8 @@ export default function Home() {
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-44 bg-white rounded-2xl shadow-[0_8px_32px_rgba(30,41,59,0.12)] border border-border-subtle p-4 hover:border-emerald-300 hover:shadow-[0_12px_40px_rgba(16,185,129,0.18)] hover:scale-105 transition-all duration-300 cursor-pointer"
                 style={{ animation: "orbitFloat3 4.5s ease-in-out infinite" }}>
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform"><GraduationCap size={14} className="text-emerald-500" /></div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-500 group-hover:text-emerald-600">Universities</div>
+                  <div className="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center"><GraduationCap size={14} className="text-emerald-500" /></div>
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-500">Universities</div>
                 </div>
                 <div className="space-y-1.5">
                   {["Educational Hubs", "Campus Drives", "Career Services"].map((t, i) => (
@@ -289,17 +308,13 @@ export default function Home() {
               <Zap size={12} /> The Full Ecosystem
             </div>
             <h2 className="text-4xl font-bold text-text-primary mb-4">Built for the Entire Hiring Ecosystem</h2>
-            <p className="text-lg text-text-muted max-w-xl mx-auto">
-              Three powerful workspaces. One unified network.
-            </p>
+            <p className="text-lg text-text-muted max-w-xl mx-auto">Three powerful workspaces. One unified network.</p>
           </div>
-
           <div className="grid md:grid-cols-3 gap-6">
             {ecosystemCards.map((card, i) => {
               const Icon = card.icon;
               return (
-                <div key={i} className={`group bg-white border-2 ${card.border} rounded-2xl p-8 hover:-translate-y-2 hover:shadow-[0_24px_60px_rgba(30,41,59,0.12)] transition-all duration-300 flex flex-col`}
-                  style={{ '--glow': card.glow }}>
+                <div key={i} className={`group bg-white border-2 ${card.border} rounded-2xl p-8 hover:-translate-y-2 hover:shadow-[0_24px_60px_rgba(30,41,59,0.12)] transition-all duration-300 flex flex-col`}>
                   <div className="flex items-center gap-3 mb-6">
                     <div className={`w-12 h-12 ${card.bg} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform`}>
                       <Icon size={22} className={card.color} />
@@ -348,12 +363,7 @@ export default function Home() {
                 HireNexon connects universities, students, and companies to streamline campus placements and hiring — creating opportunities that are earned, not stumbled upon.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-10">
-                {[
-                  "50+ Universities Connected",
-                  "Verified Campus Drives",
-                  "University-Verified Candidates",
-                  "Direct Employer Collaboration",
-                ].map((item, i) => (
+                {["50+ Universities Connected", "Verified Campus Drives", "University-Verified Candidates", "Direct Employer Collaboration"].map((item, i) => (
                   <div key={i} className="flex items-center gap-2.5 text-sm font-semibold text-white">
                     <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center shrink-0">
                       <Check size={11} className="text-white" />
@@ -367,14 +377,12 @@ export default function Home() {
                 Explore Campus Opportunities <ArrowRight size={16} />
               </Link>
             </div>
-
-            {/* Right stats */}
             <div className="grid grid-cols-2 gap-4">
               {[
-                { val: 50,   suffix: "+",  label: "Partner Universities",  icon: GraduationCap, color: "text-emerald-400" },
-                { val: 200,  suffix: "+",  label: "Campus Drives/Month",   icon: Calendar,      color: "text-sky-300" },
-                { val: 10000,suffix: "+",  label: "Students Placed",       icon: Users,         color: "text-white" },
-                { val: 92,   suffix: "%",  label: "Avg. Placement Rate",   icon: TrendingUp,    color: "text-amber-300" },
+                { val: 50,    suffix: "+", label: "Partner Universities", icon: GraduationCap, color: "text-emerald-400" },
+                { val: 200,   suffix: "+", label: "Campus Drives/Month",  icon: Calendar,      color: "text-sky-300" },
+                { val: 10000, suffix: "+", label: "Students Placed",      icon: Users,         color: "text-white" },
+                { val: 92,    suffix: "%", label: "Avg. Placement Rate",  icon: TrendingUp,    color: "text-amber-300" },
               ].map((s, i) => {
                 const Icon = s.icon;
                 return (
@@ -396,7 +404,6 @@ export default function Home() {
       <section className="pt-16 pb-24 bg-surface-card">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left visual */}
             <div className="space-y-4">
               <div className="bg-white border border-border-subtle rounded-2xl p-6 shadow-card">
                 <div className="flex items-center justify-between mb-5">
@@ -404,9 +411,9 @@ export default function Home() {
                   <div className="text-xs font-bold text-brand-500 bg-brand-50 px-2.5 py-1 rounded-full">Powered by Nexon Coach</div>
                 </div>
                 {[
-                  { goal: "FAANG SDE",       progress: 68, color: "bg-brand-500",   timeframe: "1 Year" },
-                  { goal: "DSA Mastery",     progress: 45, color: "bg-sky-500",     timeframe: "3 Months" },
-                  { goal: "System Design",   progress: 30, color: "bg-violet-500",  timeframe: "6 Months" },
+                  { goal: "FAANG SDE",     progress: 68, color: "bg-brand-500",  timeframe: "1 Year" },
+                  { goal: "DSA Mastery",   progress: 45, color: "bg-sky-500",    timeframe: "3 Months" },
+                  { goal: "System Design", progress: 30, color: "bg-violet-500", timeframe: "6 Months" },
                 ].map((g, i) => (
                   <div key={i} className="mb-4 last:mb-0">
                     <div className="flex items-center justify-between mb-1.5">
@@ -422,7 +429,6 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-white border border-border-subtle rounded-2xl p-5 shadow-card">
                   <div className="text-xs font-bold text-text-muted mb-3">Today's Tasks</div>
@@ -443,8 +449,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
-            {/* Right text */}
             <div>
               <div className="inline-flex items-center gap-2 bg-violet-50 border border-violet-100 text-violet-600 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider mb-6">
                 <Brain size={12} /> Career Growth Engine
@@ -457,11 +461,11 @@ export default function Home() {
               </p>
               <ul className="space-y-4 mb-10">
                 {[
-                  { icon: Target,    color: "text-brand-500", bg: "bg-brand-50",   label: "Goal planning (1 month / 1 year / 5 years)" },
-                  { icon: Calendar,  color: "text-sky-500",   bg: "bg-sky-50",     label: "Daily task tracking and consistency streaks" },
-                  { icon: BookOpen,  color: "text-violet-500",bg: "bg-violet-50",  label: "Skill roadmap guidance and resource curation" },
-                  { icon: BarChart3, color: "text-emerald-500",bg:"bg-emerald-50", label: "Progress analytics and performance insights" },
-                  { icon: Brain,     color: "text-amber-500", bg: "bg-amber-50",   label: "AI career mentor available 24/7" },
+                  { icon: Target,    color: "text-brand-500",   bg: "bg-brand-50",    label: "Goal planning (1 month / 1 year / 5 years)" },
+                  { icon: Calendar,  color: "text-sky-500",     bg: "bg-sky-50",      label: "Daily task tracking and consistency streaks" },
+                  { icon: BookOpen,  color: "text-violet-500",  bg: "bg-violet-50",   label: "Skill roadmap guidance and resource curation" },
+                  { icon: BarChart3, color: "text-emerald-500", bg: "bg-emerald-50",  label: "Progress analytics and performance insights" },
+                  { icon: Brain,     color: "text-amber-500",   bg: "bg-amber-50",    label: "AI career mentor available 24/7" },
                 ].map((item, i) => {
                   const Icon = item.icon;
                   return (
@@ -483,29 +487,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════ PLATFORM FEATURES ══════════════════ */}
+      {/* ══════════════════ PLATFORM FEATURES — 3 cols ══════════════════ */}
       <section className="pt-16 pb-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-sky-50 border border-sky-100 text-sky-600 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider mb-5">
-              <Sparkles size={12} /> Platform Features
+            <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-100 text-brand-600 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider mb-5">
+              <Sparkles size={12} /> One Unified Platform
             </div>
-            <h2 className="text-4xl font-bold text-text-primary mb-4">Everything You Need to Get Hired or Hire</h2>
-            <p className="text-lg text-text-muted max-w-xl mx-auto">One platform, all tools — free for candidates, powerful for businesses.</p>
+            <h2 className="text-4xl font-bold text-text-primary mb-4">
+              Learning. Hiring. Networking.<br />
+              <span className="bg-gradient-to-r from-brand-500 to-violet-500 bg-clip-text text-transparent">All in One Place.</span>
+            </h2>
+            <p className="text-lg text-text-muted max-w-2xl mx-auto">
+              HireNexon isn't just a job board — it's a complete career operating system. From your first goal to your first offer letter, everything lives here.
+            </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {platformFeatures.map((f, i) => {
               const Icon = f.icon;
               return (
-                <div key={i} className="group bg-white border border-border-subtle rounded-2xl p-6 hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(30,41,59,0.1)] hover:border-transparent transition-all duration-300">
-                  <div className={`w-11 h-11 ${f.bg} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                    <Icon size={20} className={f.color} />
+                <div key={i} className="group bg-white border border-border-subtle rounded-2xl p-6 hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(30,41,59,0.1)] hover:border-transparent transition-all duration-300 relative overflow-hidden">
+                  
+                  <div className={`w-12 h-12 ${f.bg} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <Icon size={22} className={f.color} />
                   </div>
-                  <div className="text-sm font-bold text-text-primary mb-1.5">{f.title}</div>
+                  <div className="text-sm font-bold text-text-primary mb-2 pr-16">{f.title}</div>
                   <div className="text-xs text-text-muted leading-relaxed">{f.desc}</div>
                 </div>
               );
             })}
+          </div>
+
+          <div className="mt-12 bg-gradient-to-r from-brand-500 to-violet-500 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <div className="text-white font-extrabold text-xl mb-1">Everything above is 100% free for candidates.</div>
+              <div className="text-brand-100 text-sm">No credit card. No hidden fees. Just your career, supercharged.</div>
+            </div>
+            <Link to="/signup"
+              className="inline-flex items-center gap-2 bg-white text-brand-600 hover:bg-brand-50 font-bold px-7 py-3.5 rounded-xl transition-all hover:-translate-y-0.5 shadow-md whitespace-nowrap text-sm">
+              Create Free Account <ArrowRight size={15} />
+            </Link>
           </div>
         </div>
       </section>
@@ -522,9 +544,9 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8 relative">
             <div className="hidden md:block absolute top-10 left-[33%] right-[33%] h-px bg-gradient-to-r from-brand-200 via-sky-200 to-emerald-200" />
             {[
-              { step: "01", icon: UserCheck, color: "text-brand-500",   bg: "bg-brand-50",   ring: "ring-brand-200",   title: "Create Your Profile",             desc: "Set up in 5 minutes. Add skills, experience, and career goals." },
-              { step: "02", icon: Zap,       color: "text-sky-500",     bg: "bg-sky-50",     ring: "ring-sky-200",     title: "Connect with Opportunities",      desc: "Browse jobs, campus drives, or candidates tailored to you." },
-              { step: "03", icon: Award,     color: "text-emerald-500", bg: "bg-emerald-50", ring: "ring-emerald-200", title: "Track Progress & Get Hired",      desc: "Monitor everything, improve with AI, and land your goal." },
+              { step: "01", icon: UserCheck, color: "text-brand-500",   bg: "bg-brand-50",   ring: "ring-brand-200",   title: "Create Your Profile",        desc: "Set up in 5 minutes. Add skills, experience, and career goals." },
+              { step: "02", icon: Zap,       color: "text-sky-500",     bg: "bg-sky-50",     ring: "ring-sky-200",     title: "Connect with Opportunities", desc: "Browse jobs, campus drives, or candidates tailored to you." },
+              { step: "03", icon: Award,     color: "text-emerald-500", bg: "bg-emerald-50", ring: "ring-emerald-200", title: "Track Progress & Get Hired", desc: "Monitor everything, improve with AI, and land your goal." },
             ].map((s, i) => {
               const Icon = s.icon;
               return (
@@ -577,55 +599,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════ COMPARISON ══════════════════ */}
+      {/* ══════════════════ WHY HIRENEXON — differentiators, no competitor names ══════════════════ */}
       <section className="pt-16 pb-24 bg-surface-card">
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-rose-50 border border-rose-100 text-rose-500 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider mb-5">
+            <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-100 text-brand-600 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider mb-5">
               <Shield size={12} /> Why HireNexon
             </div>
-            <h2 className="text-4xl font-bold text-text-primary mb-4">Why HireNexon is Different</h2>
-            <p className="text-lg text-text-muted max-w-xl mx-auto">Not just another job board. A complete hiring ecosystem.</p>
+            <h2 className="text-4xl font-bold text-text-primary mb-4">What Makes HireNexon Different</h2>
+            <p className="text-lg text-text-muted max-w-2xl mx-auto">
+              We didn't build another job board. We built the infrastructure for India's next generation of hiring — where learning, competing, and getting hired all happen in one place.
+            </p>
           </div>
 
-          <div className="bg-white border border-border-subtle rounded-2xl overflow-hidden shadow-card">
-            {/* Header */}
-            <div className="grid grid-cols-4 bg-slate-50 border-b border-border-subtle">
-              <div className="p-5 text-sm font-bold text-text-muted">Feature</div>
-              <div className="p-5 text-center">
-                <div className="text-sm font-extrabold text-brand-600 bg-brand-50 rounded-xl py-2 px-3">HireNexon</div>
-              </div>
-              <div className="p-5 text-center">
-                <div className="text-sm font-bold text-text-muted py-2">Naukri</div>
-              </div>
-              <div className="p-5 text-center">
-                <div className="text-sm font-bold text-text-muted py-2">LinkedIn</div>
-              </div>
-            </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {differentiators.map((d, i) => {
+              const Icon = d.icon;
+              return (
+                <div key={i} className={`group bg-white border-2 ${d.border} rounded-2xl p-7 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(30,41,59,0.1)] transition-all duration-300 relative overflow-hidden`}>
+                  {/* Only on HireNexon badge */}
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-brand-500 to-violet-500 text-white text-[9px] font-extrabold px-3 py-1 rounded-bl-xl tracking-wider uppercase">
+                    Only on HireNexon
+                  </div>
+                  <div className={`w-12 h-12 ${d.bg} rounded-xl flex items-center justify-center mb-5 mt-3 group-hover:scale-110 transition-transform`}>
+                    <Icon size={22} className={d.color} />
+                  </div>
+                  <h3 className="text-base font-bold text-text-primary mb-3">{d.title}</h3>
+                  <p className="text-sm text-text-muted leading-relaxed">{d.desc}</p>
+                </div>
+              );
+            })}
+          </div>
 
-            {comparison.map((row, i) => (
-              <div key={i} className={`grid grid-cols-4 border-b border-border-subtle last:border-0 ${i % 2 === 0 ? "bg-white" : "bg-slate-50/50"}`}>
-                <div className="p-4 text-sm font-semibold text-text-secondary">{row.feature}</div>
-                <div className="p-4 flex justify-center">
-                  {row.hn
-                    ? <div className="w-7 h-7 bg-emerald-50 rounded-full flex items-center justify-center"><Check size={14} className="text-emerald-500" /></div>
-                    : <div className="w-7 h-7 bg-rose-50 rounded-full flex items-center justify-center"><X size={14} className="text-rose-400" /></div>
-                  }
-                </div>
-                <div className="p-4 flex justify-center">
-                  {row.naukri
-                    ? <div className="w-7 h-7 bg-emerald-50 rounded-full flex items-center justify-center"><Check size={14} className="text-emerald-500" /></div>
-                    : <div className="w-7 h-7 bg-rose-50 rounded-full flex items-center justify-center"><X size={14} className="text-rose-400" /></div>
-                  }
-                </div>
-                <div className="p-4 flex justify-center">
-                  {row.linkedin
-                    ? <div className="w-7 h-7 bg-emerald-50 rounded-full flex items-center justify-center"><Check size={14} className="text-emerald-500" /></div>
-                    : <div className="w-7 h-7 bg-rose-50 rounded-full flex items-center justify-center"><X size={14} className="text-rose-400" /></div>
-                  }
-                </div>
-              </div>
-            ))}
+          {/* Bottom conviction line */}
+          <div className="mt-14 text-center">
+            <div className="inline-flex items-center gap-3 bg-slate-50 border border-border-subtle rounded-2xl px-8 py-5">
+              <CheckCircle2 size={20} className="text-emerald-500 shrink-0" />
+              <p className="text-sm font-semibold text-text-secondary">
+                HireNexon is the <span className="text-text-primary font-bold">only platform</span> where candidates can plan careers, compete in challenges, build AI-powered resumes, and get hired — all for free.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -658,16 +671,14 @@ export default function Home() {
             </Link>
             <Link to="/jobs"
               className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border-2 border-white/20 text-white font-bold px-8 py-4 rounded-xl transition-all text-[15px]">
-              Explore the Platform <ChevronRight size={16} />
+              Explore Opportunities <ChevronRight size={16} />
             </Link>
           </div>
-
-          {/* 3 mini CTAs */}
           <div className="flex flex-wrap justify-center gap-4 mt-6">
             {[
-              { label: "I'm a Candidate →", link: "/candidates", color: "text-brand-300 hover:text-brand-200" },
-              { label: "I'm an Employer →",  link: "/employers",  color: "text-violet-300 hover:text-violet-200" },
-              { label: "I'm a University →", link: "/universities",color: "text-emerald-300 hover:text-emerald-200" },
+              { label: "I'm a Candidate →",  link: "/candidates",  color: "text-brand-300 hover:text-brand-200" },
+              { label: "I'm an Employer →",   link: "/employers",   color: "text-violet-300 hover:text-violet-200" },
+              { label: "I'm a University →",  link: "/universities",color: "text-emerald-300 hover:text-emerald-200" },
             ].map((l, i) => (
               <Link key={i} to={l.link} className={`text-sm font-bold transition-colors ${l.color}`}>{l.label}</Link>
             ))}
