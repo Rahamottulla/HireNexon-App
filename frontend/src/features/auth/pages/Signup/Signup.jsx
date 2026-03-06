@@ -426,7 +426,7 @@ const Signup = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="you@company.com"
+                  placeholder="you@example.com"
                   required
                   status={fieldStatus.email}
                   statusMsg={fieldMsg.email}

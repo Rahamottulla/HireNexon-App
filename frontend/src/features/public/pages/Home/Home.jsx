@@ -61,7 +61,7 @@ const ecosystemCards = [
   },
 ];
 
-// ── 9 features, 3 columns, with tags ──
+// features 
 const platformFeatures = [
   { icon: Target,        color: "text-violet-500",  bg: "bg-violet-50",     title: "Nexon Career Planner",     desc: "Set 1-year and 5-year goals. Get AI-generated roadmaps, daily tasks, and streak tracking with Nexon Coach." },
   { icon: Brain,         color: "text-brand-500",   bg: "bg-brand-50",      title: "Nexon Coach (AI Mentor)",  desc: "Your personal AI career mentor available 24/7 — guidance, preparation, feedback, and motivation in one place." },
@@ -92,7 +92,7 @@ const testimonials = [
   },
 ];
 
-// ── HireNexon differentiators — no competitor names ──
+// HireNexon differentiators
 const differentiators = [
   {
     icon: Target,        color: "text-violet-500",  bg: "bg-violet-50",  border: "border-violet-100",
@@ -156,7 +156,7 @@ export default function Home() {
                 The Future of Hiring
                 <span className="bg-gradient-to-r from-brand-500 via-violet-500 to-sky-500 bg-clip-text text-transparent"> Starts Here.</span>
               </h1>
-              <p className="text-lg font-semibold text-text-secondary mb-3">One Platform. One Ecosystem. One Future.</p>
+              <p className="text-lg font-semibold text-text-secondary mb-3">Learning. Hiring. Networking - All in one place.</p>
               <p className="text-base text-text-muted leading-relaxed mb-10 max-w-lg">
                 HireNexon connects candidates, companies, and universities into one intelligent hiring network — from career planning and campus placements to enterprise recruitment.
               </p>
@@ -195,8 +195,8 @@ export default function Home() {
 
               {/* Center hub */}
               <div className="relative z-10 w-36 h-36 bg-white rounded-full shadow-[0_8px_48px_rgba(99,102,241,0.18)] border-2 border-brand-100 flex flex-col items-center justify-center">
-                <div className="text-sm font-extrabold text-brand-600 leading-tight text-center">Hire<span className="text-text-primary">Nexon</span></div>
-                <div className="text-[9px] text-text-muted font-semibold text-center mt-1 leading-tight px-3">Connecting the<br/>Hiring Ecosystem</div>
+                <div className="text-lg font-extrabold text-brand-600 leading-tight text-center">Hire<span className="text-text-primary">Nexon</span></div>
+                <div className="text-[12px] text-text-muted font-semibold text-center mt-1 leading-tight px-3">Connecting the<br/>Career Ecosystem</div>
                 <div className="absolute inset-0 rounded-full border-2 border-brand-300 animate-ping opacity-20" />
               </div>
 
