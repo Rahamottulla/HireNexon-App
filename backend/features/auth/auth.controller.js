@@ -21,13 +21,13 @@ export const checkAvailability = async (req, res) => {
     }
 
     if (username) {
-      const exists = await User.findOne({ username: username.trim() });
+      const exists = await User.findOne({ username: username.trim().toLowerCase(),
+      });
       return res.json({ available: !exists });
     }
 
     if (email) {
-      const exists = await User.findOne({
-        email: email.trim().toLowerCase(),
+      const exists = await User.findOne({ email: email.trim().toLowerCase(),
       });
       return res.json({ available: !exists });
     }
@@ -86,15 +86,15 @@ export const register = async (req, res) => {
   });
 }
 
-    // Create new user
-    const newUser = new User({
-      username,
-      email: email.toLowerCase(),
-      fullName,
-      password,
-      isVerified: false,
-    });
-    await newUser.save();
+// Create new user
+const newUser = new User({
+  username: username.trim().toLowerCase(),
+  email: email.trim().toLowerCase(),
+  fullName: fullName.trim(),
+  password,
+  isVerified: false,
+});
+await newUser.save();
 
 // Generate JWT verification token (expires in 1 hour)
 const rawToken = crypto.randomBytes(32).toString("hex");
