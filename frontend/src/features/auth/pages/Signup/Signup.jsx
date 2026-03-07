@@ -179,7 +179,7 @@ const PasswordStrength = ({ password }) => {
 /* ─────────────────────────────────────────────
    SUCCESS POPUP
 ───────────────────────────────────────────── */
-const SuccessPopup = ({ email, fullName, onLoginRedirect, onResend, cooldown, resendMessage }) => (
+const SuccessPopup = ({ email, fullName,role, onCreateWorkspace, onLoginRedirect, onResend, cooldown, resendMessage }) => (
   <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-gray-900/40 backdrop-blur-sm">
     <div className="animate-popup w-[380px] rounded-2xl bg-white p-8 text-center shadow-2xl">
       <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
@@ -206,13 +206,25 @@ const SuccessPopup = ({ email, fullName, onLoginRedirect, onResend, cooldown, re
         {cooldown > 0 ? `Resend in ${cooldown}s` : "Resend Verification Email"}
       </button>
       {resendMessage && <p className="mb-3 text-xs text-green-600">{resendMessage}</p>}
-
-      <button
-        onClick={onLoginRedirect}
-        className="w-full rounded-xl bg-blue-600 py-3 text-sm font-bold text-white shadow-md shadow-blue-200 transition hover:bg-blue-700"
-      >
-        Go to Login →
-      </button>
+      
+      {/*Action button */}
+      {role === "candidate" || !role ? (
+        <button onClick={onLoginRedirect}
+          className="w-full rounded-xl bg-blue-600 py-3 text-sm font-bold text-white shadow-md shadow-blue-200 transition hover:bg-blue-700">
+          Go to Login →
+        </button>
+      ) : (
+        <div className="flex flex-col gap-2">
+          <button onClick={onCreateWorkspace}
+            className="w-full rounded-xl bg-blue-600 py-3 text-sm font-bold text-white shadow-md shadow-blue-200 transition hover:bg-blue-700">
+            {role === "employer" ? "🏢 Create Company Workspace →" : "🎓 Create University Workspace →"}
+          </button>
+          <button onClick={onLoginRedirect}
+            className="w-full rounded-xl border border-gray-200 py-3 text-sm font-medium text-gray-500 transition hover:bg-gray-50">
+            Skip for now — Go to Login
+          </button>
+        </div>
+      )}
     </div>
   </div>
 );
@@ -621,7 +633,18 @@ const Signup = () => {
         <SuccessPopup
           email={formData.email}
           fullName={formData.fullName}
+          role={formData.role}
           onLoginRedirect={() => { setShowSuccessPopup(false); navigate("/login"); }}
+          onCreateWorkspace={() => {
+            setShowSuccessPopup(false);
+            navigate("/login", {
+              state: {
+                redirectAfterLogin: formData.role === "employer"
+                  ? "/company/dashboard"
+                  : "/university/dashboard"
+              }
+            });
+          }}
           onResend={handleResend}
           cooldown={cooldown}
           resendMessage={resendMessage}
