@@ -26,7 +26,7 @@ const InputField = ({ label, type = "text", name, value, onChange, placeholder, 
   </div>
 );
 
-const CreateCompanyWorkspace = () => {
+const CompanyWorkspace = () => {
   const navigate = useNavigate();
   const API = import.meta.env.VITE_API_URL || "";
 
@@ -156,4 +156,4 @@ const CreateCompanyWorkspace = () => {
   );
 };
 
-export default CreateCompanyWorkspace;
+export default CompanyWorkspace;

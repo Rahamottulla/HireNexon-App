@@ -11,9 +11,10 @@ const companySchema = new mongoose.Schema(
     organizationType: {
       type: String,
       enum: [
-        "Startup",
-        "Pvt. Ltd.",
+        "Private Limited",
         "Public Limited",
+        "Sole Proprietorship",
+        "Partnership",
         "Government",
         "MNC",
         "NGO",

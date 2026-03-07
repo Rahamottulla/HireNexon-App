@@ -9,10 +9,27 @@ const candidateProfileSchema = new mongoose.Schema(
       required: true,
       unique: true
     },
+    
+    candidateType: {
+     type: String,
+     enum: ["campus", "professional"],
+     default: "professional",
+    },
+
+    isCampusVerified: {
+     type: Boolean,
+     default: false,
+    },
+
+    campusVerificationStatus: {
+     type: String,
+     enum: ["none", "pending", "approved", "rejected"],
+     default: "none",
+    },
 
     branch: { type: String },
     graduationYear: { type: Number },
-
+    
     skills: [{ type: String }],
 
     resumeUrl: { type: String },
