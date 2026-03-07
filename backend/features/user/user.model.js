@@ -46,14 +46,6 @@ const UserSchema = new mongoose.Schema(
 
 // Index for faster filtering
 UserSchema.index({ role: 1 });
-UserSchema.index({ username: 1 });
-UserSchema.index({ universityId: 1 });
-UserSchema.index({ companyId: 1 });
-UserSchema.index({ campusVerificationStatus: 1 });
-
-// compound indexes
-UserSchema.index({ role: 1, candidateType: 1 });
-UserSchema.index({ universityId: 1, candidateType: 1 });
 
 // Hash password
 UserSchema.pre("save", async function (next) {
