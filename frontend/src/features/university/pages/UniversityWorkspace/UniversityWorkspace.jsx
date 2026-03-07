@@ -17,7 +17,7 @@ const InputField = ({ label, type = "text", name, value, onChange, placeholder, 
   </div>
 );
 
-const CreateUniversityWorkspace = () => {
+const UniversityWorkspace = () => {
   const navigate = useNavigate();
   const API = import.meta.env.VITE_API_URL || "";
 
@@ -108,4 +108,4 @@ const CreateUniversityWorkspace = () => {
   );
 };
 
-export default CreateUniversityWorkspace;
+export default UniversityWorkspace;

@@ -52,6 +52,7 @@ import CompanyDashboard from "@/features/company/pages/Dashboard";
 import PostJob from "@/features/company/pages/Job";
 import ManageCandidates from "@/features/company/pages/ManageCandidates";
 import Reports from "@/features/company/pages/Reports";
+import CompanyWorkspace from "@features/company/pages/CompanyWorkspace";
 
 // University Imports
 import UniversityDashboard from "@/features/university/pages/Dashboard";
@@ -61,6 +62,7 @@ import UniversityProfile from "@/features/university/pages/Profile";
 import UniversitySettings from "@/features/university/pages/Settings";
 import UniversityStudents from "@/features/university/pages/Students";
 import UniversityVerifyStudents from "@/features/university/pages/VerifyStudents";
+import UniversityWorkspace from "@/features/university/pages/UniversityWorkspace";
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -136,6 +138,7 @@ const AppRoutes = () => {
         <Route path="post-job" element={<PostJob />} />
         <Route path="manage-candidates" element={<ManageCandidates />} />
         <Route path="reports" element={<Reports />} />
+        <Route path="create-workspace" element={<CompanyWorkspace />} />
       </Route>
 
       {/* 🎓 University */}
@@ -155,6 +158,7 @@ const AppRoutes = () => {
         <Route path="settings" element={<UniversitySettings />} />
         <Route path="students" element={<UniversityStudents />} />
         <Route path="verify-students" element={<UniversityVerifyStudents />} />
+        <Route path="create-workspace" element={<UniversityWorkspace />} />
       </Route>
 
       <Route path="/admin" element={<AdminDashboard />} />

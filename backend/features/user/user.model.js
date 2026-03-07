@@ -27,49 +27,18 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       match: [/^\S+@\S+\.\S+$/, "Please use a valid email address"]
     },
-    isVerified: { type: Boolean, default: false },
-    
-    lastVerificationSentAt: {type: Date },
 
     password: { type: String, required: true, minlength: 8, select: false  },
 
     role: {
       type: String,
-      enum: ["candidate", "company", "university", "admin"],
-      default: "candidate"
+      enum: ["user", "admin"],
+      default: "user"
     },
 
-    candidateType: {
-     type: String,
-     enum: ["campus", "professional"],
-     default: "professional",
-    },
-
-    isCampusVerified: {
-     type: Boolean,
-     default: false,
-    },
-
-    campusVerificationStatus: {
-     type: String,
-     enum: ["none", "pending", "approved", "rejected"],
-     default: "none",
-    },
-
-    universityId: {
-     type: mongoose.Schema.Types.ObjectId,
-     ref: "University",
-     required: function () {
-    return this.role === "candidate" && this.candidateType === "campus";
-    },
-     default: null,
-    },
-
-    companyId: {
-     type: mongoose.Schema.Types.ObjectId,
-     ref: "Company",
-     default: null,
-    },
+    isVerified: { type: Boolean, default: false },
+    
+    lastVerificationSentAt: {type: Date },
 
   },
   { timestamps: true }

@@ -78,28 +78,12 @@ const handleResend = async () => {
 
       setSuccess("Login successful! Redirecting...");
 
-      const role = data.user.role;
-
-switch (role) {
-  case "candidate":
-    navigate("/candidate/dashboard", { replace: true });
-    break;
-
-  case "company":
-    navigate("/company/dashboard", { replace: true });
-    break;
-
-  case "university":
-    navigate("/university/dashboard", { replace: true });
-    break;
-
-  case "admin":
-    navigate("/admin/dashboard", { replace: true });
-    break;
-
-  default:
-    navigate("/", { replace: true });
+if (data.user.role === "admin") {
+  navigate("/admin/dashboard", { replace: true });
+} else {
+  navigate("/dashboard", { replace: true });
 }
+
     } catch (err) {
       setError(err.message || "Login failed. Please try again.");
 
