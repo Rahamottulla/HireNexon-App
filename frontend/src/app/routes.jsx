@@ -52,7 +52,7 @@ import CompanyDashboard from "@/features/company/pages/Dashboard";
 import PostJob from "@/features/company/pages/Job";
 import ManageCandidates from "@/features/company/pages/ManageCandidates";
 import Reports from "@/features/company/pages/Reports";
-import CompanyWorkspace from "@features/company/pages/CompanyWorkspace";
+import CompanyWorkspace from "@/features/company/pages/CompanyWorkspace";
 
 // University Imports
 import UniversityDashboard from "@/features/university/pages/Dashboard";
