@@ -81,7 +81,7 @@ const handleResend = async () => {
 if (data.user.role === "admin") {
   navigate("/admin/dashboard", { replace: true });
 } else {
-  navigate("/dashboard", { replace: true });
+  navigate("/candidate/dashboard", { replace: true });
 }
 
     } catch (err) {

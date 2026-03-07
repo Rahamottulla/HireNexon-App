@@ -100,7 +100,7 @@ const AppRoutes = () => {
       <Route
         path="/candidate/*"
         element={
-          <ProtectedRoute role="candidate">
+          <ProtectedRoute>
             <CandidateLayout />
           </ProtectedRoute>
         }
@@ -128,7 +128,7 @@ const AppRoutes = () => {
       <Route
         path="/company/*"
         element={
-          <ProtectedRoute role="company">
+          <ProtectedRoute>
             <CompanyLayout />
           </ProtectedRoute>
         }
@@ -145,7 +145,7 @@ const AppRoutes = () => {
       <Route
        path="/university/*"
        element={
-         <ProtectedRoute role="university">
+         <ProtectedRoute>
            <UniversityLayout />
          </ProtectedRoute>
         }
@@ -161,8 +161,14 @@ const AppRoutes = () => {
         <Route path="create-workspace" element={<UniversityWorkspace />} />
       </Route>
 
-      <Route path="/admin" element={<AdminDashboard />} />
-      {/*  Fallback */}
+      <Route
+      path="/admin"
+      element={
+       <ProtectedRoute role="admin">
+       <AdminDashboard />
+       </ProtectedRoute>
+      }
+      />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
