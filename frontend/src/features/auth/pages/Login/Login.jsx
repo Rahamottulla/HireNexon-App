@@ -78,12 +78,13 @@ const handleResend = async () => {
 
       setSuccess("Login successful! Redirecting...");
 
-if (data.user.role === "admin") {
-  navigate("/admin/dashboard", { replace: true });
-} else {
-  navigate("/candidate/dashboard", { replace: true });
-}
+const role = data?.user?.role;
 
+if (role === "admin") {
+  navigate("/admin", { replace: true });
+} else {
+  navigate("/candidate", { replace: true });
+}
     } catch (err) {
       setError(err.message || "Login failed. Please try again.");
 
