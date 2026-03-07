@@ -640,8 +640,8 @@ const Signup = () => {
             navigate("/login", {
               state: {
                 redirectAfterLogin: formData.role === "employer"
-                  ? "/company/dashboard"
-                  : "/university/dashboard"
+                  ? "/company/create-workspace"
+                  : "/university/create-workspace"
               }
             });
           }}

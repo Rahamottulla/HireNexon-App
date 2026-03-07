@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "@/features/auth/context/AuthContext";
 
@@ -12,6 +12,7 @@ const Login = () => {
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
    
   const [allowResend, setAllowResend] = useState(false);
   const [resendEmail, setResendEmail] = useState("");
@@ -83,7 +84,8 @@ const role = data?.user?.role?.toLowerCase();
 if (role === "admin") {
   navigate("/admin", { replace: true });
 } else {
-  navigate("/candidate/dashboard", { replace: true });
+  const redirectTo = location.state?.redirectAfterLogin;
+  navigate(redirectTo || "/candidate/dashboard", { replace: true });
 }
     } catch (err) {
       setError(err.message || "Login failed. Please try again.");
