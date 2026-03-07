@@ -84,7 +84,9 @@ const role = data?.user?.role?.toLowerCase();
 if (role === "admin") {
   navigate("/admin", { replace: true });
 } else {
-  const redirectTo = location.state?.redirectAfterLogin;
+  const redirectTo = location.state?.redirectAfterLogin 
+    || localStorage.getItem("postLoginRedirect"); // 👈 check localStorage too
+  localStorage.removeItem("postLoginRedirect"); // 👈 clean up after use
   navigate(redirectTo || "/candidate/dashboard", { replace: true });
 }
     } catch (err) {

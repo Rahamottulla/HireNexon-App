@@ -637,14 +637,13 @@ const Signup = () => {
           onLoginRedirect={() => { setShowSuccessPopup(false); navigate("/login"); }}
           onCreateWorkspace={() => {
             setShowSuccessPopup(false);
-            navigate("/login", {
-              state: {
-                redirectAfterLogin: formData.role === "employer"
+            
+                const redirectPath = formData.role === "employer"
                   ? "/company/create-workspace"
                   : "/university/create-workspace"
-              }
-            });
-          }}
+                   localStorage.setItem("postLoginRedirect", redirectPath); // 👈 save it
+                   navigate("/login");
+                  }}
           onResend={handleResend}
           cooldown={cooldown}
           resendMessage={resendMessage}
