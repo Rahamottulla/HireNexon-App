@@ -126,9 +126,9 @@ const CandidateNavbar = ({ isSidebarCollapsed, onToggleSidebar, onOpenMobileMenu
           {workspaceOpen && (
             <div className="hn-dropdown" style={{ minWidth: 220 }}>
               {[
-                { label: "Personal Workspace",   path: "/candidate/dashboard", color: "#6366f1" },
-                { label: "Company Workspace",    path: "/recruiter/crm",       color: "#0ea5e9" },
-                { label: "University Workspace", path: "/university/dashboard",color: "#10b981" },
+                { label: "Personal Workspace",   path: "/candidate/create-workspace", color: "#6366f1" },
+                { label: "Company Workspace",    path: "/company/create-workspace",   color: "#0ea5e9" },
+                { label: "University Workspace", path: "/university/create-workspace",color: "#10b981" },
               ].map(w => (
                 <Link
                   key={w.label}
