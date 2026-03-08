@@ -1,3 +1,4 @@
+// frontend/src/features/auth/pages/Signup/Signup.jsx
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -637,12 +638,10 @@ const Signup = () => {
           onLoginRedirect={() => { setShowSuccessPopup(false); navigate("/login"); }}
           onCreateWorkspace={() => {
             setShowSuccessPopup(false);
-            
                 const redirectPath = formData.role === "employer"
                   ? "/company/create-workspace"
-                  : "/university/create-workspace"
-                   localStorage.setItem("postLoginRedirect", redirectPath); // 👈 save it
-                   navigate("/login");
+                  : "/university/create-workspace";
+                   navigate(redirectPath); // 👈 go directly
                   }}
           onResend={handleResend}
           cooldown={cooldown}
