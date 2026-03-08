@@ -1,3 +1,4 @@
+//frontend/src/company/pages/CompanyWorkspace/CompanyWorkspace.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

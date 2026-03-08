@@ -123,7 +123,16 @@ const AppRoutes = () => {
         <Route path="help" element={<Help />} />
         <Route path="feedback" element={<Feedback />} />
       </Route>
-
+       
+       {/* Company create-workspace — standalone, no layout */}
+       <Route
+      path="/company/create-workspace"
+      element={
+       <ProtectedRoute>
+       <CompanyWorkspace />
+       </ProtectedRoute>
+      }
+      />
       {/* 🏢 Company */}
       <Route
         path="/company/*"
@@ -138,9 +147,19 @@ const AppRoutes = () => {
         <Route path="post-job" element={<PostJob />} />
         <Route path="manage-candidates" element={<ManageCandidates />} />
         <Route path="reports" element={<Reports />} />
-        <Route path="create-workspace" element={<CompanyWorkspace />} />
+        
       </Route>
 
+      {/* University create-workspace — standalone, no layout */}
+      <Route
+      path="/university/create-workspace"
+      element={
+       <ProtectedRoute>
+       <UniversityWorkspace />
+       </ProtectedRoute>
+      }
+      />
+      
       {/* 🎓 University */}
       <Route
        path="/university/*"
@@ -158,7 +177,7 @@ const AppRoutes = () => {
         <Route path="settings" element={<UniversitySettings />} />
         <Route path="students" element={<UniversityStudents />} />
         <Route path="verify-students" element={<UniversityVerifyStudents />} />
-        <Route path="create-workspace" element={<UniversityWorkspace />} />
+        
       </Route>
 
       <Route
