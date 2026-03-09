@@ -7,7 +7,9 @@ export const createWorkspace = async (req, res) => {
       companyName, emailDomain, orgType, industry,
       companySize, headquarters, website, description,
     } = req.body;
-
+    
+    const logoUrl = req.file ? "pending_upload" : null; // placeholder for now
+    
     if (!companyName || !orgType || !industry || !companySize || !headquarters) {
       return res.status(400).json({ message: "Please fill all required fields." });
     }
@@ -27,6 +29,7 @@ export const createWorkspace = async (req, res) => {
       location: headquarters,
       website: website || null,
       description: description || null,
+      logo: logoUrl,
       createdBy: req.user._id,
     });
 

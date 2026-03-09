@@ -74,10 +74,9 @@ const CompanyWorkspace = () => {
   try {
     const fd = new FormData();
     Object.entries(formData).forEach(([k, v]) => { if (v) fd.append(k, v); });
-
     // ✅ Use axios instead of fetch
     await api.post("/company/workspace", fd, {
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": undefined  },
     });
 
     navigate("/company/dashboard");
