@@ -147,6 +147,7 @@ export const AuthProvider = ({ children }) => {
       resetPassword,
       updatePassword,
       updateCurrentUser,
+      saveUser,
     }),
     [
       currentUser,
@@ -157,6 +158,7 @@ export const AuthProvider = ({ children }) => {
       resetPassword,
       updatePassword,
       updateCurrentUser,
+      saveUser,
     ]
   );
 
