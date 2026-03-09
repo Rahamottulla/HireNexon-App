@@ -30,25 +30,13 @@ const companySchema = new mongoose.Schema(
       required: true,
     },
     
-    location: {
-      type: String,
-      required: true,
-    },
+    headquarters: { type: String, required: true, default: null },
+    companySize: { type: String, required: true, default: null },
 
-    email: {
-      type: String,
-      default: null,
-    },
-
-    website: {
-      type: String,
-      default: null,
-    },
-
-    logo: {
-      type: String,
-      default: null,
-    },
+    logo: { type: String, default: null },
+    website: { type: String, default: null },
+    emailDomain: { type: String, default: null },
+    description: { type: String, default: null },
 
     isVerified: {
       type: Boolean,
@@ -60,10 +48,6 @@ const companySchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    emailDomain: { type: String, default: null },
-    companySize: { type: String, default: null },
-    headquarters: { type: String, default: null },
-    description: { type: String, default: null },
   },
   
   { timestamps: true }
