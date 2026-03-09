@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Turnstile } from "@marsidev/react-turnstile";
+import { useAuth } from "@/features/auth/context/AuthContext";
 
 /* ─────────────────────────────────────────────
    STEP INDICATOR
@@ -249,6 +250,7 @@ const Signup = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const API = import.meta.env.VITE_API_URL || "";
+  const { saveUser } = useAuth();
 
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -373,6 +375,11 @@ const Signup = () => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Signup failed");
+      
+      // Set currentUser so ProtectedRoute passes immediately
+      if (data.token && data.user) {
+        saveUser(data.user, data.token);
+      }
       setShowSuccessPopup(true);
       setCooldown(60);
     } catch (err) {
