@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Header from "@/shared/components/common/Header";
 import Footer from "@/shared/components/common/Footer";
+import api from "@/shared/api/axios";
 
 const universityTypes = [
   "Central University", "State University", "Deemed University",
@@ -17,15 +18,16 @@ const UniversityWorkspace = () => {
 
   const [formData, setFormData] = useState({
     universityName: "",
-    emailDomain: "",
-    location: "",
     universityType: "",
+    location: "",
+    emailDomain: "",
     website: "",
     placementOfficer: "",
     departments: "",
     description: "",
     logo: null,
   });
+
   const [logoPreview, setLogoPreview] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -51,38 +53,30 @@ const UniversityWorkspace = () => {
     handleLogoFile(e.dataTransfer.files[0]);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      const fd = new FormData();
-      Object.entries(formData).forEach(([k, v]) => {
-        if (k === "departments" && v) {
-          fd.append(k, JSON.stringify(v.split(",").map((d) => d.trim()).filter(Boolean)));
-        } else if (v) {
-          fd.append(k, v);
-        }
-      });
-      
-      const token = localStorage.getItem("token");
-      const res = await fetch(`${API}/api/university/workspace`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        body: fd,
-      });
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  try {
+    const fd = new FormData();
+    Object.entries(formData).forEach(([k, v]) => {
+      if (k === "departments" && v) {
+        fd.append(k, JSON.stringify(v.split(",").map((d) => d.trim()).filter(Boolean)));
+      } else if (v) {
+        fd.append(k, v);
+      }
+    });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
-      navigate("/university/dashboard");
-    } catch (err) {
-      setError(err.message || "Failed to create workspace.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    await api.post("/university/workspace", fd, {
+      headers: { "Content-Type": undefined }, // let axios set multipart boundary
+    });
+
+    navigate("/university/dashboard");
+  } catch (err) {
+    setError(err.response?.data?.message || err.message || "Failed to create workspace.");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/20 to-violet-50/30 font-sans">

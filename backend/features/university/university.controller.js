@@ -1,123 +1,58 @@
 // backend/features/university/university.controller.js
-import User from "../user/user.model.js";
 import University from "./university.model.js";
-import jwt from "jsonwebtoken";
 
-//create university profile
-export const createUniversityProfile = async (req, res) => {
+export const createWorkspace = async (req, res) => {
   try {
-    const existing = await University.findOne({ user: req.user.id });
+    const {
+      universityName, universityType, location,
+      emailDomain, website, placementOfficer, departments, description,
+    } = req.body;
+
+    if (!universityName || !universityType || !location || !placementOfficer || !departments) {
+      return res.status(400).json({ message: "Please fill all required fields." });
+    }
+
+    const existing = await University.findOne({ createdBy: req.user._id });
     if (existing) {
-      return res.status(400).json({ message: "Profile already exists" });
+      return res.status(400).json({ message: "Workspace already exists for this account." });
+    }
+
+    const logoUrl = req.file ? "pending_upload" : null;
+
+    // departments arrives as JSON string from FormData
+    let parsedDepartments = [];
+    try {
+      parsedDepartments = typeof departments === "string" ? JSON.parse(departments) : departments;
+    } catch {
+      parsedDepartments = [departments];
     }
 
     const university = await University.create({
-      ...req.body,
-      user: req.user.id,
+      name: universityName,
+      universityType,
+      location,
+      emailDomain: emailDomain || null,
+      website: website || null,
+      placementOfficer,
+      departments: parsedDepartments,
+      description: description || null,
+      logo: logoUrl,
+      createdBy: req.user._id,
     });
 
-    // Update role in DB
-    const updatedUser = await User.findByIdAndUpdate(
-      req.user.id,
-      { role: "university" },
-      { new: true }
-    );
-
-    // Generate NEW token with updated role
-    const newToken = jwt.sign(
-      {
-        id: updatedUser._id,
-        role: updatedUser.role,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
-
-    res.status(201).json({
-      university,
-      token: newToken,   // send new token
-    });
-
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(201).json({ message: "Workspace created successfully!", university });
+  } catch (err) {
+    console.error("createUniversityProfile error:", err);
+    res.status(500).json({ message: "Server error. Please try again." });
   }
 };
 
-//Get university profile
 export const getUniversityProfile = async (req, res) => {
   try {
-    const university = await University.findOne({ user: req.user.id }).populate("user");
+    const university = await University.findOne({ createdBy: req.user._id });
+    if (!university) return res.status(404).json({ message: "No workspace found." });
     res.json(university);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  } catch (err) {
+    res.status(500).json({ message: "Server error." });
   }
 };
-
-//university placement analytics
-export const getUniversityPlacementStats = async (req, res) => {
-  try {
-    // Only university role
-    if (req.user.role !== "university") {
-      return res.status(403).json({
-        message: "Only universities can access placement stats",
-      });
-    }
-
-    const universityId = req.user.universityId;
-
-    if (!universityId) {
-      return res.status(400).json({
-        message: "University ID not found",
-      });
-    }
-
-    // Aggregate stats
-    const stats = await Application.aggregate([
-      {
-        $match: {
-          university: universityId,
-        },
-      },
-      {
-        $group: {
-          _id: "$status",
-          count: { $sum: 1 },
-        },
-      },
-    ]);
-
-    // Convert to object
-    const result = {
-      totalApplications: 0,
-      shortlisted: 0,
-      interview: 0,
-      hired: 0,
-      rejected: 0,
-    };
-
-    stats.forEach((item) => {
-      result.totalApplications += item.count;
-      if (result[item._id] !== undefined) {
-        result[item._id] = item.count;
-      }
-    });
-
-    // Placement rate
-    result.placementRate =
-      result.totalApplications > 0
-        ? ((result.hired / result.totalApplications) * 100).toFixed(2) + "%"
-        : "0%";
-
-    res.status(200).json({
-      success: true,
-      data: result,
-    });
-
-  } catch (error) {
-    res.status(500).json({
-      message: "Server error",
-      error: error.message,
-    });
-  }
-};
-

@@ -1,14 +1,13 @@
 //backend/features/university/university.routes.js
 import express from "express";
+import multer from "multer";
 import auth from "../../middleware/auth.js";
-import { createUniversityProfile, getUniversityProfile, getUniversityPlacementStats
-} from "./university.controller.js";
+import { createWorkspace, getUniversityProfile} from "./university.controller.js";
 
+const upload = multer({ storage: multer.memoryStorage() });
 const router = express.Router();
 
-router.post("/", auth(), createUniversityProfile);
-router.get("/me", auth("university"), getUniversityProfile);
-router.get("/placement-stats", auth("university"), getUniversityPlacementStats);
-router.post("/workspace", auth(), createUniversityProfile);
+router.post("/workspace", auth(), upload.single("logo"), createWorkspace);
+router.get("/me", auth(), getUniversityProfile);
 
 export default router;
