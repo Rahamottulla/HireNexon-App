@@ -19,7 +19,6 @@ import socialAuthRoutes from "./features/auth/socialAuth.routes.js";
 import companyRoutes from "./features/company/company.routes.js";
 import universityRoutes from "./features/university/university.routes.js";
 
-import universityRoutes from "./features/university/university.routes.js";
 import notificationRoutes from "./features/notification/notification.routes.js";
 import errorHandler from "./middleware/errorHandler.js";
 
