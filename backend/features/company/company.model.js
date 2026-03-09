@@ -13,11 +13,14 @@ const companySchema = new mongoose.Schema(
       enum: [
         "Private Limited",
         "Public Limited",
+        "Startup",
+        "MNC (Multinational)",
+        "Partnership Firm",
         "Sole Proprietorship",
-        "Partnership",
-        "Government",
-        "MNC",
-        "NGO",
+        "NGO / Non-Profit",
+        "Government Body",
+        "LLP (Limited Liability Partnership)",
+        "Other",
       ],
       required: true,
     },
@@ -57,7 +60,12 @@ const companySchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    emailDomain: { type: String, default: null },
+    companySize: { type: String, default: null },
+    headquarters: { type: String, default: null },
+    description: { type: String, default: null },
   },
+  
   { timestamps: true }
 );
 

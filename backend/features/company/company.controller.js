@@ -1,0 +1,48 @@
+// backend/features/company/company.controller.js
+import Company from "./company.model.js";
+
+export const createWorkspace = async (req, res) => {
+  try {
+    const {
+      companyName, emailDomain, orgType, industry,
+      companySize, headquarters, website, description,
+    } = req.body;
+
+    if (!companyName || !orgType || !industry || !companySize || !headquarters) {
+      return res.status(400).json({ message: "Please fill all required fields." });
+    }
+
+    const existing = await Company.findOne({ createdBy: req.user._id });
+    if (existing) {
+      return res.status(400).json({ message: "Workspace already exists for this account." });
+    }
+
+    const company = await Company.create({
+      name: companyName,
+      emailDomain,
+      organizationType: orgType,
+      industry,
+      companySize,
+      headquarters,
+      location: headquarters,
+      website: website || null,
+      description: description || null,
+      createdBy: req.user._id,
+    });
+
+    res.status(201).json({ message: "Workspace created successfully!", company });
+  } catch (err) {
+    console.error("createWorkspace error:", err);
+    res.status(500).json({ message: "Server error. Please try again." });
+  }
+};
+
+export const getCompanyProfile = async (req, res) => {
+  try {
+    const company = await Company.findOne({ createdBy: req.user._id });
+    if (!company) return res.status(404).json({ message: "No workspace found." });
+    res.json(company);
+  } catch (err) {
+    res.status(500).json({ message: "Server error." });
+  }
+};
