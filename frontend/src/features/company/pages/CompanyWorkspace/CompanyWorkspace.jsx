@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Header from "@/shared/components/common/Header";
 import Footer from "@/shared/components/common/Footer";
+import api from "@/shared/api/axios"; 
 
 const industries = [
   "Technology & Software", "Finance & Banking", "Healthcare & Pharma",
@@ -29,7 +30,6 @@ const companySizes = [
 
 const CompanyWorkspace = () => {
   const navigate = useNavigate();
-  const API = import.meta.env.VITE_API_URL || "";
 
   const [formData, setFormData] = useState({
     companyName: "",
@@ -68,31 +68,25 @@ const CompanyWorkspace = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!formData.companySize) { setError("Please select a company size."); return; }
-    setIsLoading(true);
-    try {
-      const fd = new FormData();
-      Object.entries(formData).forEach(([k, v]) => { if (v) fd.append(k, v); });
-      const token = localStorage.getItem("token");
-      const res = await fetch(`${API}/api/company/workspace`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        body: fd,
-      });
-      
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
-      navigate("/company/dashboard");
-    } catch (err) {
-      setError(err.message || "Failed to create workspace.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  e.preventDefault();
+  if (!formData.companySize) { setError("Please select a company size."); return; }
+  setIsLoading(true);
+  try {
+    const fd = new FormData();
+    Object.entries(formData).forEach(([k, v]) => { if (v) fd.append(k, v); });
+
+    // ✅ Use axios instead of fetch
+    await api.post("/company/workspace", fd, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    navigate("/company/dashboard");
+  } catch (err) {
+    setError(err.response?.data?.message || err.message || "Failed to create workspace.");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-indigo-50/30 font-sans">
