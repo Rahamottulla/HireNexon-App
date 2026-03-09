@@ -11,34 +11,27 @@ const universitySchema = new mongoose.Schema(
     universityType: {
       type: String,
       enum: [
-        "Government",
-        "Private",
-        "Deemed",
-        "Autonomous",
-        "International",
+        "Autonomous Institute (IIT/NIT/IIIT)",
+        "Institute of National Importance",
+        "Private University",
+        "Central University",
+        "State University",
+        "Deemed University",
+        "Affiliated College",
+        "Open University",
+        "International University",
+        "Other",
       ],
       required: true,
     },
-    
-    location: {
-      type: String,
-      required: true,
-    },
 
-    email: {
-      type: String,
-      default: null,
-    },
-
-    website: {
-      type: String,
-      default: null,
-    },
-
-    logo: {
-      type: String,
-      default: null,
-    },
+    location: { type: String, required: true },
+    website: { type: String, default: null },
+    emailDomain: { type: String, default: null },
+    logo: { type: String, default: null },
+    placementOfficer: { type: String, default: null },
+    departments: [{ type: String }],
+    description: { type: String, default: null },
 
     isVerified: {
       type: Boolean,
