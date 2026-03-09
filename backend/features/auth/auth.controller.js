@@ -173,8 +173,22 @@ await sendEmail(
     error: emailErr.message || emailErr,
   });
 }
+    const authToken = jwt.sign(
+      { id: newUser._id, email: newUser.email, role: newUser.role },
+      JWT_SECRET,
+      { expiresIn: "1d" }
+    );
 
-    res.status(201).json({ message: "Verification email sent! Please check your inbox." });
+    res.status(201).json({
+      message: "Verification email sent! Please check your inbox.",
+      token: authToken,
+      user: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+        role: newUser.role,
+      },
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
