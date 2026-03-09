@@ -7,9 +7,14 @@ const auth = (roles = []) => {
 
   return async (req, res, next) => {
     try {
-      const token = req.cookies?.token;
+      const cookieToken = req.cookies?.token;
+      const headerToken = req.headers.authorization?.startsWith("Bearer ")
+        ? req.headers.authorization.split(" ")[1]
+        : null;
+
+      const token = cookieToken || headerToken;
       if (!token)
-        return res.status(401).json({ message: "Access denied. No token provided." });
+      return res.status(401).json({ message: "Access denied. No token provided." });
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
