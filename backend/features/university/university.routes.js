@@ -9,5 +9,6 @@ const router = express.Router();
 router.post("/", auth(), createUniversityProfile);
 router.get("/me", auth("university"), getUniversityProfile);
 router.get("/placement-stats", auth("university"), getUniversityPlacementStats);
+router.post("/workspace", auth(), createUniversityProfile);
 
 export default router;
