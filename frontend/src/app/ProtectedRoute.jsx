@@ -15,6 +15,10 @@ const ProtectedRoute = ({ children, role }) => {
 
   // Not logged in
   if (!currentUser) {
+    const redirectPath = window.location.pathname;
+    if (redirectPath !== "/login" && redirectPath !== "/signup") {
+      localStorage.setItem("postLoginRedirect", redirectPath);
+    }
     return <Navigate to="/login" replace />;
   }
 
