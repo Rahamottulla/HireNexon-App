@@ -63,12 +63,17 @@ const UniversityWorkspace = () => {
           fd.append(k, v);
         }
       });
-
+      
+      const token = localStorage.getItem("token");
       const res = await fetch(`${API}/api/university/workspace`, {
         method: "POST",
         credentials: "include",
+        headers: {
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: fd,
       });
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
       navigate("/university/dashboard");
