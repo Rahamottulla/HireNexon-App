@@ -169,25 +169,6 @@ const CompanyWorkspace = () => {
                 />
               </div>
 
-              {/* Email Domain */}
-              <div>
-                <label className="mb-1.5 block text-xs font-bold uppercase tracking-widest text-gray-400">
-                  Company Email Domain <span className="text-red-400">*</span>
-                </label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 font-medium select-none">@</span>
-                  <input
-                    name="emailDomain"
-                    value={formData.emailDomain}
-                    onChange={handleChange}
-                    placeholder="yourcompany.com"
-                    required
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50/60 pl-8 pr-4 py-3.5 text-sm text-gray-800 placeholder-gray-400 outline-none transition focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100"
-                  />
-                </div>
-                <p className="mt-1 text-xs text-gray-400">Used to verify team members during onboarding</p>
-              </div>
-
               {/* Org Type + Industry — 2 col */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -261,10 +242,29 @@ const CompanyWorkspace = () => {
                 />
               </div>
 
+              {/* Email Domain */}
+              <div>
+                <label className="mb-1.5 block text-xs font-bold uppercase tracking-widest text-gray-400">
+                  Company Email Domain <span className="text-gray-400 normal-case font-normal">(optional)</span>
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 font-medium select-none">@</span>
+                  <input
+                    name="emailDomain"
+                    value={formData.emailDomain}
+                    onChange={handleChange}
+                    placeholder="yourcompany.com"
+                    
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50/60 pl-8 pr-4 py-3.5 text-sm text-gray-800 placeholder-gray-400 outline-none transition focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100"
+                  />
+                </div>
+                <p className="mt-1 text-xs text-gray-400">Used to verify team members during onboarding</p>
+              </div>
+
               {/* Website */}
               <div>
                 <label className="mb-1.5 block text-xs font-bold uppercase tracking-widest text-gray-400">
-                  Website <span className="text-gray-300 normal-case font-normal">(optional)</span>
+                  Website <span className="text-gray-400 normal-case font-normal">(optional)</span>
                 </label>
                 <input
                   type="url"
@@ -279,7 +279,7 @@ const CompanyWorkspace = () => {
               {/* Description */}
               <div>
                 <label className="mb-1.5 block text-xs font-bold uppercase tracking-widest text-gray-400">
-                  About the Company <span className="text-gray-300 normal-case font-normal">(optional)</span>
+                  About the Company <span className="text-gray-400 normal-case font-normal">(optional)</span>
                 </label>
                 <textarea
                   name="description"
