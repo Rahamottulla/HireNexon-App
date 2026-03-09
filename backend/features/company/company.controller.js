@@ -21,12 +21,11 @@ export const createWorkspace = async (req, res) => {
 
     const company = await Company.create({
       name: companyName,
-      emailDomain,
       organizationType: orgType,
       industry,
       companySize,
       headquarters,
-      location: headquarters,
+      emailDomain: emailDomain || null,
       website: website || null,
       description: description || null,
       logo: logoUrl,
