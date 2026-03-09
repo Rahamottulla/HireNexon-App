@@ -20,8 +20,11 @@ const auth = (roles = []) => {
 
       // Fetch full user from DB
       const user = await User.findById(decoded.id).select("-password");
-      if (!user)
+      if (!user) {
+        console.log("User not found for id:", decoded.id);
         return res.status(401).json({ message: "User not found." });
+      }
+      console.log("User found:", user._id, "verified:", user.isVerified);
 
       req.user = user;
 
