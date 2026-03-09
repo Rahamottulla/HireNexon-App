@@ -317,21 +317,28 @@ export const login = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-  res.json({
+// ✅ Replace your res.json in the login function with this:
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  maxAge: 24 * 60 * 60 * 1000, // 1 day
+});
+
+res.json({
   message: "Login successful",
   user: {
     id: user._id,
     username: user.username,
     email: user.email,
     role: user.role,
-    candidateType: user.candidateType, //*
-
+    candidateType: user.candidateType,
     isCampusVerified: user.isCampusVerified,
     campusVerificationStatus: user.campusVerificationStatus,
     universityId: user.universityId,
     organizationId: user.organizationId,
   },
-  token,
+  token, // keep this too for any frontend that reads it
 });
 
   } catch (err) {
