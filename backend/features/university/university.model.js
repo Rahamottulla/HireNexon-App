@@ -26,11 +26,12 @@ const universitySchema = new mongoose.Schema(
     },
 
     location: { type: String, required: true },
+    placementOfficer: { type: String, required: true },
+    departments: [{ type: String, required: true }],
+
+    logo: { type: String, default: null },
     website: { type: String, default: null },
     emailDomain: { type: String, default: null },
-    logo: { type: String, default: null },
-    placementOfficer: { type: String, default: null },
-    departments: [{ type: String }],
     description: { type: String, default: null },
 
     isVerified: {
