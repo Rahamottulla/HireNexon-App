@@ -809,11 +809,10 @@ export default function ForUniversities() {
             </a>
           </div>
           <p className="text-emerald-100 text-sm mt-6 font-medium">
-            ✓ No credit card required for Starter Plan &nbsp;·&nbsp; ✓ Setup in under 10 minutes
+            ✓ No credit card required for Starter Plan &nbsp;·&nbsp; ✓ Setup in under 5 minutes
           </p>
         </div>
       </section>
-
     </div>
   );
 }

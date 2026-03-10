@@ -1,24 +1,4 @@
-// src/pages/company/CreateCompanyWorkspace.jsx
-//
-// ── HOW TO IMPORT & USE ───────────────────────────────────────────
-//
-//  STEP 1 — Add the route in your App.jsx / router file:
-//
-//    import CreateCompanyWorkspace from "./pages/company/CreateCompanyWorkspace";
-//
-//    <Route path="/create-company-workspace" element={<CreateCompanyWorkspace />} />
-//
-//  STEP 2 — On your /employers landing page, wire the CTA button:
-//
-//    import { useNavigate } from "react-router-dom";
-//    const navigate = useNavigate();
-//
-//    <button onClick={() => navigate("/create-company-workspace")}>
-//      Create Company Workspace →
-//    </button>
-//
-// ──────────────────────────────────────────────────────────────────
-
+// frontend/src/features/company/pages/CreateCompanyGuide/CreateCompanyGuide.jsx
 import { useNavigate } from "react-router-dom";
 
 /* ── Step data ─────────────────────────────────────────────────── */
@@ -116,7 +96,7 @@ const TAG = {
 };
 
 /* ── Component ─────────────────────────────────────────────────── */
-export default function CreateCompanyGuide() {
+export default function CreateCompanyWorkspace() {
   const navigate = useNavigate();
 
   return (
@@ -261,49 +241,66 @@ export default function CreateCompanyGuide() {
           ))}
         </div>
 
-        {/* ── CTA ────────────────────────────────────── */}
+        {/* ── CTA — matches /employers landing page style ── */}
         <div
-          className="relative overflow-hidden rounded-3xl p-10 text-center"
+          className="relative overflow-hidden rounded-3xl px-10 py-14 text-center"
           style={{
             background:
-              "linear-gradient(135deg, #4f46e5 0%, #6366f1 55%, #7c3aed 100%)",
+              "linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #7c3aed 100%)",
           }}
         >
-          {/* Decorative blobs */}
-          <div className="pointer-events-none absolute -right-10 -top-10
-                          h-40 w-40 rounded-full bg-white/[0.06]" />
-          <div className="pointer-events-none absolute -bottom-14 -left-8
-                          h-52 w-52 rounded-full bg-white/[0.04]" />
+          {/* Same decorative blobs as landing page */}
+          <div className="pointer-events-none absolute -right-16 -top-16
+                          h-64 w-64 rounded-full bg-white/[0.05]" />
+          <div className="pointer-events-none absolute -bottom-20 -left-12
+                          h-72 w-72 rounded-full bg-white/[0.04]" />
 
           <div className="relative z-10">
-            <h2 className="mb-2 font-extrabold tracking-tight text-white"
-                style={{ fontSize: "clamp(18px, 3vw, 22px)" }}>
-              Ready to build your dream team?
+            {/* Badge — same as landing page pill */}
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full
+                            border border-white/20 bg-white/10 px-4 py-1.5
+                            text-xs font-bold uppercase tracking-widest text-white/80">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-300" />
+              Start Hiring Today
+            </div>
+
+            {/* Big heading — same weight & size as landing page */}
+            <h2 className="mb-4 font-extrabold leading-tight tracking-tight text-white"
+                style={{ fontSize: "clamp(26px, 4vw, 38px)" }}>
+              Ready to Transform<br />Your Hiring Process?
             </h2>
-            <p className="mx-auto mb-7 max-w-[400px] text-sm leading-relaxed text-white/70">
-              Join 100+ growing companies already hiring smarter on HireNexon.
-              <br />
-              No credit card required — your first job post is free.
+
+            <p className="mx-auto mb-8 max-w-[420px] text-base leading-relaxed text-white/70">
+              Create your company workspace in minutes and start reaching
+              India's best talent today.
             </p>
-            <button
-              onClick={() => navigate("/signup?type=employer")}
-              className="inline-flex items-center gap-2.5 rounded-xl bg-white
-                         px-8 py-3.5 text-sm font-bold text-brand-600
-                         shadow-[0_4px_20px_rgba(0,0,0,0.18)]
-                         transition-all duration-200
-                         hover:-translate-y-0.5
-                         hover:shadow-[0_8px_28px_rgba(0,0,0,0.22)]
-                         active:translate-y-0"
-            >
-              🏢 Create Company Workspace
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2.5"
-                strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-            <p className="mt-4 text-xs text-white/40">
-              Free to get started · No credit card needed
+
+            {/* Two-button row — identical to landing page */}
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-5">
+              <button
+                onClick={() => navigate("/signup?type=employer")}
+                className="inline-flex items-center gap-2 rounded-xl bg-white
+                           px-7 py-3.5 text-sm font-bold text-brand-700
+                           shadow-[0_4px_20px_rgba(0,0,0,0.18)]
+                           transition-all duration-200
+                           hover:-translate-y-0.5
+                           hover:shadow-[0_8px_28px_rgba(0,0,0,0.22)]
+                           active:translate-y-0"
+              >
+                Create Company Workspace
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2.5"
+                  strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+
+              
+            </div>
+
+            {/* Trust notes — same ✓ style as landing page */}
+            <p className="text-xs text-white/50">
+              ✓ No credit card required for Starter Plan &nbsp;·&nbsp; ✓ Setup in under 5 minutes
             </p>
           </div>
         </div>
