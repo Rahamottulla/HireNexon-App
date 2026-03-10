@@ -1,24 +1,4 @@
-// src/pages/university/CreateUniversityWorkspace.jsx
-//
-// ── HOW TO IMPORT & USE ───────────────────────────────────────────
-//
-//  STEP 1 — Add the route in your App.jsx / router file:
-//
-//    import CreateUniversityWorkspace from "./pages/university/CreateUniversityWorkspace";
-//
-//    <Route path="/create-university-workspace" element={<CreateUniversityWorkspace />} />
-//
-//  STEP 2 — On your /universities landing page, wire the CTA button:
-//
-//    import { useNavigate } from "react-router-dom";
-//    const navigate = useNavigate();
-//
-//    <button onClick={() => navigate("/create-university-workspace")}>
-//      Create University Workspace →
-//    </button>
-//
-// ──────────────────────────────────────────────────────────────────
-
+// frontend/src/features/university/pages/CreateUniversityGuide/CreateUniversityGuide.jsx
 import { useNavigate } from "react-router-dom";
 
 /* ── Step data ─────────────────────────────────────────────────── */
@@ -118,7 +98,7 @@ const TAG = {
 };
 
 /* ── Component ─────────────────────────────────────────────────── */
-export default function CreateUniversityGuide() {
+export default function CreateUniversityWorkspace() {
   const navigate = useNavigate();
 
   return (
@@ -286,51 +266,64 @@ export default function CreateUniversityGuide() {
           ))}
         </div>
 
-        {/* ── CTA ────────────────────────────────────── */}
+        {/* ── CTA — matches /universities landing page style ── */}
         <div
-          className="relative overflow-hidden rounded-3xl p-10 text-center"
+          className="relative overflow-hidden rounded-3xl px-10 py-14 text-center"
           style={{
             background:
-              "linear-gradient(135deg, #059669 0%, #10b981 55%, #0d9488 100%)",
+              "linear-gradient(135deg, #059669 0%, #10b981 50%, #0d9488 100%)",
           }}
         >
-          {/* Decorative blobs */}
-          <div className="pointer-events-none absolute -right-10 -top-10
-                          h-40 w-40 rounded-full bg-white/[0.06]" />
-          <div className="pointer-events-none absolute -bottom-14 -left-8
-                          h-52 w-52 rounded-full bg-white/[0.04]" />
+          {/* Same decorative blobs as landing page */}
+          <div className="pointer-events-none absolute -right-16 -top-16
+                          h-64 w-64 rounded-full bg-white/[0.05]" />
+          <div className="pointer-events-none absolute -bottom-20 -left-12
+                          h-72 w-72 rounded-full bg-white/[0.04]" />
 
           <div className="relative z-10">
-            <h2
-              className="mb-2 font-extrabold tracking-tight text-white"
-              style={{ fontSize: "clamp(18px, 3vw, 22px)" }}
-            >
-              Ready to transform your placements?
+            {/* Badge — same as landing page pill */}
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full
+                            border border-white/20 bg-white/10 px-4 py-1.5
+                            text-xs font-bold uppercase tracking-widest text-white/80">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-200" />
+              Start Digitising Today
+            </div>
+
+            {/* Big heading — same weight & size as landing page */}
+            <h2 className="mb-4 font-extrabold leading-tight tracking-tight text-white"
+                style={{ fontSize: "clamp(26px, 4vw, 38px)" }}>
+              Ready to Digitize Your<br />Placement Process Today?
             </h2>
-            <p className="mx-auto mb-7 max-w-[400px] text-sm leading-relaxed text-white/70">
-              Join leading universities already running smarter placement cells.
-              <br />
-              Free to set up — no credit card required.
+
+            <p className="mx-auto mb-8 max-w-[420px] text-base leading-relaxed text-white/70">
+              Create your university workspace in minutes and bring your entire
+              placement cell online.
             </p>
-            <button
-              onClick={() => navigate("/signup?type=university")}
-              className="inline-flex items-center gap-2.5 rounded-xl bg-white
-                         px-8 py-3.5 text-sm font-bold text-emerald-700
-                         shadow-[0_4px_20px_rgba(0,0,0,0.18)]
-                         transition-all duration-200
-                         hover:-translate-y-0.5
-                         hover:shadow-[0_8px_28px_rgba(0,0,0,0.22)]
-                         active:translate-y-0"
-            >
-              🎓 Create University Workspace
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2.5"
-                strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-            <p className="mt-4 text-xs text-white/40">
-              Free to get started · No credit card needed
+
+            {/* Two-button row — identical to landing page */}
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-5">
+              <button
+                onClick={() => navigate("/signup?type=university")}
+                className="inline-flex items-center gap-2 rounded-xl bg-white
+                           px-7 py-3.5 text-sm font-bold text-emerald-800
+                           shadow-[0_4px_20px_rgba(0,0,0,0.18)]
+                           transition-all duration-200
+                           hover:-translate-y-0.5
+                           hover:shadow-[0_8px_28px_rgba(0,0,0,0.22)]
+                           active:translate-y-0"
+              >
+                Create University Workspace
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2.5"
+                  strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Trust notes — same ✓ style as landing page */}
+            <p className="text-xs text-white/50">
+              ✓ No credit card required for Starter Plan &nbsp;·&nbsp; ✓ Setup in under 5 minutes
             </p>
           </div>
         </div>
