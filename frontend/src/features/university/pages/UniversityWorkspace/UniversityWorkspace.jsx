@@ -6,15 +6,20 @@ import Footer from "@/shared/components/common/Footer";
 import api from "@/shared/api/axios";
 
 const universityTypes = [
-  "Central University", "State University", "Deemed University",
-  "Private University", "Autonomous Institute (IIT/NIT/IIIT)",
-  "Affiliated College", "Institute of National Importance",
-  "Open University", "International University", "Other",
+  "Autonomous Institute (IIT/NIT/IIIT)",
+  "Institute of National Importance",
+  "Private University",
+  "Central University",
+  "State University",
+  "Deemed University",
+  "Affiliated College",
+  "Open University",
+  "International University",
+  "Other",
 ];
 
 const UniversityWorkspace = () => {
   const navigate = useNavigate();
-  const API = import.meta.env.VITE_API_URL || "";
 
   const [formData, setFormData] = useState({
     universityName: "",
