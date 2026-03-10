@@ -159,25 +159,6 @@ const handleSubmit = async (e) => {
                 />
               </div>
 
-              {/* Email Domain */}
-              <div>
-                <label className="mb-1.5 block text-xs font-bold uppercase tracking-widest text-gray-400">
-                  Official Email Domain <span className="text-red-400">*</span>
-                </label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 font-medium select-none">@</span>
-                  <input
-                    name="emailDomain"
-                    value={formData.emailDomain}
-                    onChange={handleChange}
-                    placeholder="university.edu.in"
-                    required
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50/60 pl-8 pr-4 py-3.5 text-sm text-gray-800 placeholder-gray-400 outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
-                  />
-                </div>
-                <p className="mt-1 text-xs text-gray-400">Used to verify faculty and staff during onboarding</p>
-              </div>
-
               {/* Type + Location — 2 col */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -241,10 +222,29 @@ const handleSubmit = async (e) => {
                 <p className="mt-1 text-xs text-gray-400">Comma-separated list of departments offered</p>
               </div>
 
+              {/* Email Domain */}
+              <div>
+                <label className="mb-1.5 block text-xs font-bold uppercase tracking-widest text-gray-400">
+                  Official Email Domain <span className="text-gray-400 normal-case font-normal">(optional)</span>
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 font-medium select-none">@</span>
+                  <input
+                    name="emailDomain"
+                    value={formData.emailDomain}
+                    onChange={handleChange}
+                    placeholder="university.edu.in"
+                    required
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50/60 pl-8 pr-4 py-3.5 text-sm text-gray-800 placeholder-gray-400 outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
+                  />
+                </div>
+                <p className="mt-1 text-xs text-gray-400">Used to verify faculty and staff during onboarding</p>
+              </div>
+
               {/* Website */}
               <div>
                 <label className="mb-1.5 block text-xs font-bold uppercase tracking-widest text-gray-400">
-                  Website <span className="text-gray-300 normal-case font-normal">(optional)</span>
+                  Website <span className="text-gray-400 normal-case font-normal">(optional)</span>
                 </label>
                 <input
                   type="url"
@@ -259,7 +259,7 @@ const handleSubmit = async (e) => {
               {/* Description */}
               <div>
                 <label className="mb-1.5 block text-xs font-bold uppercase tracking-widest text-gray-400">
-                  About the University <span className="text-gray-300 normal-case font-normal">(optional)</span>
+                  About the University <span className="text-gray-400 normal-case font-normal">(optional)</span>
                 </label>
                 <textarea
                   name="description"
