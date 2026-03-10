@@ -211,7 +211,7 @@ export default function ForCandidates() {
               </div>
 
               <div className="flex flex-wrap gap-4 mb-12">
-                <Link to="/register"
+                <Link to="/signup"
                   className="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-bold px-7 py-4 rounded-xl transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg text-[15px]">
                   Create Free Account <ArrowRight size={16} />
                 </Link>
@@ -698,7 +698,7 @@ export default function ForCandidates() {
             Join 50,000+ candidates who are finding their dream careers on HireNexon — completely free.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/register"
+            <Link to="/signup"
               className="inline-flex items-center gap-2 bg-white text-brand-600 hover:bg-brand-50 font-bold px-8 py-4 rounded-xl transition-all hover:-translate-y-0.5 shadow-lg hover:shadow-xl text-[15px]">
               Create Free Account <ArrowRight size={16} />
             </Link>

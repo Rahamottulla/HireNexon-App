@@ -260,7 +260,7 @@ export default function ForEmployers() {
               </p>
 
               <div className="flex flex-wrap gap-4 mb-12">
-                <Link to="/recruiter/register"
+                <Link to="/create-company"
                   className="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-bold px-7 py-4 rounded-xl transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg text-[15px]">
                   Create Company Workspace <ArrowRight size={16} />
                 </Link>
@@ -636,7 +636,7 @@ export default function ForEmployers() {
             Create your company workspace in minutes and start reaching India's best talent today.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/recruiter/register"
+            <Link to="/create-company"
               className="inline-flex items-center gap-2 bg-white text-brand-600 hover:bg-brand-50 font-bold px-8 py-4 rounded-xl transition-all hover:-translate-y-0.5 shadow-lg hover:shadow-xl text-[15px]">
               Create Company Workspace <ArrowRight size={16} />
             </Link>

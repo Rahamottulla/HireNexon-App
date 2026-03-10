@@ -282,7 +282,7 @@ export default function ForUniversities() {
               </p>
 
               <div className="flex flex-wrap gap-4 mb-12">
-                <Link to="/university/register"
+                <Link to="/create-university"
                   className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-7 py-4 rounded-xl transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg text-[15px]">
                   Create University Workspace <ArrowRight size={16} />
                 </Link>
@@ -798,7 +798,8 @@ export default function ForUniversities() {
             Create your university workspace in minutes and bring your entire placement cell online.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/university/register"
+
+            <Link to="/create-university"
               className="inline-flex items-center gap-2 bg-white text-emerald-700 hover:bg-emerald-50 font-bold px-8 py-4 rounded-xl transition-all hover:-translate-y-0.5 shadow-lg hover:shadow-xl text-[15px]">
               Create University Workspace <ArrowRight size={16} />
             </Link>
