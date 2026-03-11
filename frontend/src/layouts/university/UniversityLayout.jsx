@@ -9,9 +9,9 @@ import UniversitySidebar from "./UniversitySidebar";
 import MobileSidebar     from "./MobileSidebar";
 
 const UniversityLayout = () => {
-  const [isSidebarCollapsed,  setIsSidebarCollapsed]  = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  const [isChatOpen,          setIsChatOpen]          = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   return (
     <div className="hn-layout">

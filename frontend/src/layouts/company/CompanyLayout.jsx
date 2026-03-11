@@ -9,9 +9,9 @@ import CompanySidebar from "./CompanySidebar";
 import MobileSidebar  from "./MobileSidebar";
 
 const CompanyLayout = () => {
-  const [isSidebarCollapsed,  setIsSidebarCollapsed]  = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  const [isChatOpen,          setIsChatOpen]          = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   return (
     <div className="hn-layout">
