@@ -1,6 +1,6 @@
 // backend/features/auth/auth.routes.js
 import express from "express";
-import {register, login, verifyEmail, resendVerification, checkAvailability } from "./auth.controller.js";
+import {register, login, logout, verifyEmail, resendVerification, checkAvailability } from "./auth.controller.js";
 import forgotRoutes from "./forgotPassword.routes.js";
 import socialRoutes from "./socialAuth.routes.js";
 
@@ -9,6 +9,7 @@ const router = express.Router();
 // Main Auth Routes
 router.post("/register", register);
 router.post("/login", login);
+router.post("/logout", logout);
 router.get("/verify-email/:token", verifyEmail);
 router.get("/check-availability", checkAvailability);
 router.post("/resend-verification", resendVerification);
