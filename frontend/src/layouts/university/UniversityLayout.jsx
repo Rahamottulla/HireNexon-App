@@ -1,22 +1,33 @@
+
+
+// src/layouts/university/UniversityLayout.jsx
+// ─────────────────────────────────────────────────────────────
+// HireNexon — University Workspace Layout
+// Usage:
+//   <UniversityLayout orgName="MIT" orgLogo="/mit.png">
+//     <YourPage />
+//   </UniversityLayout>
+//
+// Or wrap routes:
+//   <Route element={<UniversityLayout orgName="MIT" />}>
+//     <Route path="dashboard" element={<Dashboard />} />
+//     ...
+//   </Route>
+// ─────────────────────────────────────────────────────────────
 import { Outlet } from "react-router-dom";
-import UniversityNavbar from "./UniversityNavbar";
-import UniversitySidebar from "./UniversitySidebar";
-import MobileSidebar from "./UniversitySidebar";
+import BaseLayout from "../shared/BaseLayout";
+import { UNIVERSITY_NAV } from "../shared/navConfig";
 
-const UniversityLayout = () => {
+export default function UniversityLayout({ orgName = "Your University", orgLogo = null, children }) {
   return (
-    <div className="flex h-screen">
-      <UniversitySidebar />
-      <MobileSidebar />
-      
-      <div className="flex-1 flex flex-col">
-        <UniversityNavbar />
-        <main className="flex-1 p-6">
-          <Outlet />
-        </main>
-      </div>
-    </div>
+    <BaseLayout
+      navItems={UNIVERSITY_NAV}
+      workspaceType="university"
+      orgName={orgName}
+      orgLogo={orgLogo}
+    >
+      {children ?? <Outlet />}
+    </BaseLayout>
   );
-};
+}
 
-export default UniversityLayout;
