@@ -257,7 +257,6 @@ const CompanyWorkspace = () => {
                     value={formData.emailDomain}
                     onChange={handleChange}
                     placeholder="yourcompany.com"
-                    
                     className="w-full rounded-xl border border-gray-200 bg-gray-50/60 pl-8 pr-4 py-3.5 text-sm text-gray-800 placeholder-gray-400 outline-none transition focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100"
                   />
                 </div>
