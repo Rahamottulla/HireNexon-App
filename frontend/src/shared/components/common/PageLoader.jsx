@@ -1,3 +1,4 @@
+// frontend/src/components/common/PageLoader.jsx
 const PageLoader = () => {
   return (
     <div className="flex items-center justify-center h-screen">
