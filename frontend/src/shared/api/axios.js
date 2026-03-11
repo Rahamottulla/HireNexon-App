@@ -4,12 +4,8 @@ import { API_TIMEOUT } from "./config";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "/api",
-
   timeout: API_TIMEOUT,
   withCredentials: true, 
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 // response interceptor

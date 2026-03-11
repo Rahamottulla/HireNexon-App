@@ -74,10 +74,9 @@ const CompanyWorkspace = () => {
   try {
     const fd = new FormData();
     Object.entries(formData).forEach(([k, v]) => { if (v) fd.append(k, v); });
+    
     // ✅ Use axios instead of fetch
-    await api.post("/company/workspace", fd, {
-      headers: { "Content-Type": undefined  },
-    });
+    await api.post("/company/workspace", fd); 
     navigate("/company/dashboard");
   } catch (err) {
     if (err.response?.status === 400 && err.response?.data?.message === "Workspace already exists for this account.") {
