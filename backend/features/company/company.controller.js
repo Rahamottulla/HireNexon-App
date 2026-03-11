@@ -2,6 +2,9 @@
 import Company from "./company.model.js";
 
 export const createWorkspace = async (req, res) => {
+  console.log("🔥 createWorkspace hit");
+  console.log("req.body:", req.body);
+  console.log("req.user:", req.user?._id);
   try {
     const {
       companyName, emailDomain, orgType, industry,

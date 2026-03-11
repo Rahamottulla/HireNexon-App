@@ -77,7 +77,11 @@ const handleSubmit = async (e) => {
 
     navigate("/university/dashboard");
   } catch (err) {
+    if (err.response?.status === 400 && err.response?.data?.message === "Workspace already exists for this account.") {
+    navigate("/university/dashboard"); // ← add this
+  } else {
     setError(err.response?.data?.message || err.message || "Failed to create workspace.");
+  }
   } finally {
     setIsLoading(false);
   }
