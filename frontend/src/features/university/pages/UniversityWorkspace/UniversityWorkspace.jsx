@@ -239,7 +239,6 @@ const handleSubmit = async (e) => {
                     value={formData.emailDomain}
                     onChange={handleChange}
                     placeholder="university.edu.in"
-                    required
                     className="w-full rounded-xl border border-gray-200 bg-gray-50/60 pl-8 pr-4 py-3.5 text-sm text-gray-800 placeholder-gray-400 outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
                   />
                 </div>
@@ -311,8 +310,7 @@ const handleSubmit = async (e) => {
           </div>
         </div>
       </main>
-
-      <Footer />
+    <Footer />
     </div>
   );
 };

@@ -25,13 +25,9 @@ const companySchema = new mongoose.Schema(
       required: true,
     },
 
-    industry: {
-      type: String,
-      required: true,
-    },
-    
-    headquarters: { type: String, required: true, default: null },
-    companySize: { type: String, required: true, default: null },
+    industry: { type: String, required: true },
+    headquarters: { type: String, required: true },
+    companySize: { type: String, required: true },
 
     logo: { type: String, default: null },
     website: { type: String, default: null },
