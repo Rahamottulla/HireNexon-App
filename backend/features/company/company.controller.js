@@ -16,7 +16,11 @@ export const createWorkspace = async (req, res) => {
 
     const existing = await Company.findOne({ createdBy: req.user._id });
     if (existing) {
-      return res.status(400).json({ message: "Workspace already exists for this account." });
+    return res.status(200).json({ 
+    message: "Workspace already exists.", 
+    company: existing,
+    alreadyExists: true  
+    });
     }
 
     const company = await Company.create({

@@ -78,10 +78,13 @@ const CompanyWorkspace = () => {
     await api.post("/company/workspace", fd, {
       headers: { "Content-Type": undefined  },
     });
-
     navigate("/company/dashboard");
   } catch (err) {
-    setError(err.response?.data?.message || err.message || "Failed to create workspace.");
+    if (err.response?.status === 400 && err.response?.data?.message === "Workspace already exists for this account.") {
+      navigate("/company/dashboard"); // already has workspace → just go there
+    } else {
+      setError(err.response?.data?.message || err.message || "Failed to create workspace.");
+    };
   } finally {
     setIsLoading(false);
   }
