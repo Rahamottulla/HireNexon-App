@@ -123,7 +123,7 @@ const CandidateNavbar = ({ isSidebarCollapsed, onToggleSidebar, onOpenMobileMenu
         </Link>
 
         {/* Workspaces */}
-        <div className="relative shrink-0">
+        <div className="relative shrink-0" ref={workspaceRef}>
           <button
             onClick={(e) => { e.stopPropagation(); setWorkspaceOpen(p => !p); setProfileOpen(false); }}
             className="nav-item border-none bg-transparent cursor-pointer"
