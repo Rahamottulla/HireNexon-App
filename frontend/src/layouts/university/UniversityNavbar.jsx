@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/features/auth/context/AuthContext";
+import api from "@/shared/api/axios";
 import {
   FaIndent, FaOutdent, FaSearch, FaRss, FaUsers, FaBriefcase,
   FaTrophy, FaEnvelope, FaBell, FaLayerGroup, FaUser,
@@ -34,7 +35,18 @@ const UniversityNavbar = ({ isSidebarCollapsed, onToggleSidebar, onOpenMobileMen
     return () => document.removeEventListener("mousedown", close);
   }, []);
 
-  const handleLogout = () => { logout?.(); navigate("/login"); };
+  const handleLogout = async () => {
+  try {
+    await api.post("/auth/logout");
+  } catch (err) {}
+  finally {
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+    logout?.();
+    navigate("/login");
+  }
+  };
+
   const isActive = (path) => location.pathname === path;
 
   const NavItem = ({ to, label, Icon }) => {

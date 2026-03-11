@@ -38,8 +38,13 @@ const auth = (roles = []) => {
 
       next();
     } catch (err) {
-      res.status(401).json({ message: "Invalid token" });
-    }
+      res.clearCookie("token", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
+    res.status(401).json({ message: "Invalid or expired token. Please login again." });
+   }
   };
 };
 

@@ -346,4 +346,12 @@ res.json({
   }
 };
 
+export const logout = async (_req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
+  res.json({ message: "Logged out successfully." });
+};
 

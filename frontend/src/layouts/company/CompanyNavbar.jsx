@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/features/auth/context/AuthContext";
+import api from "@/shared/api/axios";
 import {
   FaIndent, FaOutdent, FaSearch, FaRss, FaUsers, FaBriefcase,
   FaTrophy, FaEnvelope, FaBell, FaLayerGroup, FaUser,
@@ -35,9 +36,16 @@ const CompanyNavbar = ({ isSidebarCollapsed, onToggleSidebar, onOpenMobileMenu }
     return () => document.removeEventListener("mousedown", closeDropdowns);
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+  try {
+    await api.post("/auth/logout");
+  } catch (err) {}
+  finally {
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     logout?.();
     navigate("/login");
+  }
   };
 
   const isActive = (path) => location.pathname === path;
