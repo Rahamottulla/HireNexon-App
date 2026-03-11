@@ -15,6 +15,7 @@ const CandidateNavbar = ({ isSidebarCollapsed, onToggleSidebar, onOpenMobileMenu
   const [scrolled, setScrolled] = useState(false);
 
   const profileRef = useRef(null);
+  const workspaceRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4);
@@ -23,14 +24,16 @@ const CandidateNavbar = ({ isSidebarCollapsed, onToggleSidebar, onOpenMobileMenu
   }, []);
 
   useEffect(() => {
-    const closeDropdowns = (e) => {
-      if (profileRef.current && !profileRef.current.contains(e.target)) {
-        setProfileOpen(false);
-        setWorkspaceOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", closeDropdowns);
-    return () => document.removeEventListener("mousedown", closeDropdowns);
+  const closeDropdowns = (e) => {
+    if (profileRef.current && !profileRef.current.contains(e.target)) {
+      setProfileOpen(false);
+    }
+    if (workspaceRef.current && !workspaceRef.current.contains(e.target)) {
+      setWorkspaceOpen(false);
+    }
+  };
+  document.addEventListener("mousedown", closeDropdowns);
+  return () => document.removeEventListener("mousedown", closeDropdowns);
   }, []);
 
   const handleLogout = async () => {
@@ -92,7 +95,7 @@ const CandidateNavbar = ({ isSidebarCollapsed, onToggleSidebar, onOpenMobileMenu
       </div>
 
       {/* Nav */}
-      <nav className="flex items-center gap-0.5 ml-auto">
+      <nav className="flex items-center gap-0.5 ml-auto" style={{ position: "relative", overflow: "visible" }}>
         <NavItem to="/candidate/feed"         label="Feed"     Icon={FaRss} />
         <NavItem to="/candidate/propals"      label="Propals"  Icon={FaUsers} />
         <NavItem to="/candidate/jobs"         label="Jobs"     Icon={FaBriefcase} />
@@ -120,7 +123,7 @@ const CandidateNavbar = ({ isSidebarCollapsed, onToggleSidebar, onOpenMobileMenu
         </Link>
 
         {/* Workspaces */}
-        <div className="relative">
+        <div className="relative shrink-0">
           <button
             onClick={(e) => { e.stopPropagation(); setWorkspaceOpen(p => !p); setProfileOpen(false); }}
             className="nav-item border-none bg-transparent cursor-pointer"
@@ -154,7 +157,7 @@ const CandidateNavbar = ({ isSidebarCollapsed, onToggleSidebar, onOpenMobileMenu
         </div>
 
         {/* Profile */}
-        <div className="relative" ref={profileRef}>
+        <div className="relative shrink-0" ref={profileRef}>
           <button
             onClick={(e) => { e.stopPropagation(); setProfileOpen(p => !p); setWorkspaceOpen(false); }}
             className="nav-item border-none bg-transparent cursor-pointer"
