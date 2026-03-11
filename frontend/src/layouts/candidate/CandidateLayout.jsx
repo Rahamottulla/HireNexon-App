@@ -2,18 +2,12 @@
 import { useState, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import { FaComments } from "react-icons/fa";
-
+import PageLoader from "@/shared/components/common/PageLoader";
 import ChatPopup from "@/features/candidate/pages/Messages/ChatPopup";
+
 import CandidateNavbar from "./CandidateNavbar";
 import CandidateSidebar from "./CandidateSidebar";
 import MobileSidebar from "./MobileSidebar";
-
-const PageLoader = () => (
-  <div className="flex items-center justify-center h-[200px] gap-3 text-slate-400 text-sm font-jakarta">
-    <span className="w-[18px] h-[18px] border-[2.5px] border-slate-200 border-t-brand-500 rounded-full animate-spin-sm inline-block" />
-    Loading…
-  </div>
-);
 
 const CandidateLayout = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
