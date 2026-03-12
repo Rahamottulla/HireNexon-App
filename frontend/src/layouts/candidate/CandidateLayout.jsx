@@ -5,7 +5,7 @@ import { FaComments } from "react-icons/fa";
 import PageLoader from "@/shared/components/common/PageLoader";
 import ChatPopup from "@/features/candidate/pages/Messages/ChatPopup";
 
-import CandidateNavbar from "./CandidateNavbar";
+import CandidateNavbar from "./CandidateNavbar/CandidateNavbar";
 import CandidateSidebar from "./CandidateSidebar";
 import MobileSidebar from "./MobileSidebar";
 
