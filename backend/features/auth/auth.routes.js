@@ -1,12 +1,15 @@
 // backend/features/auth/auth.routes.js
 import express from "express";
-import {register, login, logout, verifyEmail, resendVerification, checkAvailability } from "./auth.controller.js";
+import {register, login, logout, verifyEmail, resendVerification, getMe,
+checkAvailability } from "./auth.controller.js";
 import forgotRoutes from "./forgotPassword.routes.js";
 import socialRoutes from "./socialAuth.routes.js";
+import auth from "../../middleware/auth.js";
 
 const router = express.Router();
 
 // Main Auth Routes
+router.get("/me", auth(), getMe);
 router.post("/register", register);
 router.post("/login", login);
 router.post("/logout", logout);

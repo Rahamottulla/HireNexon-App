@@ -29,41 +29,46 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   }, [navigate]);
 
-  // RESTORE SESSION
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+// RESTORE SESSION — always verify against server to prevent cross-tab data leak
+useEffect(() => {
+  const restore = async () => {
     const token = localStorage.getItem("token");
 
-    if (storedUser && token) {
-      try {
-        const parsedUser = JSON.parse(storedUser);
-        const decoded = jwtDecode(token);
+    if (!token) { setLoading(false); return; }
 
-        if (!decoded?.exp || decoded.exp * 1000 < Date.now()) {
-          logout();
-        } else {
-          const normalizedUser = {
-            ...parsedUser,
-            name: parsedUser.name || parsedUser.username,
-          };
-
-          setCurrentUser(normalizedUser);
-          api.defaults.headers.common.Authorization = `Bearer ${token}`;
-        }
-      } catch (error) {
-        console.error("Auth restore failed:", error);
-        logout();
+    try {
+      const decoded = jwtDecode(token);
+      if (!decoded?.exp || decoded.exp * 1000 < Date.now()) {
+        logout(); return;
       }
-    }
 
-    setLoading(false);
-  }, [logout]);
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      const { data } = await api.get("/auth/me");
+
+      const normalizedUser = {
+        ...data.user,
+        name: data.user.fullName || data.user.username,
+        role: mapRole(data.user.role),
+      };
+
+      setCurrentUser(normalizedUser);
+      localStorage.setItem("user", JSON.stringify(normalizedUser));
+
+    } catch {
+      logout();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  restore();
+}, [logout]);
 
   //SAVE USER
   const saveUser = useCallback((user, token) => {
     const normalizedUser = {
       ...user,
-      name: user.name || user.username,
+      name: user.fullName || user.name || user.username,
       role: mapRole(user.role),
     };
 
