@@ -355,3 +355,22 @@ export const logout = async (_req, res) => {
   res.json({ message: "Logged out successfully." });
 };
 
+// GET /api/auth/me — returns fresh user from DB using token
+export const getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json({
+      user: {
+        id: user._id,
+        username: user.username,
+        fullName: user.fullName,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
