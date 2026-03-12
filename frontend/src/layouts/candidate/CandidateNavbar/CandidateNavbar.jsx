@@ -136,7 +136,7 @@ const CandidateNavbar = ({
         aria-label="HireNexon home"
       >
         <img
-          src="/images/public/hi.png"
+          src="/icons/favicon.png"
           alt="HireNexon"
           className="h-9 w-auto object-contain"
         />
