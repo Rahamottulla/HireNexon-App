@@ -7,9 +7,9 @@ import {
   IconFeed, IconPropals, IconJobs,
   IconContests, IconMessages, IconAlerts,
 } from "./NavIcons";
-import NavSearch        from "./NavSearch";
+import NavSearch from "./NavSearch";
 import WorkspaceDropdown from "./WorkspaceDropdown";
-import ProfileDropdown  from "./ProfileDropdown";
+import ProfileDropdown from "./ProfileDropdown";
 
 // ── Nav items config ─────────────────────────────────────────────
 const NAV_ITEMS = [

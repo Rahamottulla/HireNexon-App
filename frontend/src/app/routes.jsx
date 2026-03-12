@@ -37,6 +37,9 @@ import Communities from "@/features/candidate/pages/Communities";
 import Messages from "@/features/candidate/pages/Messages";
 import Notifications from "@/features/candidate/pages/Notifications";
 import Profile from "@/features/candidate/pages/Profile";
+import Settings from "@/features/candidate/pages/Settings";
+import Help from "@/features/candidate/pages/Help";
+import Feedback from "@/features/candidate/pages/Feedback";
 import News from "@/features/candidate/pages/News";
 import Announcements from "@/features/candidate/pages/Announcements";
 import AppliedJobs from "@/features/candidate/pages/MyApplications/AppliedJobs";
@@ -44,8 +47,6 @@ import Roadmaps from "@/features/candidate/pages/CareerHub/Roadmaps";
 import NexonCv from "@/features/candidate/pages/NexonCv";
 import Interviews from "@/features/candidate/pages/MyApplications/Interviews";
 import Offers from "@/features/candidate/pages/MyApplications/Offers";
-import Help from "@/features/candidate/pages/Help";
-import Feedback from "@/features/candidate/pages/Feedback";
 
 // Company Imports
 import CompanyDashboard from "@/features/company/pages/Dashboard";
@@ -117,6 +118,9 @@ const AppRoutes = () => {
         <Route path="messages" element={<Messages />} />
         <Route path="notifications" element={<Notifications />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="settings" element={<Settings />} />
+        <Route path="help" element={<Help />} />
+        <Route path="feedback" element={<Feedback />} />
         <Route path="hirenexon-news" element={<News />} />
         <Route path="announcements" element={<Announcements />} />
         <Route path="applied-jobs" element={<AppliedJobs />} />
@@ -124,8 +128,6 @@ const AppRoutes = () => {
         <Route path="nexoncv" element={<NexonCv />} />
         <Route path="interviews" element={<Interviews />} />
         <Route path="offers" element={<Offers />} />
-        <Route path="help" element={<Help />} />
-        <Route path="feedback" element={<Feedback />} />
       </Route>
        
       {/* Company create-workspace — standalone, no layout */}
