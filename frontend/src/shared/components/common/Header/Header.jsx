@@ -34,7 +34,7 @@ const Header = () => {
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 shrink-0">
-            <img src="/icons/favicon.png" alt="HireNexon" className="h-9 w-auto" />
+            <img src="/images/public/hi.png" alt="HireNexon" className="h-9 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
