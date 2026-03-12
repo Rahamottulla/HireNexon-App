@@ -3,7 +3,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaHome, FaNewspaper, FaBullhorn, FaFileAlt, FaBook, FaGlobe, FaTrophy, FaRoad,
   FaBriefcase, FaClipboardList, FaGraduationCap, FaComments, FaBuilding, FaMapMarkerAlt,
-  FaGlobeAmericas, FaChartBar, FaCalendarAlt, FaQuestionCircle, FaRobot, FaChartLine
+  FaGlobeAmericas, FaChartBar, FaCalendarAlt, FaRobot, FaChartLine
 } from "react-icons/fa";
 
 const sidebarData = [
@@ -61,14 +61,6 @@ const sidebarData = [
       { name: "Company Insights", path: "/candidate/company-reviews", icon: <FaBuilding /> },
       { name: "Trending Roles", path: "/candidate/trending-jobs", icon: <FaTrophy /> },
       { name: "Visa Guides", path: "/candidate/visa-guides", icon: <FaGlobe /> },
-    ],
-  },
-
-  {
-    section: "SUPPORT",
-    links: [
-      { name: "Help Center", path: "/candidate/help", icon: <FaQuestionCircle /> },
-      { name: "Feedback", path: "/candidate/feedback", icon: <FaComments /> },
     ],
   },
 ];
