@@ -9,7 +9,7 @@ export const WorkspaceProvider = ({ children }) => {
   const [activeWorkspace, setActiveWorkspace] = useState(null);
 
   useEffect(() => {
-    if (workspaces.length > 0 && !activeWorkspace) {
+    if (Array.isArray(workspaces) && workspaces.length > 0 && !activeWorkspace) {
       setActiveWorkspace(workspaces[0]);
     }
   }, [workspaces]);
