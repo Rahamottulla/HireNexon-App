@@ -11,7 +11,7 @@ const useWorkspaces = () => {
     const fetch = async () => {
       try {
         const { data } = await api.get("/workspaces/mine");
-        setWorkspaces(data);
+        setWorkspaces(Array.isArray(data.workspaces) ? data.workspaces : []);
       } catch {
         setError("Failed to load workspaces");
       } finally {
