@@ -18,6 +18,7 @@ import forgotPasswordRoutes from "./features/auth/forgotPassword.routes.js";
 import socialAuthRoutes from "./features/auth/socialAuth.routes.js";
 import companyRoutes from "./features/company/company.routes.js";
 import universityRoutes from "./features/university/university.routes.js";
+import workspaceRoutes from "./features/workspace/workspace.routes.js";
 
 import notificationRoutes from "./features/notification/notification.routes.js";
 import errorHandler from "./middleware/errorHandler.js";
@@ -46,10 +47,10 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/auth", forgotPasswordRoutes);
 app.use("/api/social", socialAuthRoutes);
-app.use("/api/notifications", notificationRoutes);
 app.use("/api/company", companyRoutes);
 app.use("/api/university", universityRoutes);
-
+app.use("/api/workspaces", workspaceRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 // Health
 app.get("/health", (_req, res) => {
