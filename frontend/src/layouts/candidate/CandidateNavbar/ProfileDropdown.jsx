@@ -176,23 +176,6 @@ const ProfileDropdown = () => {
                   See all workspaces ({workspaces.length}) →
                 </Link>
               )}
-
-              {/* Create new workspace */}
-              <Link
-                to="/candidate/create-workspace"
-                onClick={() => setOpen(false)}
-                className="flex items-center gap-2 w-full mt-2 px-2.5 py-2 rounded-xl
-                  border-[1.5px] border-dashed border-brand-200 bg-brand-50/50
-                  text-[12.5px] font-semibold text-brand-500 font-jakarta
-                  hover:bg-brand-50 hover:border-brand-400
-                  transition-all duration-150 no-underline"
-              >
-                <span className="w-5 h-5 rounded-md bg-brand-100 flex items-center
-                  justify-center text-brand-500 shrink-0">
-                  <IconPlus size={12} />
-                </span>
-                Create new workspace
-              </Link>
             </div>
           )}
 
