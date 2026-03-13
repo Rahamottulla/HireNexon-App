@@ -1,6 +1,7 @@
 // backend/features/company/company.controller.js
 import Company from "./company.model.js";
 import WorkspaceMember from "../workspace/workspaceMember.model.js";
+import { uploadToCloudinary } from "../../config/cloudinary.js";
 
 export const createWorkspace = async (req, res) => {
   try {
@@ -9,7 +10,14 @@ export const createWorkspace = async (req, res) => {
       companySize, headquarters, website, description,
     } = req.body;
 
-    const logoUrl = req.file ? "pending_upload" : null;
+    let logoUrl = null;
+    if (req.file) {
+    logoUrl = await uploadToCloudinary(
+    req.file.buffer,
+    "hirenexon/logos",
+    `company_${req.user._id}`
+  );
+  }
 
     if (!companyName || !orgType || !industry || !companySize || !headquarters) {
       return res.status(400).json({ message: "Please fill all required fields." });
