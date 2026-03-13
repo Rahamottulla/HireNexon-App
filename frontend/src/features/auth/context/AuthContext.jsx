@@ -1,5 +1,8 @@
 // src/features/auth/context/AuthContext.jsx
-import {createContext, useContext, useState, useEffect, useMemo, useCallback,} from "react";
+import {
+  createContext, useContext, useState, useEffect,
+  useMemo, useCallback,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import api from "@/shared/api/axios";
@@ -15,84 +18,132 @@ const mapRole = (role) => {
   return role.toLowerCase();
 };
 
+const normalizeUser = (user) => ({
+  ...user,
+  name: user.fullName || user.name || user.username,
+  role: mapRole(user.role),
+});
+
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading]         = useState(true);
 
-  // LOGOUT
+  // ── LOGOUT ────────────────────────────────────────────────────
   const logout = useCallback(() => {
     setCurrentUser(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     delete api.defaults.headers.common.Authorization;
+
+    // Broadcast logout to all other tabs
+    localStorage.setItem("auth_event", JSON.stringify({
+      type: "LOGOUT",
+      timestamp: Date.now(),
+    }));
+
     navigate("/login");
   }, [navigate]);
 
-// RESTORE SESSION — always verify against server to prevent cross-tab data leak
-useEffect(() => {
-  const restore = async () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) { setLoading(false); return; }
-
+  // ── FETCH FRESH USER FROM SERVER ──────────────────────────────
+  const fetchCurrentUser = useCallback(async () => {
     try {
-      const decoded = jwtDecode(token);
-      if (!decoded?.exp || decoded.exp * 1000 < Date.now()) {
-        logout(); return;
+      const token = localStorage.getItem("token");
+      if (token) {
+        api.defaults.headers.common.Authorization = `Bearer ${token}`;
       }
 
-      api.defaults.headers.common.Authorization = `Bearer ${token}`;
       const { data } = await api.get("/auth/me");
-
-      const normalizedUser = {
-        ...data.user,
-        name: data.user.fullName || data.user.username,
-        role: mapRole(data.user.role),
-      };
-
-      setCurrentUser(normalizedUser);
-      localStorage.setItem("user", JSON.stringify(normalizedUser));
-
+      const normalized = normalizeUser(data.user);
+      setCurrentUser(normalized);
+      localStorage.setItem("user", JSON.stringify(normalized));
+      return normalized;
     } catch {
       logout();
-    } finally {
-      setLoading(false);
+      return null;
     }
-  };
+  }, [logout]);
 
-  restore();
-}, [logout]);
+  // ── RESTORE SESSION ON PAGE LOAD ──────────────────────────────
+  useEffect(() => {
+    const restore = async () => {
+      const token = localStorage.getItem("token");
 
-  //SAVE USER
-  const saveUser = useCallback((user, token) => {
-    const normalizedUser = {
-      ...user,
-      name: user.fullName || user.name || user.username,
-      role: mapRole(user.role),
+      if (!token) { setLoading(false); return; }
+
+      try {
+        const decoded = jwtDecode(token);
+        if (!decoded?.exp || decoded.exp * 1000 < Date.now()) {
+          logout(); return;
+        }
+
+        await fetchCurrentUser();
+      } catch {
+        logout();
+      } finally {
+        setLoading(false);
+      }
     };
 
-    setCurrentUser(normalizedUser);
-    localStorage.setItem("user", JSON.stringify(normalizedUser));
+    restore();
+  }, [logout, fetchCurrentUser]);
+
+  // ── CROSS-TAB SYNC ────────────────────────────────────────────
+  // When another tab logs in/out, this tab reacts immediately.
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key !== "auth_event" || !e.newValue) return;
+
+      try {
+        const event = JSON.parse(e.newValue);
+
+        if (event?.type === "LOGIN") {
+          // Another tab logged in — re-fetch to get that tab's user
+          fetchCurrentUser();
+        }
+
+        if (event?.type === "LOGOUT") {
+          // Another tab logged out — clear this tab too
+          setCurrentUser(null);
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          delete api.defaults.headers.common.Authorization;
+          navigate("/login");
+        }
+      } catch {
+        // Ignore malformed events
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, [fetchCurrentUser, navigate]);
+
+  // ── SAVE USER (after login) ───────────────────────────────────
+  const saveUser = useCallback((user, token) => {
+    const normalized = normalizeUser(user);
+
+    setCurrentUser(normalized);
+    localStorage.setItem("user", JSON.stringify(normalized));
     localStorage.setItem("token", token);
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+    // Broadcast login to all other tabs
+    localStorage.setItem("auth_event", JSON.stringify({
+      type: "LOGIN",
+      timestamp: Date.now(),
+    }));
   }, []);
 
-  // UPDATE USER
+  // ── UPDATE USER (profile edits) ───────────────────────────────
   const updateCurrentUser = useCallback((updatedUser) => {
-    const normalizedUser = {
-      ...updatedUser,
-      name: updatedUser.name || updatedUser.username,
-      role: mapRole(updatedUser.role),
-    };
-
-    setCurrentUser(normalizedUser);
-    localStorage.setItem("user", JSON.stringify(normalizedUser));
+    const normalized = normalizeUser(updatedUser);
+    setCurrentUser(normalized);
+    localStorage.setItem("user", JSON.stringify(normalized));
   }, []);
 
-  // LOGIN
-  const login = useCallback(
-  async (credentials) => {
+  // ── LOGIN ─────────────────────────────────────────────────────
+  const login = useCallback(async (credentials) => {
     try {
       const res = await authAPI.login(credentials);
 
@@ -103,69 +154,50 @@ useEffect(() => {
 
       throw new Error("Invalid server response");
     } catch (error) {
-      console.error("Login error:", error);
-
-      const backendMessage =
-        error.response?.data?.message || "Login failed";
-
-      const backendAllowResend =
-        error.response?.data?.allowResend || false;
+      const backendMessage  = error.response?.data?.message  || "Login failed";
+      const backendAllowResend = error.response?.data?.allowResend || false;
 
       const customError = new Error(backendMessage);
       customError.allowResend = backendAllowResend;
-
       throw customError;
     }
-  },
-  [saveUser]
-);
+  }, [saveUser]);
 
-  // SIGNUP
+  // ── SIGNUP ────────────────────────────────────────────────────
   const signup = useCallback(async (userData) => {
     const res = await authAPI.register(userData);
     return res.data;
   }, []);
 
-  // PASSWORD RESET
+  // ── PASSWORD RESET ────────────────────────────────────────────
   const resetPassword = useCallback(async (email) => {
     const res = await api.post("/auth/forgot-password", { email });
     return res.data;
   }, []);
 
   const updatePassword = useCallback(async (token, newPassword) => {
-    const res = await api.post("/auth/reset-password", {
-      token,
-      password: newPassword,
-    });
+    const res = await api.post("/auth/reset-password", { token, password: newPassword });
     return res.data;
   }, []);
 
-  // CONTEXT VALUE
-  const value = useMemo(
-    () => ({
-      currentUser,
-      loading,
-      isAuthenticated: Boolean(currentUser),
-      login,
-      signup,
-      logout,
-      resetPassword,
-      updatePassword,
-      updateCurrentUser,
-      saveUser,
-    }),
-    [
-      currentUser,
-      loading,
-      login,
-      signup,
-      logout,
-      resetPassword,
-      updatePassword,
-      updateCurrentUser,
-      saveUser,
-    ]
-  );
+  // ── CONTEXT VALUE ─────────────────────────────────────────────
+  const value = useMemo(() => ({
+    currentUser,
+    loading,
+    isAuthenticated: Boolean(currentUser),
+    login,
+    signup,
+    logout,
+    resetPassword,
+    updatePassword,
+    updateCurrentUser,
+    saveUser,
+  }), [
+    currentUser, loading,
+    login, signup, logout,
+    resetPassword, updatePassword,
+    updateCurrentUser, saveUser,
+  ]);
 
   return (
     <AuthContext.Provider value={value}>
