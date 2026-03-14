@@ -23,11 +23,10 @@ api.interceptors.response.use(
 
   async (error) => {
     const original = error.config;
-
-    const is401          = error.response?.status === 401;
-    const notRetrying    = !original._retry;
+    const is401 = error.response?.status === 401;
+    const notRetrying = !original._retry;
     const notRefreshCall = !original.url?.includes("/auth/refresh");
-    const notLoginCall   = !original.url?.includes("/auth/login");
+    const notLoginCall = !original.url?.includes("/auth/login");
 
     // ── Attempt silent refresh on 401 ────────────────────────────
     if (is401 && notRetrying && notRefreshCall && notLoginCall) {
@@ -41,7 +40,6 @@ api.interceptors.response.use(
           return api(original);
         }).catch((err) => Promise.reject(err));
       }
-
       original._retry = true;
       isRefreshing    = true;
 
@@ -60,20 +58,18 @@ api.interceptors.response.use(
       } catch (refreshError) {
         // Refresh failed — session truly expired, force logout
         processQueue(refreshError, null);
+        const wasLoggedIn = localStorage.getItem("token");
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         delete api.defaults.headers.common.Authorization;
-
-        if (window.location.pathname !== "/login") {
-          window.location.href = "/login";
+        if (wasLoggedIn && window.location.pathname !== "/login") {
+        window.location.href = "/login";
         }
         return Promise.reject(refreshError);
-
       } finally {
         isRefreshing = false;
       }
     }
-
     return Promise.reject(error);
   }
 );
