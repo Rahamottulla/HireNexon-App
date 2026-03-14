@@ -1,7 +1,8 @@
-// navbar/WorkspaceDropdown.jsx
+// frontend/src/layouts/candidate/CandidateNavbar/WorkspaceDropdown.jsx
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useWorkspaceContext } from "@/features/candidate/context/WorkspaceContext";
+import useWorkspaceRedirect from "@/features/candidate/hooks/useWorkspaceRedirect";
 import { IconCheck, IconPlus, IconChevronDown } from "./NavIcons";
 
 // ── Type → visual config ─────────────────────────────────────────
@@ -57,6 +58,7 @@ const WorkspaceDropdown = () => {
   const { workspaces, activeWorkspace, switchWorkspace, loading } = useWorkspaceContext();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  const { redirectTo } = useWorkspaceRedirect();
 
   useEffect(() => {
     const fn = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
@@ -113,7 +115,7 @@ const WorkspaceDropdown = () => {
               return (
                 <button
                   key={ws._id}
-                  onClick={() => { switchWorkspace(ws); setOpen(false); }}
+                  onClick={() => { switchWorkspace(ws); redirectTo(ws.type); setOpen(false); }}
                   className={`flex items-center gap-3 w-full px-2.5 py-2.5 rounded-xl
                     border transition-all duration-150 text-left cursor-pointer
                     ${isActive
