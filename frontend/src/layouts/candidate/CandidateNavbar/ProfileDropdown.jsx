@@ -1,8 +1,9 @@
-// navbar/ProfileDropdown.jsx
+// frontend/src/layouts/candidate/CandidateNavbar/ProfileDropdown.jsx
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { useWorkspaceContext } from "@/features/candidate/context/WorkspaceContext";
+import useWorkspaceRedirect from "@/features/candidate/hooks/useWorkspaceRedirect";
 import api from "@/shared/api/axios";
 
 import {
@@ -20,8 +21,10 @@ const ACTIONS = [
 
 const ProfileDropdown = () => {
   const [open, setOpen]  = useState(false);
-  const ref              = useRef(null);
-  const navigate         = useNavigate();
+  const ref = useRef(null);
+  const navigate = useNavigate();
+  const { redirectTo } = useWorkspaceRedirect();
+
   const { currentUser, logout } = useAuth() || {};
   const { workspaces, activeWorkspace, switchWorkspace } = useWorkspaceContext();
 
@@ -140,7 +143,7 @@ const ProfileDropdown = () => {
                   return (
                     <button
                       key={ws._id}
-                      onClick={() => { switchWorkspace(ws); setOpen(false); }}
+                      onClick={() => { switchWorkspace(ws); redirectTo(ws.type); setOpen(false); }}
                       className={`flex-1 flex flex-col items-center gap-1.5 py-2.5 px-1.5
                         rounded-xl border-[1.5px] cursor-pointer
                         transition-all duration-150 relative min-w-0
